@@ -1,0 +1,14 @@
+{"id": 4668, "text": "さすがにそれはおかしいんじゃないの？って思います。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[24, 25, "SEP"]]}
+{"id": 4669, "text": "その広告を見た時に、これはもう行くしかない！！！・・・と予約しました。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[34, 35, "SEP"]]}
+{"id": 4670, "text": "用途としては、セミナー目的や部活の合宿なんじゃないかな？と。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[29, 30, "SEP"]]}
+{"id": 4671, "text": "お電話番号は何ですか？と質問されました。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[19, 20, "SEP"]]}
+{"id": 4672, "text": "予約時に「何時ごろにいらっしゃいますか？」と聞いてほしかった。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[30, 31, "SEP"]]}
+{"id": 4673, "text": "もっときれいにしてくれたらいいのに。。。。と思いました。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[27, 28, "SEP"]]}
+{"id": 4674, "text": "さすが高級料理！と思いました。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[14, 15, "SEP"]]}
+{"id": 4675, "text": "あれこんなに注文したかな？ってくらい多かったです。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[24, 25, "SEP"]]}
+{"id": 4676, "text": "どうしたらこんなに汚せるかな？っと言うぐらい汚かったので困りました。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[33, 34, "SEP"]]}
+{"id": 4677, "text": "これが「ハイグレード」というものだな。と、思いました。", "meta": {"case": "FP-WITHIN-QUOTE"}, "annotation_approver": null, "labels": [[26, 27, "SEP"]]}
+{"id": 4678, "text": "いつも良い環境で仕事が▁できるので、とってもいいです。", "meta": {"case": "FP-NEWLINE"}, "annotation_approver": null, "labels": [[26, 27, "SEP"]]}
+{"id": 4679, "text": "これは見た目のために改行されるケースの▁サンプル文です。", "meta": {"case": "FP-NEWLINE"}, "annotation_approver": null, "labels": [[27, 28, "SEP"]]}
+{"id": 4680, "text": "このように、入力フォームの見た目を優先するために、▁文以外の場所で改行されるケースがよくあります。", "meta": {"case": "FP-NEWLINE"}, "annotation_approver": null, "labels": [[48, 49, "SEP"]]}
+{"id": 4681, "text": "一方でこのケースは改行が文末記号になっている例です▁句点はないけれど、文が終了しています", "meta": {"case": "SEP-ONLY-NEWLINE"}, "annotation_approver": null, "labels": [[25, 26, "SEP-ONLY-NEWLINE"], [43, 44, "SEP-ONLY-NEWLINE"]]}

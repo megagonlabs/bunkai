@@ -1,0 +1,10 @@
+
+[run]
+omit =
+    */site-packages/*
+    */distutils/*
+    tests/*
+
+[report]
+exclude_lines =
+    if __name__ == .__main__.:

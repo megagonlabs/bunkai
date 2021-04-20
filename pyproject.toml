@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "bunkai"
+version = "1.0.0"
+description = "Sentence boundary disambiguation tool for Japanese"
+authors = ["Yuta Hayashibe <hayashibe@megagon.ai>", "Kensuke Mitsuzawa <kensuke.mit@gmail.com>"]
+maintainers = ["Yuta Hayashibe <hayashibe@megagon.ai>", "Kensuke Mitsuzawa <kensuke.mit@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/megagonlabs/bunkai"
+repository = "https://github.com/megagonlabs/bunkai"
+documentation = ""
+keywords = ["Japanese"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+dataclasses-json = "^0.5.2"
+janome = "^0.4.1"
+seqeval = "^1.2.2"
+spans = "^1.1.0"
+tqdm = "*"
+numpy = "^1.16.0"
+torch = "^1.3.0"
+transformers = "^4.3.2"
+more_itertools = "^8.6.0"
+emoji = ">=1.2.0"
+emojis = ">=0.6.0"
+
+[tool.poetry.dev-dependencies]
+autopep8 = ">=1.5.4"
+coverage = ">=5.3"
+demjson = ">=2.2.4"
+flake8 = ">=3.8.4"
+isort = ">=5.6.4"
+mypy = ">=0.790"
+yamllint = ">=1.25.0"
+mock = ">=4.0.2"
+pydocstyle = ">=5.1.1"
+
+[build-system]
+requires = ["poetry"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+bunkai = "bunkai.cli:main"
