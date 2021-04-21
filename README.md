@@ -11,7 +11,7 @@
 [![jsonlint](https://img.shields.io/badge/json-lint-lightgrey)](https://github.com/dmeranda/demjson)
 [![yamllint](https://img.shields.io/badge/yaml-lint-lightgrey)](https://github.com/adrienverge/yamllint)
 
-Bunkai is a sentence boundary (SB) disambiguation tool for Japanese.
+Bunkai is a sentence boundary (SB) disambiguation tool for Japanese texts.
 
 ## Quick Start
 

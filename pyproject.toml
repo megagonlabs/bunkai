@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "bunkai"
-version = "1.0.0"
-description = "Sentence boundary disambiguation tool for Japanese"
+version = "1.0.1"
+description = "Sentence boundary disambiguation tool for Japanese texts"
 authors = ["Yuta Hayashibe <hayashibe@megagon.ai>", "Kensuke Mitsuzawa <kensuke.mit@gmail.com>"]
 maintainers = ["Yuta Hayashibe <hayashibe@megagon.ai>", "Kensuke Mitsuzawa <kensuke.mit@gmail.com>"]
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ readme = "README.md"
 homepage = "https://github.com/megagonlabs/bunkai"
 repository = "https://github.com/megagonlabs/bunkai"
 documentation = ""
-keywords = ["Japanese"]
+keywords = ["Japanese", "Sentence boundary disambiguation"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
