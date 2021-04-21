@@ -30,7 +30,9 @@ If you want to disambiguate  sentence boundaries for line breaks, please add a `
 Trained models are available [here](https://github.com/megagonlabs/bunkai/releases).
 
 ```console
-$ echo -e "文の途中で改行を▁入れる文章ってありますよね▁それも対象です。" | bunkai --model /path/to/model
+$ wget https://github.com/megagonlabs/bunkai/releases/download/v1.0.1/bunkai-model-bccwj-wo-pn-20210421.zip
+$ unzip bunkai-model-bccwj-wo-pn-20210421.zip
+$ echo -e "文の途中で改行を▁入れる文章ってありますよね▁それも対象です。" | bunkai --model bunkai-model-bccwj-wo-pn-20210421
 文の途中で改行を▁入れる文章ってありますよね▁│それも対象です。
 ```
 
