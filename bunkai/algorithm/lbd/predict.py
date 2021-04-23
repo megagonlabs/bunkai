@@ -13,8 +13,7 @@ from transformers import AutoModelForTokenClassification
 import bunkai.constant
 from bunkai.algorithm.lbd.corpus import (LABEL_OTHER, LABEL_SEP,
                                          annotation2spans)
-from bunkai.algorithm.lbd.custom_tokenizers import (VOCAB_FILES_NAMES,
-                                                    JanomeSubwordsTokenizer,
+from bunkai.algorithm.lbd.custom_tokenizers import (JanomeSubwordsTokenizer,
                                                     JanomeTokenizer)
 from bunkai.algorithm.lbd.train import BunkaiConfig, MyDataset
 from bunkai.base.annotation import Tokens
@@ -42,7 +41,7 @@ class Predictor(object):
         with modelpath.joinpath('bunkai.json').open() as bcf:
             self.bc = BunkaiConfig.from_json(bcf.read())
         # use janome tokenizer or tokenizer based on a vocab-file.
-        self.path_tokenizer_model: str = str(Path(modelpath).joinpath(VOCAB_FILES_NAMES['vocab_file']))
+        self.path_tokenizer_model: str = str(Path(modelpath).joinpath('vocab.txt'))
         self.tokenizer = JanomeSubwordsTokenizer(self.path_tokenizer_model)
 
         # hotfix

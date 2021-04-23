@@ -53,8 +53,8 @@ class TestAnnotatorBase(unittest.TestCase):
             self.assertEqual(set([s.rule_name for s in span_annotations if s.rule_name is not None]),  # type: ignore
                              set(test_case.expected_rules),  # type: ignore
                              msg=f'text={test_case.text}, '  # type: ignore
-                                 f'{set([s.rule_name for s in span_annotations])} '
-                                 f'!= {set(test_case.expected_rules)}')
+                                 f'{set([s.rule_name for s in span_annotations])} '  # type: ignore
+                                 f'!= {set(test_case.expected_rules)}')  # type: ignore
 
     def test_annotate(self):
         pass
