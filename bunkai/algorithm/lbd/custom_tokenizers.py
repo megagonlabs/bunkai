@@ -14,7 +14,7 @@ from transformers.models.bert.tokenization_bert import (BertTokenizer,
 
 import bunkai.constant
 
-"""MecabではなくJanomeに合わせて作成されたTokenizer
+"""
 The original source code is from cl-tohoku/bert-japanese.
 https://github.com/cl-tohoku/bert-japanese/blob/master/tokenization.py
 The original source code is under Apache-2.0 License.
@@ -140,7 +140,7 @@ class JanomeSubwordsTokenizer(BertTokenizer):
             **kwargs
     ):
         """
-        Construct a MecabBertTokenizer.
+        Construct a JanomeSubwordsTokenizer.
 
         :arg vocab_file: Path to a one-wordpiece-per-line vocabulary file.
         :arg do_lower_case: (`optional`) boolean (default True)
