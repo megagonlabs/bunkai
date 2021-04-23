@@ -1,5 +1,5 @@
 
-GREP_EXCLUDE:=grep -v -e '\.eggs' -e '\.git' -e 'pyc$$' -e '\.mypy' -e '\.idea' -e '\./venv' -e 'python_env' -e 'egg-info' -e htmlcov -e 'work_scripts' -e mks
+GREP_EXCLUDE:=grep -v -e '\.eggs' -e '\.git' -e 'pyc$$' -e '\.mypy' -e '\.idea' -e 'venv' -e 'python_env' -e 'egg-info' -e htmlcov -e 'work_scripts' -e mks -e node_modules
 TERMS_CHECK_CMD:=grep -e split -e divide
 TERMS_CHECK_CONTENT_OPTION:=-e 文分割 -e 'coding: utf'
 
@@ -39,14 +39,14 @@ terms_check_path:
 
 term_check_method:
 	# check if some terms are wrote in python method names
-	find . -type f | grep -v -e 'git' -e 'idea' -e 'mypy' -e 'python_env' | grep -e 'py$$' | xargs -L 1 python3 .circleci/show_method_names.py
+	find . -type f | $(GREP_EXCLUDE) | grep -e 'py$$' | xargs -L 1 python3 .circleci/show_method_names.py
 
 term_check_file_content:
 	# check if 文分割 is written somewhere in a file.
 	find . -type f | $(GREP_EXCLUDE) | grep -v -e 'Makefile' -e 'show_method_names.py' -e 'example.py' | xargs grep $(TERMS_CHECK_CONTENT_OPTION); last_var=$$? ; if [ $${last_var} -eq 1 ] || [ $${last_var} -eq 123 ]; then echo "pass file content"; else exit 1; fi
 
 check_firstline:
-	find . -type f | grep -v -e 'git' -e 'idea' -e 'mypy' -e 'python_env' | grep -e 'py$$' | grep -v '__init__' | grep -v third | xargs python3 .circleci/check_head.py
+	find . -type f | $(GREP_EXCLUDE) | grep -e 'py$$' | grep -v '__init__' | grep -v third | xargs python3 .circleci/check_head.py
 
 
 lint: flake8 autopep8 mypy isort yamllint terms_check_path term_check_method term_check_file_content check_firstline pydocstyle
@@ -85,7 +85,7 @@ setup_node_module:
 
 lint_markdown:
 	find . -type d -o -type f -name '*.md' -print \
-	| grep -v node_modules \
+	| $(GREP_EXCLUDE) \
 	| xargs npx markdownlint --config ./.markdownlint.json
 
 
