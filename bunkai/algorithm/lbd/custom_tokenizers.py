@@ -22,19 +22,11 @@ The original source code is under Apache-2.0 License.
 
 logger = logging.getLogger(__name__)
 
-VOCAB_FILES_NAMES = {"vocab_file": "vocab.txt"}
-
-PRETRAINED_VOCAB_FILES_MAP = {
-    "vocab_file": {
-        "cl-tohoku/bert-base-japanese":
-            "https://s3.amazonaws.com/models.huggingface.co/bert/cl-tohoku/bert-base-japanese/vocab.txt",
-        "cl-tohoku/bert-base-japanese-whole-word-masking":
-            "https://s3.amazonaws.com/models.huggingface.co/bert/cl-tohoku/bert-base-japanese-whole-word-masking/vocab.txt",
-        "cl-tohoku/bert-base-japanese-char":
-            "https://s3.amazonaws.com/models.huggingface.co/bert/cl-tohoku/bert-base-japanese-char/vocab.txt",
-        "cl-tohoku/bert-base-japanese-char-whole-word-masking":
-            "https://s3.amazonaws.com/models.huggingface.co/bert/cl-tohoku/bert-base-japanese-char-whole-word-masking/vocab.txt",
-    }
+KNOWN_PRETRAINED_VOCABS = {
+    "cl-tohoku/bert-base-japanese",
+    "cl-tohoku/bert-base-japanese-whole-word-masking",
+    "cl-tohoku/bert-base-japanese-char",
+    "cl-tohoku/bert-base-japanese-char-whole-word-masking",
 }
 
 
@@ -122,9 +114,6 @@ class CharacterTokenizer(object):
 
 
 class JanomeSubwordsTokenizer(BertTokenizer):
-    vocab_files_names = VOCAB_FILES_NAMES
-    pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
-
     def __init__(
             self,
             vocab_file,
@@ -160,19 +149,17 @@ class JanomeSubwordsTokenizer(BertTokenizer):
             mask_token=mask_token,
             **kwargs,
         )
-        if vocab_file in PRETRAINED_VOCAB_FILES_MAP['vocab_file']:
-            self.vocab = load_vocab(
-                cached_path(
-                    PRETRAINED_VOCAB_FILES_MAP['vocab_file'][vocab_file],
-                )
-            )
-        elif not os.path.isfile(vocab_file):
+
+        if os.path.isfile(vocab_file):
+            self.vocab = load_vocab(vocab_file)
+        elif vocab_file in KNOWN_PRETRAINED_VOCABS:
+            url: str = f"https://s3.amazonaws.com/models.huggingface.co/bert/{vocab_file}/vocab.txt"
+            self.vocab = load_vocab(cached_path(url))
+        else:
             raise ValueError(
                 "Can't find a vocabulary file at path '{}'. To load the vocabulary from a Google pretrained "
                 "model use `tokenizer = BertTokenizer.from_pretrained(PRETRAINED_MODEL_NAME)`".format(vocab_file)
             )
-        else:
-            self.vocab = load_vocab(vocab_file)
 
         # add new vocab
         self.add_tokens([' ', bunkai.constant.METACHAR_LINE_BREAK])
