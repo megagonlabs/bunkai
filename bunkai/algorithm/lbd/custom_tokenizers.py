@@ -37,36 +37,6 @@ PRETRAINED_VOCAB_FILES_MAP = {
     }
 }
 
-PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES = {
-    "cl-tohoku/bert-base-japanese": 512,
-    "cl-tohoku/bert-base-japanese-whole-word-masking": 512,
-    "cl-tohoku/bert-base-japanese-char": 512,
-    "cl-tohoku/bert-base-japanese-char-whole-word-masking": 512,
-}
-
-PRETRAINED_INIT_CONFIGURATION = {
-    "cl-tohoku/bert-base-japanese": {
-        "do_lower_case": False,
-        "word_tokenizer_type": "janome",
-        "subword_tokenizer_type": "wordpiece",
-    },
-    "cl-tohoku/bert-base-japanese-whole-word-masking": {
-        "do_lower_case": False,
-        "word_tokenizer_type": "janome",
-        "subword_tokenizer_type": "wordpiece",
-    },
-    "cl-tohoku/bert-base-japanese-char": {
-        "do_lower_case": False,
-        "word_tokenizer_type": "janome",
-        "subword_tokenizer_type": "character",
-    },
-    "cl-tohoku/bert-base-japanese-char-whole-word-masking": {
-        "do_lower_case": False,
-        "word_tokenizer_type": "janome",
-        "subword_tokenizer_type": "character",
-    },
-}
-
 
 class JanomeTokenizer(object):
     """Runs basic tokenization with Janome morphological parser."""
@@ -154,8 +124,6 @@ class CharacterTokenizer(object):
 class JanomeSubwordsTokenizer(BertTokenizer):
     vocab_files_names = VOCAB_FILES_NAMES
     pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
-    pretrained_init_configuration = PRETRAINED_INIT_CONFIGURATION
-    max_model_input_sizes = PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES
 
     def __init__(
             self,
