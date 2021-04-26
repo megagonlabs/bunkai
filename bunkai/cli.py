@@ -54,23 +54,28 @@ def run(annotator, _text: str) -> typing.Iterator[str]:
 
 
 def setup(path_model: Path, path_in: typing.Optional[Path]):
+    sys.stderr.write('It takes time to setup. Please be patient.\n')
     with tempfile.TemporaryDirectory() as temp_path:
         if path_in is None:
             url: str = 'https://github.com/megagonlabs/bunkai/releases/download/v1.1.1/bunkai-model-setup-20210426.zip'
+            sys.stderr.write(f'Downloading from {url}\n')
             res = requests.get(url)
             assert res.status_code == 200
             path_in = Path(temp_path).joinpath('setup.zip')
             with path_in.open("wb") as fout:
                 fout.write(res.content)
 
+        sys.stderr.write('Extracting...\n')
         path_src = Path(temp_path).joinpath('src')
         path_src.mkdir(exist_ok=True, parents=True)
         with zipfile.ZipFile(path_in) as zipf:
             zipf.extractall(path_src)
 
+        sys.stderr.write('Writing...\n')
         files = [f for f in path_src.iterdir()]
         assert len(files) == 1
         restore(files[0], path_model)
+    sys.stderr.write('Done!\n')
 
 
 def main() -> None:
