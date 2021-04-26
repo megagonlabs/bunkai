@@ -56,7 +56,7 @@ def run(annotator, _text: str) -> typing.Iterator[str]:
 def setup(path_model: Path, path_in: typing.Optional[Path]):
     with tempfile.TemporaryDirectory() as temp_path:
         if path_in is None:
-            url: str = 'https://github.com/megagonlabs/bunkai/releases/download/v1.1.0/bunkai-model-20210426.zip'
+            url: str = 'https://github.com/megagonlabs/bunkai/releases/download/v1.1.0/bunkai-model-setup-20210426.zip'
             path_in = Path(cached_path(url))
         with zipfile.ZipFile(path_in) as zipf:
             zipf.extractall(temp_path)
