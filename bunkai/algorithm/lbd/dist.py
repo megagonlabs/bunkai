@@ -14,6 +14,8 @@ from transformers.file_utils import cached_path
 
 _NAME_UPDATER_DIR: str = 'up'
 _NAME_UPDATER_LAYER_DIR: str = 'up_layer'
+_DIST_VERSION: str = '1.1.0'
+_NAME_VERSION: str = 'version.json'
 
 
 def to_numpy(v):
@@ -81,8 +83,15 @@ def store_updater(path_in: Path, base_model: str, path_out: Path):
             np.save(_outdir_l.joinpath(f'{target}.npy'), d)
 
 
+def store_version(path_out: Path):
+    with path_out.open('w') as outf:
+        json.dump({'version': _DIST_VERSION}, outf, sort_keys=True)
+
+
 def store(path_in: Path, path_out: Path) -> None:
     path_out.mkdir(parents=True, exist_ok=True)
+
+    store_version(path_out.joinpath(_NAME_VERSION))
     store_copy(path_in, path_out)
 
     with path_in.joinpath('bunkai.json').open() as inf:
@@ -128,7 +137,17 @@ def update(path_in: Path, base_model: str, path_out: Path):
     orig_model.save_pretrained(path_out)
 
 
+def check_version(path_in: Path) -> bool:
+    with path_in.open() as inf:
+        version: str = json.load(inf).get('version', '')
+    return version == _DIST_VERSION
+
+
 def restore(path_in: Path, path_out: Path) -> None:
+
+    if not check_version(path_in.joinpath(_NAME_VERSION)):
+        raise KeyError
+
     path_out.mkdir(parents=True, exist_ok=True)
 
     with path_in.joinpath('bunkai.json').open() as inf:
