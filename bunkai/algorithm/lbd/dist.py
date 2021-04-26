@@ -9,11 +9,10 @@ from typing import List, Optional
 
 import numpy as np
 import torch
-from transformers import BertForTokenClassification
+from transformers import AutoConfig, BertForTokenClassification
 from transformers.file_utils import cached_path
 
 _NAME_UPDATER_DIR: str = 'up'
-_NAME_UPDATER_LAYER_DIR: str = 'up_layer'
 _DIST_VERSION: str = '1.1.0'
 _NAME_VERSION: str = 'version.json'
 
@@ -42,16 +41,11 @@ def store_updater(path_in: Path, base_model: str, path_out: Path):
     orig_model = BertForTokenClassification.from_pretrained(base_model)
     new_model = BertForTokenClassification.from_pretrained(path_in)
 
-    diffs_other_targets = [
-        'bert.embeddings.word_embeddings.weight',
-        'classifier.weight',
-        'classifier.bias',
-    ]
     path_out_up = path_out.joinpath(_NAME_UPDATER_DIR)
     path_out_up.mkdir(parents=True, exist_ok=True)
-    for target in diffs_other_targets:
-        orgv = to_numpy(eval(f'orig_model.{target}'))
-        newv = to_numpy(eval(f'new_model.{target}'))
+    for (target, _orgv) in orig_model.named_parameters():
+        orgv = to_numpy(_orgv)
+        newv = to_numpy(new_model.state_dict()[target])
         if newv.shape != orgv.shape:
             if len(orgv.shape) == 2:
                 z = np.zeros((newv.shape[0] - orgv.shape[0], orgv.shape[1]))
@@ -61,26 +55,7 @@ def store_updater(path_in: Path, base_model: str, path_out: Path):
                 raise NotImplementedError
             orgv = np.concatenate((orgv, z), axis=0)
         d = newv - orgv
-        np.save(path_out_up.joinpath(f'{target}.npy'), d)
-
-    diffs_layer_targets = [
-        "attention.self.key.weight",
-        "attention.self.key.bias",
-        "intermediate.dense.weight",
-        "intermediate.dense.bias",
-        "output.dense.weight",
-        "output.dense.bias",
-    ]
-    path_out_upl = path_out.joinpath(_NAME_UPDATER_LAYER_DIR)
-    path_out_upl.mkdir(parents=True, exist_ok=True)
-    for lidx, (orig_l, new_l) in enumerate(zip(orig_model.bert.encoder.layer, new_model.bert.encoder.layer)):
-        _outdir_l: Path = path_out_upl.joinpath(f'{lidx}')
-        _outdir_l.mkdir(parents=True, exist_ok=True)
-        for target in diffs_layer_targets:
-            d = to_numpy(
-                eval(f'new_l.{target}') - eval(f'orig_l.{target}')
-            )
-            np.save(_outdir_l.joinpath(f'{target}.npy'), d)
+        np.savez_compressed(path_out_up.joinpath(f'{target}.npz'), d)
 
 
 def store_version(path_out: Path):
@@ -104,11 +79,11 @@ def update(path_in: Path, base_model: str, path_out: Path):
     logging.disable(logging.WARN)
     orig_model = BertForTokenClassification.from_pretrained(base_model)
 
+    osd = orig_model.state_dict()
     for f in path_in.joinpath(_NAME_UPDATER_DIR).iterdir():
-        target: str = f.name[:-len('.npy')]
-#         print(f'Updating {target}')
-        vals = np.load(f)
-        orgv = to_numpy(eval(f'orig_model.{target}'))
+        target: str = f.name[:-len('.npz')]
+        vals = np.load(f)['arr_0']
+        orgv = to_numpy(osd[target])
         if len(orgv.shape) == 2:
             z = np.zeros((vals.shape[0] - orgv.shape[0], orgv.shape[1]))
         elif len(orgv.shape) == 1:
@@ -118,23 +93,12 @@ def update(path_in: Path, base_model: str, path_out: Path):
 
         orgv = np.concatenate((orgv, z), axis=0)
         orgv += vals
-        orgv2 = torch.nn.Parameter(to_tensor(orgv))  # noqa: F841
-        exec(f'orig_model.{target} = orgv2')
+        orgv2 = torch.nn.Parameter(to_tensor(orgv))
+        osd[target] = orgv2
 
-    for idx, orig_l, in enumerate(orig_model.bert.encoder.layer):
-        for f in path_in.joinpath(_NAME_UPDATER_LAYER_DIR, f'{idx}').iterdir():
-            target_l: str = f.name[:-len('.npy')]
-#             print(f'Updating {target_l} in {idx}')
-            vals = np.load(f)
-            v = eval(f'orig_l.{target_l}')
-            v2 = torch.nn.Parameter(  # noqa: F841
-                to_tensor(
-                    to_numpy(v) + vals
-                )
-            )
-            exec(f'orig_l.{target_l} = v2')
-
-    orig_model.save_pretrained(path_out)
+    new_model = BertForTokenClassification(config=AutoConfig.from_pretrained(path_in))
+    new_model.load_state_dict(osd)
+    new_model.save_pretrained(path_out)
 
 
 def check_version(path_in: Path) -> bool:
