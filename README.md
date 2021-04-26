@@ -16,7 +16,7 @@ Bunkai is a sentence boundary (SB) disambiguation tool for Japanese texts.
 ## Quick Start
 
 ```console
-$ pip install bunkai
+$ pip install -U bunkai
 $ echo -e '宿を予約しました♪!まだ2ヶ月も先だけど。早すぎかな(笑)楽しみです★\n2文書目の先頭行です。▁改行はU+2581で表現します。' \
     | bunkai
 宿を予約しました♪!│まだ2ヶ月も先だけど。│早すぎかな(笑)│楽しみです★
