@@ -27,12 +27,16 @@ Feed a document as one line by using ``▁`` (U+2581) for line breaks.
 The output shows sentence boundaries with ``│`` (U+2502).
 
 If you want to disambiguate  sentence boundaries for line breaks, please add a `--model` option with the path to the model.
-Trained models are available [here](https://github.com/megagonlabs/bunkai/releases).
+First time, please setup a  model.
 
 ```console
-$ wget https://github.com/megagonlabs/bunkai/releases/download/v1.0.1/bunkai-model-bccwj-wo-pn-20210421.zip
-$ unzip bunkai-model-bccwj-wo-pn-20210421.zip
-$ echo -e "文の途中で改行を▁入れる文章ってありますよね▁それも対象です。" | bunkai --model bunkai-model-bccwj-wo-pn-20210421
+$ bunkai --model bunkai-model-directory --setup
+```
+
+Then, please designate the directory.
+
+```console
+$ echo -e "文の途中で改行を▁入れる文章ってありますよね▁それも対象です。" | bunkai --model bunkai-model-directory
 文の途中で改行を▁入れる文章ってありますよね▁│それも対象です。
 ```
 

@@ -2,6 +2,7 @@
     "MD007": {
         "indent": 4
     },
+    "commands-show-output": false,
     "line-length": false,
     "no-inline-html": false
 }
