@@ -7,7 +7,7 @@ import typing
 import zipfile
 from pathlib import Path
 
-from transformers.file_utils import cached_path
+import requests
 
 import bunkai.constant
 from bunkai.algorithm.bunkai_sbd.bunkai_sbd import \
@@ -57,11 +57,18 @@ def setup(path_model: Path, path_in: typing.Optional[Path]):
     with tempfile.TemporaryDirectory() as temp_path:
         if path_in is None:
             url: str = 'https://github.com/megagonlabs/bunkai/releases/download/v1.1.0/bunkai-model-setup-20210426.zip'
-            path_in = Path(cached_path(url))
-        with zipfile.ZipFile(path_in) as zipf:
-            zipf.extractall(temp_path)
+            res = requests.get(url)
+            assert res.status_code == 200
+            path_in = Path(temp_path).joinpath('setup.zip')
+            with path_in.open("wb") as fout:
+                fout.write(res.content)
 
-        files = [f for f in Path(temp_path).iterdir()]
+        path_src = Path(temp_path).joinpath('src')
+        path_src.mkdir(exist_ok=True, parents=True)
+        with zipfile.ZipFile(path_in) as zipf:
+            zipf.extractall(path_src)
+
+        files = [f for f in path_src.iterdir()]
         assert len(files) == 1
         restore(files[0], path_model)
 
