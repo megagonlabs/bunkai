@@ -11,36 +11,70 @@
 [![jsonlint](https://img.shields.io/badge/json-lint-lightgrey)](https://github.com/dmeranda/demjson)
 [![yamllint](https://img.shields.io/badge/yaml-lint-lightgrey)](https://github.com/adrienverge/yamllint)
 
-Bunkai is a sentence boundary (SB) disambiguation tool for Japanese texts.
+Bunkai is a sentence boundary (SB) disambiguation tool for Japanese texts.  
+    Bunkaiは日本語文境界判定器です．
 
 ## Quick Start
 
+### Install
+
 ```console
 $ pip install -U bunkai
+```
+
+### Disambiguation without Models
+
+```console
 $ echo -e '宿を予約しました♪!まだ2ヶ月も先だけど。早すぎかな(笑)楽しみです★\n2文書目の先頭行です。▁改行はU+2581で表現します。' \
     | bunkai
 宿を予約しました♪!│まだ2ヶ月も先だけど。│早すぎかな(笑)│楽しみです★
 2文書目の先頭行です。▁│改行はU+2581で表現します。
 ```
 
-Feed a document as one line by using ``▁`` (U+2581) for line breaks.
-The output shows sentence boundaries with ``│`` (U+2502).
+- Feed a document as one line by using ``▁`` (U+2581) for line breaks.  
+    1行は1つの文書を表します．文書中の改行は ``▁`` (U+2581) で与えてください．
+- The output shows sentence boundaries with ``│`` (U+2502).  
+    出力では文境界は``│`` (U+2502) で表示されます．
 
-If you want to disambiguate  sentence boundaries for line breaks, please add a `--model` option with the path to the model.
-First time, please setup a  model.
+### Disambiguation for Line Breaks with a Model
+
+If you want to disambiguate sentence boundaries for line breaks, please add a ``--model`` option with the path to the model.  
+    改行記号に対しても文境界判定を行いたい場合は，``--model``オプションを与える必要があります．
+
+First time, please setup a model. It will take some time.  
+    はじめにモデルをセットアップする必要があります．セットアップには少々時間がかかります．
 
 ```console
 $ bunkai --model bunkai-model-directory --setup
 ```
 
-Then, please designate the directory.
+Then, please designate the directory.  
+    そしてモデルを指定して動かしてください．
 
 ```console
 $ echo -e "文の途中で改行を▁入れる文章ってありますよね▁それも対象です。" | bunkai --model bunkai-model-directory
 文の途中で改行を▁入れる文章ってありますよね▁│それも対象です。
 ```
 
-For more information, see [examples](example) or [documents](docs).
+### Python Library
+
+You can also use Bunkai as Python library.  
+  BunkaiはPythonライブラリとしても使えます．
+
+```python
+from bunkai.algorithm.bunkai_sbd.bunkai_sbd import \
+    BunkaiSentenceBoundaryDisambiguation
+bki = BunkaiSentenceBoundaryDisambiguation(path_model=None)
+for sentence in bki("はい。このようにpythonライブラリとしても使えます！"):
+    print(sentence)
+```
+
+For more information, see [examples](example).  
+    ほかの例は[examples](example)をご覧ください．
+
+## Documents
+
+- [Documents](docs)
 
 ## References
 
