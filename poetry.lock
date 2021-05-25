@@ -507,7 +507,7 @@ typing-extensions = "*"
 
 [[package]]
 name = "tqdm"
-version = "4.60.0"
+version = "4.61.0"
 description = "Fast, Extensible Progress Meter"
 category = "main"
 optional = false
@@ -1081,8 +1081,8 @@ torch = [
     {file = "torch-1.8.1-cp39-none-macosx_10_9_x86_64.whl", hash = "sha256:225ee4238c019b28369c71977327deeeb2bd1c6b8557e6fcf631b8866bdc5447"},
 ]
 tqdm = [
-    {file = "tqdm-4.60.0-py2.py3-none-any.whl", hash = "sha256:daec693491c52e9498632dfbe9ccfc4882a557f5fa08982db1b4d3adbe0887c3"},
-    {file = "tqdm-4.60.0.tar.gz", hash = "sha256:ebdebdb95e3477ceea267decfc0784859aa3df3e27e22d23b83e9b272bf157ae"},
+    {file = "tqdm-4.61.0-py2.py3-none-any.whl", hash = "sha256:736524215c690621b06fc89d0310a49822d75e599fcd0feb7cc742b98d692493"},
+    {file = "tqdm-4.61.0.tar.gz", hash = "sha256:cd5791b5d7c3f2f1819efc81d36eb719a38e0906a7380365c556779f585ea042"},
 ]
 transformers = [
     {file = "transformers-4.6.1-py3-none-any.whl", hash = "sha256:9d6569e31e5a4b7ab399eaf224f46ddcbb957e18a7c58cc7d469cb70e96467ea"},
