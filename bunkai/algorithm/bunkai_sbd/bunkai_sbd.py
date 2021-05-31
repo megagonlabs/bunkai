@@ -43,7 +43,7 @@ class BunkaiPipeline(AnnotatorPipeline):
 
 
 class BunkaiSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
-    def __init__(self, *, path_model: Optional[str]):
+    def __init__(self, *, path_model: Optional[str] = None):
         morph_annotator = MorphAnnotatorJanome()
 
         _annotators = [
