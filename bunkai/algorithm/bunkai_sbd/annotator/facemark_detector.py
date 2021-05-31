@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import re
+from pathlib import Path
 from typing import List, Optional
 
 from bunkai.algorithm.bunkai_sbd.annotator import constant
@@ -10,7 +11,7 @@ RE_FACEMARK = re.compile(constant.FACE_EXPRESSION_REGEXP)
 
 
 class FaceMarkDetector(Annotator):
-    def __init__(self, *, path_model: Optional[str] = None):
+    def __init__(self, *, path_model: Optional[Path] = None):
         super().__init__(FaceMarkDetector.__name__)
 
     @staticmethod

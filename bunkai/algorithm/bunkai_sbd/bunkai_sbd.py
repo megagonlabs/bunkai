@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from pathlib import Path
 from typing import Iterator, List, Optional
 
 from bunkai.algorithm.bunkai_sbd.annotator import (
@@ -43,7 +44,7 @@ class BunkaiPipeline(AnnotatorPipeline):
 
 
 class BunkaiSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
-    def __init__(self, *, path_model: Optional[str] = None):
+    def __init__(self, *, path_model: Optional[Path] = None):
         morph_annotator = MorphAnnotatorJanome()
 
         _annotators = [

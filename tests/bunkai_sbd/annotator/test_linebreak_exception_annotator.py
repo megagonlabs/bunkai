@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from collections import namedtuple
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from bunkai.algorithm.bunkai_sbd.annotator import MorphAnnotatorJanome
@@ -40,7 +41,7 @@ class TestLinebreakExceptionAnnotator(TestAnnotatorBase):
         return annotations
 
     def test_run(self):
-        path_model = ''
+        path_model = Path('')
 
         for test_case in self.test_sentences:
             predictor_mock = MagicMock()

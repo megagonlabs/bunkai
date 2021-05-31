@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import typing
 from abc import ABCMeta, abstractmethod
-from typing import Callable, Iterator, List
+from pathlib import Path
+from typing import Callable, Iterator, List, Optional
 
 from bunkai.base.annotation import Annotations, SpanAnnotation
 
@@ -81,7 +82,7 @@ class AnnotatorPipeline(metaclass=ABCMeta):
 
 
 class SentenceBoundaryDisambiguator(metaclass=ABCMeta):
-    def __init__(self, *, path_model: typing.Any = None):
+    def __init__(self, *, path_model: Optional[Path] = None):
         pass
 
     @abstractmethod
