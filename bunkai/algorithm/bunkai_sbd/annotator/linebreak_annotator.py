@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import pathlib
 import typing
+from pathlib import Path
 
 from bunkai.algorithm.bunkai_sbd.annotator.morph_annotator import \
     MorphAnnotatorJanome
@@ -12,9 +12,9 @@ from bunkai.constant import METACHAR_LINE_BREAK
 
 
 class LinebreakAnnotator(Annotator):
-    def __init__(self, *, path_model: str):
+    def __init__(self, *, path_model: Path):
         super().__init__(LinebreakAnnotator.__name__)
-        self.linebreak_detector = Predictor(modelpath=pathlib.Path(path_model))
+        self.linebreak_detector = Predictor(modelpath=path_model)
 
     @staticmethod
     def generate_sentence_structure(annotation_object: Annotations,

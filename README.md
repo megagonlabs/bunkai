@@ -62,10 +62,9 @@ You can also use Bunkai as Python library.
   BunkaiはPythonライブラリとしても使えます．
 
 ```python
-from bunkai.algorithm.bunkai_sbd.bunkai_sbd import \
-    BunkaiSentenceBoundaryDisambiguation
-bki = BunkaiSentenceBoundaryDisambiguation(path_model=None)
-for sentence in bki("はい。このようにpythonライブラリとしても使えます！"):
+from bunkai import Bunkai
+bunkai = Bunkai()
+for sentence in bunkai("はい。このようにpythonライブラリとしても使えます！"):
     print(sentence)
 ```
 

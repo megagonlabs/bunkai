@@ -31,7 +31,7 @@ def get_opts() -> argparse.Namespace:
                          default='/dev/stdin', required=False)
     oparser.add_argument("--output", "-o", type=Path,
                          default="/dev/stdout", required=False)
-    oparser.add_argument("--model", "-m")
+    oparser.add_argument("--model", "-m", type=Path)
     oparser.add_argument("--setup", action="store_true")
     return oparser.parse_args()
 
@@ -82,11 +82,11 @@ def main() -> None:
     opts = get_opts()
 
     if opts.setup:
-        assert len(opts.model) != 0, '--model should be given'
+        assert opts.model is not None, '--model should be given'
         pin = opts.input
         if opts.input == Path('/dev/stdin'):
             pin = None
-        setup(Path(opts.model), pin)
+        setup(opts.model, pin)
         return
 
     cls = algorithm2class[opts.algorithm]
