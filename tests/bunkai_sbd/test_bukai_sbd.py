@@ -93,7 +93,7 @@ class TestBunkaiSbd(unittest.TestCase):
             self.assertEqual(len(list(splitter_obj(test_case.text))), test_case.n_sentence,
                              msg=f'Input={test_case.text} Expect N(sent)={test_case.n_sentence} '
                                  f'Result={list(splitter_obj(test_case.text))}')
-            annotations = splitter_obj._eos(test_case.text)
+            annotations = splitter_obj.eos(test_case.text)
             span_annotations = annotations.get_final_layer()
             self.assertEqual(set([s.rule_name for s in span_annotations]),  # type: ignore
                              set(test_case.expected_rules),  # type: ignore

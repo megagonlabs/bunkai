@@ -32,25 +32,47 @@ def get_opts() -> argparse.Namespace:
     oparser.add_argument("--output", "-o", type=Path,
                          default="/dev/stdout", required=False)
     oparser.add_argument("--model", "-m", type=Path)
-    oparser.add_argument("--setup", action="store_true")
+    oparser.add_argument("--setup", action="store_true", help="Setup a model file")
+    oparser.add_argument("--ma", action="store_true", help="Print Morphological analyses result")
     return oparser.parse_args()
 
 
-def run(annotator, _text: str) -> typing.Iterator[str]:
+def run(annotator, _text: str, ma: bool = False) -> typing.Iterator[str]:
     assert '\n' not in _text
     assert bunkai.constant.METACHAR_SENTENCE_BOUNDARY not in _text
 
     text: str = _text.replace(bunkai.constant.METACHAR_LINE_BREAK, '\n')
-    __annotator_result: typing.List[int] = annotator.find_eos(text)
-    if len(__annotator_result) == 0 or __annotator_result[-1] != len(text):
-        __annotator_result.append(len(text))
 
-    last: int = 0
-    for idx, split_point in enumerate(__annotator_result):
-        yield text[last:split_point].replace('\n', bunkai.constant.METACHAR_LINE_BREAK)
-        if idx != len(__annotator_result) - 1:
-            yield bunkai.constant.METACHAR_SENTENCE_BOUNDARY
-        last = split_point
+    if ma:
+        annotation_obj = annotator.eos(text)
+        tokens = annotation_obj.get_morph_analysis()
+        end_indices = set([s_a.end_index for s_a in annotation_obj.get_final_layer()])
+
+        position: int = 0
+        for idx, token in enumerate(tokens):
+            prev_position: int = position
+            if token.node_obj is None or token.word_surface == '\n':
+                yield bunkai.constant.METACHAR_LINE_BREAK
+                position += 1
+            else:
+                yield f'{token.word_surface}\t'
+                node = token.node_obj
+                yield f'{node.part_of_speech},{node.infl_type},{node.infl_form},{node.base_form},{node.reading},{node.phonetic}'
+                position += len(token.word_surface)
+            yield '\n'
+            for p in range(prev_position, position):
+                if p + 1 in end_indices:
+                    yield 'EOS\n'
+    else:
+        __annotator_result: typing.List[int] = annotator.find_eos(text)
+
+        last: int = 0
+        for idx, split_point in enumerate(__annotator_result):
+            yield text[last:split_point].replace('\n', bunkai.constant.METACHAR_LINE_BREAK)
+            if idx != len(__annotator_result) - 1:
+                yield bunkai.constant.METACHAR_SENTENCE_BOUNDARY
+            last = split_point
+        yield '\n'
 
 
 def setup(path_model: Path, path_in: typing.Optional[Path]):
@@ -106,9 +128,8 @@ def main() -> None:
                         '\033[0m')
                     warned = True
 
-            for ot in run(annotator, ol):
+            for ot in run(annotator, ol, opts.ma):
                 outf.write(ot)
-            outf.write('\n')
 
 
 if __name__ == '__main__':

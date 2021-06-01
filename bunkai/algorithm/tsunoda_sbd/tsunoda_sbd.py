@@ -45,7 +45,7 @@ class TsunodaSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
         ])
         super().__init__()
 
-    def _eos(self, text: str) -> Annotations:
+    def eos(self, text: str) -> Annotations:
         annotations = Annotations()
         annotations.add_annotation_layer('first', [SpanAnnotation(rule_name=None,
                                                                   start_index=0,
@@ -57,13 +57,15 @@ class TsunodaSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
         return annotations
 
     def find_eos(self, text: str) -> List[int]:
-        annotations = self._eos(text)
+        annotations = self.eos(text)
         end_index = list(sorted(
             list(set([s_a.end_index for s_a in annotations.get_final_layer()]))))
+        if len(end_index) == 0 or end_index[-1] != len(text):
+            end_index.append(len(text))
         return end_index
 
     def __call__(self, text: str) -> Iterator[str]:
-        annotations = self._eos(text)
+        annotations = self.eos(text)
         end_index = sorted(
             list(set([s_a.end_index for s_a in annotations.get_final_layer()])))
         __start_index = 0

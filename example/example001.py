@@ -53,7 +53,7 @@ def example_morphological_analysis(input_text: str, path_newline_model: typing.O
         BunkaiSentenceBoundaryDisambiguation
     bunkai = BunkaiSentenceBoundaryDisambiguation(path_model=path_newline_model)
     # all analysis process is stored in Annotations object
-    annotation_obj = bunkai._eos(input_text)
+    annotation_obj = bunkai.eos(input_text)
     tokens = annotation_obj.get_morph_analysis()
     for token in tokens:
         print(f'{token.word_surface},', end='')
@@ -67,7 +67,7 @@ def example_error_analysis_during_process(input_text: str, path_newline_model: t
         BunkaiSentenceBoundaryDisambiguation
     bunkai = BunkaiSentenceBoundaryDisambiguation(path_model=path_newline_model)
     # all analysis process is stored in Annotations object
-    annotation_obj = bunkai._eos(input_text)
+    annotation_obj = bunkai.eos(input_text)
     layers = annotation_obj.available_layers()
     print(f'available layer names {layers}')
     for l_name in layers:

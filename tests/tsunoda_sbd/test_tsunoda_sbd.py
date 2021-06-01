@@ -35,9 +35,9 @@ class TestTsukubaSplitter(unittest.TestCase):
                              "おすすめ度No.1の和室3.5畳はあります。" \
                              "おしまい♪" \
                              "(近日中には冷房に切り替わる予定です。いいですね(泣))"
-        self.assertTrue(isinstance(splitter_obj._eos(
+        self.assertTrue(isinstance(splitter_obj.eos(
             test_sentence_1_ok), Annotations))
-        self.assertEqual(len(splitter_obj._eos(
+        self.assertEqual(len(splitter_obj.eos(
             test_sentence_1_ok).get_final_layer()), 7)
         self.assertEqual(len(splitter_obj.find_eos(test_sentence_1_ok)), 7)
         self.assertEqual(
