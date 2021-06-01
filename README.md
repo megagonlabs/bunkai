@@ -58,7 +58,8 @@ $ echo -e "文の途中で改行を▁入れる文章ってありますよね▁
 
 ### Morphological Analysis Result
 
-You can get morphological analysis results with ``--ma`` option.
+You can get morphological analysis results with ``--ma`` option.  
+``--ma``オプションを付与すると形態素解析結果が得られます．
 
 ```console
 $ echo -e '形態素解析し▁ます。結果を 表示します！' | bunkai --ma
