@@ -68,7 +68,7 @@ class BunkaiSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
         self.pipeline = BunkaiPipeline(_annotators)
         super().__init__()
 
-    def _eos(self, text: str) -> Annotations:
+    def eos(self, text: str) -> Annotations:
         annotations = Annotations()
         annotations.add_annotation_layer(LAYER_NAME_FIRST, [SpanAnnotation(rule_name=LAYER_NAME_FIRST,
                                                                            start_index=len(text) - 1,
@@ -80,13 +80,13 @@ class BunkaiSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
         return annotations
 
     def find_eos(self, text: str) -> List[int]:
-        annotations = self._eos(text)
+        annotations = self.eos(text)
         end_index = list(sorted(
             list(set([s_a.end_index for s_a in annotations.get_final_layer()]))))
         return end_index
 
     def __call__(self, text: str) -> Iterator[str]:
-        annotations = self._eos(text)
+        annotations = self.eos(text)
         end_index = sorted(
             list(set([s_a.end_index for s_a in annotations.get_final_layer()])))
         __start_index = 0

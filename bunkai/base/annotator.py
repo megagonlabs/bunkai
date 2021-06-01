@@ -86,7 +86,7 @@ class SentenceBoundaryDisambiguator(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def _eos(self, text: str) -> Annotations:
+    def eos(self, text: str) -> Annotations:
         raise NotImplementedError()
 
     @abstractmethod
