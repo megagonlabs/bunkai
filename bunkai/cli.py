@@ -42,8 +42,6 @@ def run(annotator, _text: str) -> typing.Iterator[str]:
 
     text: str = _text.replace(bunkai.constant.METACHAR_LINE_BREAK, '\n')
     __annotator_result: typing.List[int] = annotator.find_eos(text)
-    if len(__annotator_result) == 0 or __annotator_result[-1] != len(text):
-        __annotator_result.append(len(text))
 
     last: int = 0
     for idx, split_point in enumerate(__annotator_result):

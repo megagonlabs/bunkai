@@ -60,6 +60,8 @@ class TsunodaSentenceBoundaryDisambiguation(SentenceBoundaryDisambiguator):
         annotations = self.eos(text)
         end_index = list(sorted(
             list(set([s_a.end_index for s_a in annotations.get_final_layer()]))))
+        if len(end_index) == 0 or end_index[-1] != len(text):
+            end_index.append(len(text))
         return end_index
 
     def __call__(self, text: str) -> Iterator[str]:
