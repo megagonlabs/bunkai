@@ -35,6 +35,8 @@ mypy = ">=0.790"
 yamllint = ">=1.25.0"
 mock = ">=4.0.2"
 pydocstyle = ">=5.1.1"
+types-emoji = "^1.2.1"
+types-requests = "^0.1.8"
 
 [build-system]
 requires = ["poetry"]

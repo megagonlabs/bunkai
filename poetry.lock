@@ -576,6 +576,22 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "types-emoji"
+version = "1.2.1"
+description = "Typing stubs for emoji"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "types-requests"
+version = "0.1.8"
+description = "Typing stubs for requests"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "3.10.0.0"
 description = "Backported and Experimental Type Hints for Python 3.5+"
@@ -635,7 +651,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "7c344a0fac8dab70802ffce64ad2a66005d419ad0b4e79f3d2771fbf09390e95"
+content-hash = "01484128fed1a10ff67948aee4ab5ed217dd649b60ff78ceb77281365213e6b9"
 
 [metadata.files]
 autopep8 = [
@@ -1098,6 +1114,12 @@ typed-ast = [
     {file = "typed_ast-1.4.3-cp39-cp39-win32.whl", hash = "sha256:209596a4ec71d990d71d5e0d312ac935d86930e6eecff6ccc7007fe54d703808"},
     {file = "typed_ast-1.4.3-cp39-cp39-win_amd64.whl", hash = "sha256:9c6d1a54552b5330bc657b7ef0eae25d00ba7ffe85d9ea8ae6540d2197a3788c"},
     {file = "typed_ast-1.4.3.tar.gz", hash = "sha256:fb1bbeac803adea29cedd70781399c99138358c26d05fcbd23c13016b7f5ec65"},
+]
+types-emoji = [
+    {file = "types_emoji-1.2.1-py2.py3-none-any.whl", hash = "sha256:0276905161cdf45ecb1da7f349ddc1f8defb9b62443cb83647f476b036a0f69b"},
+]
+types-requests = [
+    {file = "types_requests-0.1.8-py2.py3-none-any.whl", hash = "sha256:174b54ec7920ea1505fa5007b52d3587f96c2366062ab0a04bb10eb32d18c970"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.0-py2-none-any.whl", hash = "sha256:0ac0f89795dd19de6b97debb0c6af1c70987fd80a2d62d1958f7e56fcc31b497"},
