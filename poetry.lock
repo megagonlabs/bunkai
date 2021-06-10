@@ -585,7 +585,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "0.1.8"
+version = "0.1.9"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
@@ -1119,7 +1119,7 @@ types-emoji = [
     {file = "types_emoji-1.2.1-py2.py3-none-any.whl", hash = "sha256:0276905161cdf45ecb1da7f349ddc1f8defb9b62443cb83647f476b036a0f69b"},
 ]
 types-requests = [
-    {file = "types_requests-0.1.8-py2.py3-none-any.whl", hash = "sha256:174b54ec7920ea1505fa5007b52d3587f96c2366062ab0a04bb10eb32d18c970"},
+    {file = "types_requests-0.1.9-py2.py3-none-any.whl", hash = "sha256:24a51b692d36101e5b81f08733d74b944ccae3e90589fb712e4dfc6f36965c35"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.0-py2-none-any.whl", hash = "sha256:0ac0f89795dd19de6b97debb0c6af1c70987fd80a2d62d1958f7e56fcc31b497"},
