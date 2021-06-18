@@ -576,7 +576,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-emoji"
-version = "1.2.1"
+version = "1.2.2"
 description = "Typing stubs for emoji"
 category = "dev"
 optional = false
@@ -1117,7 +1117,8 @@ typed-ast = [
     {file = "typed_ast-1.4.3.tar.gz", hash = "sha256:fb1bbeac803adea29cedd70781399c99138358c26d05fcbd23c13016b7f5ec65"},
 ]
 types-emoji = [
-    {file = "types_emoji-1.2.1-py2.py3-none-any.whl", hash = "sha256:0276905161cdf45ecb1da7f349ddc1f8defb9b62443cb83647f476b036a0f69b"},
+    {file = "types-emoji-1.2.2.tar.gz", hash = "sha256:6d8f26809f41dbbbd3c7604415eba29a06edbc665784fd63fe2fd706729aacec"},
+    {file = "types_emoji-1.2.2-py2.py3-none-any.whl", hash = "sha256:e10ca236f4e5da74e1f7881ca8c768de8d18f714c8118755328263f321168bd8"},
 ]
 types-requests = [
     {file = "types_requests-0.1.11-py2.py3-none-any.whl", hash = "sha256:e79c09e5866c6520cdf23dc260573a0a190444f36b112116fadc5542656c8309"},
