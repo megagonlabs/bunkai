@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   lint_with_node:
     docker:
-      - image: circleci/node:12.20.0
+      - image: circleci/node:14.17.1
     working_directory: ~/app_lintwithnode
     steps:
       - checkout
@@ -28,7 +28,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/python:3.7.9
+      - image: circleci/python:3.7.10
     working_directory: ~
     steps:
       - checkout
