@@ -16,7 +16,8 @@ class TestNumberExceptionAnnotator(TestAnnotatorBase):
 
         self.test_sentences = [
             NewlineTestCase('No.1の商品', 2, 3, True),
-            NewlineTestCase('ROOM No.411を予約しました。', 7, 8, True)
+            NewlineTestCase('ROOM No.411を予約しました。', 7, 8, True),
+            NewlineTestCase('ROOM No.', 7, 8, False),
         ]
         for test_obj in self.test_sentences:
             out_annotator = annotator.is_exception_no(test_obj.text, test_obj.start_index, test_obj.end_index)
@@ -26,6 +27,7 @@ class TestNumberExceptionAnnotator(TestAnnotatorBase):
         test_cases = [
             TestInstance('No.1の商品', 1, expected_rules=[]),
             TestInstance('ROOM No.411を予約しました。', 1, expected_rules=[]),
+            TestInstance('おすすめ度No.', 1, expected_rules=[]),
         ]
         annotator = NumberExceptionAnnotator()
         self.is_check_test_instance(annotator=annotator, test_cases=test_cases)

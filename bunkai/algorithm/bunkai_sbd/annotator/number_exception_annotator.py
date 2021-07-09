@@ -23,7 +23,7 @@ class NumberExceptionAnnotator(AnnotationFilter):
             return False
 
         if RE_NUMBER_WORD.match(original_text[start_index - 2:start_index]) and \
-                re.match(r'\d', original_text[end_index]):
+                end_index < len(original_text) and re.match(r'\d', original_text[end_index]):
             return True
         return False
 
