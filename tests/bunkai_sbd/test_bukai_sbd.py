@@ -86,7 +86,8 @@ class TestBunkaiSbd(unittest.TestCase):
                                             LAYER_NAME_FIRST]),
             TestInstance('本商品はおすすめ度No.1です。', 1, expected_rules=[LAYER_NAME_FIRST]),
             TestInstance('本商品はおすすめ度No.1です！という売り文句の新商品が出ている。しかし、この商品は本当に信用できるのだろうか？私はとても懐疑的である。',
-                         3, expected_rules=[BasicRule.__name__, LAYER_NAME_FIRST])
+                         3, expected_rules=[BasicRule.__name__, LAYER_NAME_FIRST]),
+            TestInstance('本商品はおすすめ度No.', 1, expected_rules=[LAYER_NAME_FIRST]),
         ]
         splitter_obj = BunkaiSentenceBoundaryDisambiguation(path_model=None)
         for test_case in test_cases:
