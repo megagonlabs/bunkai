@@ -10,6 +10,7 @@ from pathlib import Path
 import requests
 
 import bunkai.constant
+from bunkai import __version__
 from bunkai.algorithm.bunkai_sbd.bunkai_sbd import \
     BunkaiSentenceBoundaryDisambiguation
 from bunkai.algorithm.lbd.dist import restore
@@ -34,6 +35,7 @@ def get_opts() -> argparse.Namespace:
     oparser.add_argument("--model", "-m", type=Path)
     oparser.add_argument("--setup", action="store_true", help="Setup a model file")
     oparser.add_argument("--ma", action="store_true", help="Print Morphological analyses result")
+    oparser.add_argument("--version", "-v", action="store_true", help="Print version")
     return oparser.parse_args()
 
 
@@ -102,6 +104,10 @@ def setup(path_model: Path, path_in: typing.Optional[Path]):
 
 def main() -> None:
     opts = get_opts()
+
+    if opts.version:
+        print(f'Bunkai {__version__}')
+        return
 
     if opts.setup:
         assert opts.model is not None, '--model should be given'

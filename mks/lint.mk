@@ -48,8 +48,12 @@ term_check_file_content:
 check_firstline:
 	find . -type f | $(GREP_EXCLUDE) | grep -e 'py$$' | grep -v '__init__' | grep -v third | xargs python3 .circleci/check_head.py
 
+check_version:
+	python3 .circleci/check_version.py --py bunkai/__init__.py --toml pyproject.toml
 
-lint: flake8 autopep8 mypy isort yamllint terms_check_path term_check_method term_check_file_content check_firstline pydocstyle
+
+
+lint: flake8 autopep8 mypy isort yamllint terms_check_path term_check_method term_check_file_content check_firstline pydocstyle check_version
 
 _run_isort:
 	isort -rc .
