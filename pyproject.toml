@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bunkai"
-version = "1.4.0"
+version = "1.4.1"
 description = "Sentence boundary disambiguation tool for Japanese texts"
 authors = ["Yuta Hayashibe <hayashibe@megagon.ai>", "Kensuke Mitsuzawa <kensuke.mit@gmail.com>"]
 maintainers = ["Yuta Hayashibe <hayashibe@megagon.ai>", "Kensuke Mitsuzawa <kensuke.mit@gmail.com>"]

@@ -5,16 +5,21 @@ from pathlib import Path
 
 import toml
 
-import bunkai
-
 
 def operation(path_toml: Path, path_py: Path) -> None:
     with path_toml.open() as inf:
         pyproject = toml.load(inf)
         pyproject_version = pyproject["tool"]["poetry"]["version"]
 
-    if pyproject_version != bunkai.__version__:
-        raise KeyError("Version mismatch")
+    bunkai_version: str = ''
+    with path_py.open() as inf:
+        for line in inf:
+            if line.startswith('__version_info__ ='):
+                bunkai_version = '.'.join([d.strip() for d in line.strip().split('(')[-1][:-1].split(',')])
+                break
+
+    if pyproject_version != bunkai_version:
+        raise KeyError(f"Version mismatch: {pyproject_version} != {bunkai_version}")
 
 
 def get_opts() -> argparse.Namespace:
