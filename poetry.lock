@@ -532,7 +532,7 @@ telegram = ["requests"]
 
 [[package]]
 name = "transformers"
-version = "4.8.2"
+version = "4.9.0"
 description = "State-of-the-art Natural Language Processing for TensorFlow 2.0 and PyTorch"
 category = "main"
 optional = false
@@ -544,7 +544,7 @@ huggingface-hub = "0.0.12"
 importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 numpy = ">=1.17"
 packaging = "*"
-pyyaml = "*"
+pyyaml = ">=5.1"
 regex = "!=2019.12.17"
 requests = "*"
 sacremoses = "*"
@@ -554,8 +554,8 @@ tqdm = ">=4.27"
 [package.extras]
 all = ["tensorflow (>=2.3)", "onnxconverter-common", "keras2onnx", "torch (>=1.0)", "jax (>=0.2.8)", "jaxlib (>=0.1.65)", "flax (>=0.3.4)", "optax (>=0.0.8)", "sentencepiece (==0.1.91)", "protobuf", "tokenizers (>=0.10.1,<0.11)", "soundfile", "torchaudio", "pillow", "optuna", "ray", "timm", "codecarbon (==1.2.0)"]
 codecarbon = ["codecarbon (==1.2.0)"]
-deepspeed = ["deepspeed (>=0.4.0)"]
-dev = ["tensorflow (>=2.3)", "onnxconverter-common", "keras2onnx", "torch (>=1.0)", "jax (>=0.2.8)", "jaxlib (>=0.1.65)", "flax (>=0.3.4)", "optax (>=0.0.8)", "sentencepiece (==0.1.91)", "protobuf", "tokenizers (>=0.10.1,<0.11)", "soundfile", "torchaudio", "pillow", "optuna", "ray", "timm", "codecarbon (==1.2.0)", "pytest", "pytest-xdist", "timeout-decorator", "parameterized", "psutil", "datasets", "pytest-sugar", "black (==21.4b0)", "sacrebleu (>=1.4.12)", "rouge-score", "nltk", "faiss-cpu", "cookiecutter (==1.7.2)", "isort (>=5.5.4)", "flake8 (>=3.8.3)", "fugashi (>=1.0)", "ipadic (>=1.0.0,<2.0)", "unidic-lite (>=1.0.7)", "unidic (>=1.0.2)", "docutils (==0.16.0)", "recommonmark", "sphinx (==3.2.1)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinx-copybutton", "sphinxext-opengraph (==0.4.1)", "scikit-learn"]
+deepspeed = ["deepspeed (>=0.4.3)"]
+dev = ["tensorflow (>=2.3)", "onnxconverter-common", "keras2onnx", "torch (>=1.0)", "jax (>=0.2.8)", "jaxlib (>=0.1.65)", "flax (>=0.3.4)", "optax (>=0.0.8)", "sentencepiece (==0.1.91)", "protobuf", "tokenizers (>=0.10.1,<0.11)", "soundfile", "torchaudio", "pillow", "optuna", "ray", "timm", "codecarbon (==1.2.0)", "pytest", "pytest-xdist", "timeout-decorator", "parameterized", "psutil", "datasets", "pytest-timeout", "black (==21.4b0)", "sacrebleu (>=1.4.12)", "rouge-score", "nltk", "gitpython", "faiss-cpu", "cookiecutter (==1.7.2)", "isort (>=5.5.4)", "flake8 (>=3.8.3)", "fugashi (>=1.0)", "ipadic (>=1.0.0,<2.0)", "unidic-lite (>=1.0.7)", "unidic (>=1.0.2)", "docutils (==0.16.0)", "recommonmark", "sphinx (==3.2.1)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinx-copybutton", "sphinxext-opengraph (==0.4.1)", "scikit-learn"]
 docs = ["tensorflow (>=2.3)", "onnxconverter-common", "keras2onnx", "torch (>=1.0)", "jax (>=0.2.8)", "jaxlib (>=0.1.65)", "flax (>=0.3.4)", "optax (>=0.0.8)", "sentencepiece (==0.1.91)", "protobuf", "tokenizers (>=0.10.1,<0.11)", "soundfile", "torchaudio", "pillow", "optuna", "ray", "timm", "codecarbon (==1.2.0)", "docutils (==0.16.0)", "recommonmark", "sphinx (==3.2.1)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinx-copybutton", "sphinxext-opengraph (==0.4.1)"]
 docs_specific = ["docutils (==0.16.0)", "recommonmark", "sphinx (==3.2.1)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinx-copybutton", "sphinxext-opengraph (==0.4.1)"]
 fairscale = ["fairscale (>0.3)"]
@@ -574,7 +574,7 @@ sentencepiece = ["sentencepiece (==0.1.91)", "protobuf"]
 serving = ["pydantic", "uvicorn", "fastapi", "starlette"]
 sklearn = ["scikit-learn"]
 speech = ["soundfile", "torchaudio"]
-testing = ["pytest", "pytest-xdist", "timeout-decorator", "parameterized", "psutil", "datasets", "pytest-sugar", "black (==21.4b0)", "sacrebleu (>=1.4.12)", "rouge-score", "nltk", "faiss-cpu", "cookiecutter (==1.7.2)"]
+testing = ["pytest", "pytest-xdist", "timeout-decorator", "parameterized", "psutil", "datasets", "pytest-timeout", "black (==21.4b0)", "sacrebleu (>=1.4.12)", "rouge-score", "nltk", "gitpython", "faiss-cpu", "cookiecutter (==1.7.2)"]
 tf = ["tensorflow (>=2.3)", "onnxconverter-common", "keras2onnx"]
 tf-cpu = ["tensorflow-cpu (>=2.3)", "onnxconverter-common", "keras2onnx"]
 timm = ["timm"]
@@ -1101,8 +1101,8 @@ tqdm = [
     {file = "tqdm-4.61.2.tar.gz", hash = "sha256:8bb94db0d4468fea27d004a0f1d1c02da3cdedc00fe491c0de986b76a04d6b0a"},
 ]
 transformers = [
-    {file = "transformers-4.8.2-py3-none-any.whl", hash = "sha256:a81a7683013fb48690c47e4e2d12a6c6e744b4261ae085f9a98d09f6c3e61d98"},
-    {file = "transformers-4.8.2.tar.gz", hash = "sha256:81cd2b53a14012802806f9b20a2819590ccde6740e9165c08a97b82267fdaecb"},
+    {file = "transformers-4.9.0-py3-none-any.whl", hash = "sha256:42d5f5fec3559947ce4f555f727553689ed31aa64173ad70072ed6a11dc8bb9f"},
+    {file = "transformers-4.9.0.tar.gz", hash = "sha256:c62617d174ccad5890f9c41ddaf9e0089d1ce4c64d1d324fd2ea1e2f2185f07a"},
 ]
 typed-ast = [
     {file = "typed_ast-1.4.3-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:2068531575a125b87a41802130fa7e29f26c09a2833fea68d9a40cf33902eba6"},
