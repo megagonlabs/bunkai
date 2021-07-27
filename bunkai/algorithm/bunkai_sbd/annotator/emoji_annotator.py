@@ -54,34 +54,36 @@ class EmojiAnnotator(Annotator):
 
     def __find_emoji(self, text: str) -> typing.List[EmojiText]:
         """:return: spans of emoji index. [[start-index, end-index]]."""
-        __i: int = 0
         emoji_spans = []
         emoji_categories = []
         is_emoji_span: bool = False
         span_emoji_start: int = 0
-        for __i in range(len(text)):
-            __emoji: str = text[__i]
-            if __emoji in EMOJI_UNICODE_ENGLISH:
-                if is_emoji_span and __i + 1 <= len(text) and text[__i + 1] not in EMOJI_UNICODE_ENGLISH:
-                    # 絵文字の範囲終了
-                    is_emoji_span = False
-                    emoji_categories.append(self.get_emoji_info(text[__i]))
-                    emoji_spans.append(EmojiText(span_emoji_start, __i + 1, emoji_categories))
-                    emoji_categories = []
-                elif is_emoji_span is False and __i + 2 <= len(text) and text[__i + 1] not in EMOJI_UNICODE_ENGLISH:
-                    # 絵文字が1文字で終了の場合
-                    emoji_spans.append(EmojiText(__i - 1, __i + 1, [self.get_emoji_info(text[__i])]))
-                elif is_emoji_span is False and __i + 1 == len(text):
-                    # テキストの末尾が絵文字の場合
-                    emoji_spans.append(EmojiText(__i - 1, __i + 1, [self.get_emoji_info(text[__i])]))
-                elif is_emoji_span is False:
-                    # 絵文字範囲のスタート
-                    is_emoji_span = True
-                    span_emoji_start = __i
-                    emoji_categories.append(self.get_emoji_info(text[__i]))
-                elif is_emoji_span is True:
-                    # 絵文字範囲の途中
-                    emoji_categories.append(self.get_emoji_info(text[__i]))
+        for __i, char in enumerate(text):
+            if char not in EMOJI_UNICODE_ENGLISH:
+                continue
+
+            if is_emoji_span \
+                    and __i + 1 <= len(text) \
+                    and text[__i + 1] not in EMOJI_UNICODE_ENGLISH:
+                # 絵文字の範囲終了
+                is_emoji_span = False
+                emoji_categories.append(self.get_emoji_info(text[__i]))
+                emoji_spans.append(EmojiText(span_emoji_start, __i + 1, emoji_categories))
+                emoji_categories = []
+            elif is_emoji_span is False and __i + 2 <= len(text) and text[__i + 1] not in EMOJI_UNICODE_ENGLISH:
+                # 絵文字が1文字で終了の場合
+                emoji_spans.append(EmojiText(__i - 1, __i + 1, [self.get_emoji_info(text[__i])]))
+            elif is_emoji_span is False and __i + 1 == len(text):
+                # テキストの末尾が絵文字の場合
+                emoji_spans.append(EmojiText(__i - 1, __i + 1, [self.get_emoji_info(text[__i])]))
+            elif is_emoji_span is False:
+                # 絵文字範囲のスタート
+                is_emoji_span = True
+                span_emoji_start = __i
+                emoji_categories.append(self.get_emoji_info(text[__i]))
+            elif is_emoji_span is True:
+                # 絵文字範囲の途中
+                emoji_categories.append(self.get_emoji_info(text[__i]))
         return emoji_spans
 
     def annotate(self,
