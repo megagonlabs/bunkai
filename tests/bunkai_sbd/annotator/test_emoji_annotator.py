@@ -17,7 +17,7 @@ class TestMorphAnnotator(TestAnnotatorBase):
             MorphResult('うーん🤔🤔🤔どうしよう', [6]),
             MorphResult('ビール🍺のみたい。️Frankfurtの🍺はKrombacher', []),
             MorphResult('これが文⬆️', [5]),
-            MorphResult('１文目😄２文目😚３文目😙４文目😄😙おわり。', [4, 8, 12, 17])
+            MorphResult('１文目😄２文目😚３文目😙４文目😄😙おわり。', [4, 8, 12, 17]),
         ]
 
     def test_emoji_detector(self):
