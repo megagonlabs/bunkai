@@ -26,41 +26,36 @@ DEFAULT_RULE_TARGET = (LAYER_NAME_FIRST,
 
 @dataclasses.dataclass
 class RuleObject(object):
-    size_n: int
-    rule_target_morpheme: str
     rule_word_surface: List[str]
-    is_valid: bool = True
 
-    def is_rule_valid(self,
-                      sb_candidate_morpheme: str,
-                      current_target_index: int,
-                      index2token_obj: Dict[int, TokenResult]
-                      ):
-        if self.rule_target_morpheme != '*' and self.rule_target_morpheme != sb_candidate_morpheme:
-            return False
-
-        range_check = current_target_index + self.size_n
-        i_rule_morpheme: int = 0
-        for __check in range(current_target_index, range_check):
-            if self.rule_word_surface[i_rule_morpheme] != index2token_obj[__check].word_surface:
+    def match(self,
+              current_target_index: int,
+              index2token_obj: Dict[int, TokenResult]
+              ):
+        for rule_surf in self.rule_word_surface:
+            t = index2token_obj.get(current_target_index)
+            if t is None:
                 return False
-            i_rule_morpheme += 1
+
+            if t.word_surface != rule_surf:
+                return False
+            current_target_index += len(rule_surf)
         return True
 
 
-MORPHEMES_AFTER_CANDIDATE = [
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['て']),
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['の']),
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['と']),
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['って']),
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['という']),
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['に']),
-    RuleObject(size_n=1, rule_target_morpheme='*', rule_word_surface=['など']),
-    RuleObject(size_n=2, rule_target_morpheme='*', rule_word_surface=['くらい', 'の']),
-    RuleObject(size_n=2, rule_target_morpheme='*', rule_word_surface=['くらい', 'です']),
-    RuleObject(size_n=2, rule_target_morpheme='*', rule_word_surface=['くらい', 'でし']),
-    RuleObject(size_n=2, rule_target_morpheme='*', rule_word_surface=['も', 'あり']),
-    RuleObject(size_n=2, rule_target_morpheme='*', rule_word_surface=['ほど', 'でし']),
+MORPHEMES_AFTER_CANDIDATE: List[RuleObject] = [
+    RuleObject(rule_word_surface=['て']),
+    RuleObject(rule_word_surface=['の']),
+    RuleObject(rule_word_surface=['と']),
+    RuleObject(rule_word_surface=['って']),
+    RuleObject(rule_word_surface=['という']),
+    RuleObject(rule_word_surface=['に']),
+    RuleObject(rule_word_surface=['など']),
+    RuleObject(rule_word_surface=['くらい', 'の']),
+    RuleObject(rule_word_surface=['くらい', 'です']),
+    RuleObject(rule_word_surface=['くらい', 'でし']),
+    RuleObject(rule_word_surface=['も', 'あり']),
+    RuleObject(rule_word_surface=['ほど', 'でし']),
 ]
 
 
@@ -94,14 +89,11 @@ class IndirectQuoteExceptionAnnotator(AnnotationFilter):
 
         if __next_end_index not in index2token_obj:
             return False
-        else:
-            if any([rule_object.is_rule_valid(sb_candidate_morpheme=original_text[start_index:end_index],
-                                              current_target_index=__next_end_index,
-                                              index2token_obj=index2token_obj)
-                    for rule_object in MORPHEMES_AFTER_CANDIDATE]):
-                return True
-            else:
-                return False
+        elif any([rule_object.match(current_target_index=__next_end_index,
+                                    index2token_obj=index2token_obj)
+                  for rule_object in MORPHEMES_AFTER_CANDIDATE]):
+            return True
+        return False
 
     def __generate(self, anns: List[SpanAnnotation]) -> Dict[int, TokenResult]:
         index2tokens = {}
