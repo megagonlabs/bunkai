@@ -6,6 +6,7 @@
 [![Downloads](https://pepy.tech/badge/bunkai/week)](https://pepy.tech/project/bunkai)
 
 [![CircleCI](https://circleci.com/gh/megagonlabs/bunkai.svg?style=svg&circle-token=c555b8070630dfe98f0406a3892fc228b2370951)](https://app.circleci.com/pipelines/github/megagonlabs/bunkai)
+[![CodeQL](https://github.com/megagonlabs/bunkai/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/megagonlabs/bunkai/actions/workflows/codeql-analysis.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/640b02fa0164c131da10/maintainability)](https://codeclimate.com/github/megagonlabs/bunkai/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/640b02fa0164c131da10/test_coverage)](https://codeclimate.com/github/megagonlabs/bunkai/test_coverage)
 [![markdownlint](https://img.shields.io/badge/markdown-lint-lightgrey)](https://github.com/markdownlint/markdownlint)
