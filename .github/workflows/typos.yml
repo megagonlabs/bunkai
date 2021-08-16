@@ -1,6 +1,6 @@
 ---
 # yamllint disable rule:line-length
-name: check_typos
+name: Typos
 
 on:  # yamllint disable-line rule:truthy
   push:
