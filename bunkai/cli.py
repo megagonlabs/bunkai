@@ -134,8 +134,8 @@ def main() -> None:
                         '\033[0m')
                     warned = True
 
-            for ot in run(annotator, ol, opts.ma):
-                outf.write(ot)
+            for op in run(annotator, ol, opts.ma):
+                outf.write(op)
 
 
 if __name__ == '__main__':
