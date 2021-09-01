@@ -11,23 +11,23 @@ dev_setup:
 setup:
 	poetry install $(POETRY_OPTION)
 
-TARGET_DIRS:=./bunkai ./tests ./example
+TARGET_DIRS:=./bunkai ./tests ./example \( -type d -name '.venv' -prune \) -or -type f
 
 flake8:
-	find $(TARGET_DIRS) *.py | grep -v third | grep '\.py$$' | xargs flake8
+	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs flake8
 autopep8:
-	find $(TARGET_DIRS) *.py | grep -v third | grep '\.py$$' | xargs autopep8 -d | diff /dev/null -
+	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs autopep8 -d | diff /dev/null -
 mypy:
-	find $(TARGET_DIRS) *.py | grep -v third | grep '\.py$$' | xargs mypy --python-version 3.7 --check-untyped-defs --strict-equality --no-implicit-optional
+	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs mypy --python-version 3.7 --check-untyped-defs --strict-equality --no-implicit-optional
 isort:
-	find $(TARGET_DIRS) *.py | grep -v third | grep '\.py$$' | xargs isort --diff | diff /dev/null -
+	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs isort --diff | diff /dev/null -
 pydocstyle:
-	pydocstyle $(TARGET_DIRS) --ignore=D100,D101,D102,D103,D104,D105,D107,D203,D212
+	find $(TARGET_DIRS) | grep -v tests | xargs pydocstyle --ignore=D100,D101,D102,D103,D104,D105,D107,D203,D212
 
 jsonlint:
-	find .*json $(TARGET_DIRS) -type f | grep -v 'mypy_cache' | grep '\.jsonl$$' | sort |xargs cat | python3 -c 'import sys,json; [json.loads(line) for line in sys.stdin]'
-	find .*json $(TARGET_DIRS) -type f | grep -v 'mypy_cache' | grep '\.json$$' | sort |xargs -n 1 -t python3 -m json.tool > /dev/null
-	find .*json $(TARGET_DIRS) -type f | grep -v 'mypy_cache' | grep '\.json$$' | sort |xargs -n 1 -t jsonlint
+	find .*json $(TARGET_DIRS) | grep -v 'mypy_cache' | grep '\.jsonl$$' | sort |xargs cat | python3 -c 'import sys,json; [json.loads(line) for line in sys.stdin]'
+	find .*json $(TARGET_DIRS) | grep -v 'mypy_cache' | grep '\.json$$' | sort |xargs -n 1 -t python3 -m json.tool > /dev/null
+	find .*json $(TARGET_DIRS) | grep -v 'mypy_cache' | grep '\.json$$' | sort |xargs -n 1 -t jsonlint
 	python3 -c "import sys,json;print(json.dumps(json.loads(sys.stdin.read()),indent=4,ensure_ascii=False,sort_keys=True))" < .markdownlint.json | diff -q - .markdownlint.json
 
 yamllint:
