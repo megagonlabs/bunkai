@@ -62,7 +62,7 @@ toml = ["toml"]
 
 [[package]]
 name = "dataclasses-json"
-version = "0.5.5"
+version = "0.5.6"
 description = "Easily serialize dataclasses to and from JSON"
 category = "main"
 optional = false
@@ -736,8 +736,8 @@ coverage = [
     {file = "coverage-5.5.tar.gz", hash = "sha256:ebe78fe9a0e874362175b02371bdfbee64d8edc42a044253ddf4ee7d3c15212c"},
 ]
 dataclasses-json = [
-    {file = "dataclasses-json-0.5.5.tar.gz", hash = "sha256:381c184e047b738397d8c8fa2f3989a96307149040891ba1b99cd63901c8134c"},
-    {file = "dataclasses_json-0.5.5-py3-none-any.whl", hash = "sha256:68e0851451962fa9019958b99af316a0469c371ecfe45c937a4e2f4c43c0ff63"},
+    {file = "dataclasses-json-0.5.6.tar.gz", hash = "sha256:1f60be3405dee30b86ffbf6a436db8ba5efaeeb676bfda358e516a97aa7dfce4"},
+    {file = "dataclasses_json-0.5.6-py3-none-any.whl", hash = "sha256:1d7f3a284a49d350ddbabde0e7d0c5ffa34a144aaf1bcb5b9f2c87673ff0c76e"},
 ]
 demjson = [
     {file = "demjson-2.2.4.tar.gz", hash = "sha256:31de2038a0fdd9c4c11f8bf3b13fe77bc2a128307f965c8d5fb4dc6d6f6beb79"},
