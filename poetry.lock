@@ -251,7 +251,7 @@ test = ["pytest (<5.4)", "pytest-cov"]
 
 [[package]]
 name = "more-itertools"
-version = "8.9.0"
+version = "8.10.0"
 description = "More routines for operating on iterables, beyond itertools"
 category = "main"
 optional = false
@@ -798,8 +798,8 @@ mock = [
     {file = "mock-4.0.3.tar.gz", hash = "sha256:7d3fbbde18228f4ff2f1f119a45cdffa458b4c0dee32eb4d2bb2f82554bac7bc"},
 ]
 more-itertools = [
-    {file = "more-itertools-8.9.0.tar.gz", hash = "sha256:8c746e0d09871661520da4f1241ba6b908dc903839733c8203b552cffaf173bd"},
-    {file = "more_itertools-8.9.0-py3-none-any.whl", hash = "sha256:70401259e46e216056367a0a6034ee3d3f95e0bf59d3aa6a4eb77837171ed996"},
+    {file = "more-itertools-8.10.0.tar.gz", hash = "sha256:1debcabeb1df793814859d64a81ad7cb10504c24349368ccf214c664c474f41f"},
+    {file = "more_itertools-8.10.0-py3-none-any.whl", hash = "sha256:56ddac45541718ba332db05f464bebfb0768110111affd27f66e0051f276fa43"},
 ]
 mypy = [
     {file = "mypy-0.910-cp35-cp35m-macosx_10_9_x86_64.whl", hash = "sha256:a155d80ea6cee511a3694b108c4494a39f42de11ee4e61e72bc424c490e46457"},
