@@ -1,0 +1,14 @@
+{
+    "author": "",
+    "dependencies": {
+        "pyright": "^1.1.172"
+    },
+    "description": "",
+    "license": "",
+    "main": "",
+    "name": "pyright-exec",
+    "scripts": {
+        "pyright": "pyright"
+    },
+    "version": "1.0.0"
+}
