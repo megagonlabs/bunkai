@@ -9,6 +9,7 @@ import numpy
 import torch
 
 import bunkai
+import bunkai.algorithm.lbd.predict
 from bunkai.algorithm.bunkai_sbd.annotator import MorphAnnotatorJanome
 from bunkai.base.annotation import Annotations, SpanAnnotation
 from bunkai.constant import METACHAR_LINE_BREAK

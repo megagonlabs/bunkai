@@ -1,0 +1,10 @@
+{
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        ".git",
+        ".venv",
+        "bunkai/third"
+    ],
+    "reportPrivateImportUsage": "information"
+}

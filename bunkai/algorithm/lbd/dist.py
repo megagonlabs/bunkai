@@ -93,7 +93,7 @@ def update(path_in: Path, base_model: str, path_out: Path):
 
         orgv = np.concatenate((orgv, z), axis=0)
         orgv += vals
-        orgv2 = torch.nn.Parameter(to_tensor(orgv))
+        orgv2 = torch.nn.Parameter(to_tensor(orgv))  # type: ignore
         osd[target] = orgv2
 
     new_model = BertForTokenClassification(config=AutoConfig.from_pretrained(path_in))
