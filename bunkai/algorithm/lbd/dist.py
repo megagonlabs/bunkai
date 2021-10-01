@@ -97,8 +97,8 @@ def update(path_in: Path, base_model: str, path_out: Path):
         osd[target] = orgv2
 
     new_model = BertForTokenClassification(config=AutoConfig.from_pretrained(path_in))
-    new_model.load_state_dict(osd)
-    new_model.save_pretrained(path_out)
+    new_model.load_state_dict(osd)  # type: ignore
+    new_model.save_pretrained(path_out)  # type: ignore
 
 
 def check_version(path_in: Path) -> bool:
@@ -118,7 +118,7 @@ def restore(path_in: Path, path_out: Path) -> None:
         base_model: Optional[str] = json.load(inf).get('base_model')
 
     vocab_url: str = f"https://s3.amazonaws.com/models.huggingface.co/bert/{base_model}/vocab.txt"
-    shutil.copy2(cached_path(vocab_url), path_out.joinpath('vocab.txt'))
+    shutil.copy2(cached_path(vocab_url), path_out.joinpath('vocab.txt'))  # type: ignore
 
     if base_model is not None:
         update(path_in, base_model, path_out)
