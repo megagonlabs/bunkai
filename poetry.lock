@@ -533,7 +533,7 @@ telegram = ["requests"]
 
 [[package]]
 name = "transformers"
-version = "4.11.2"
+version = "4.11.3"
 description = "State-of-the-art Natural Language Processing for TensorFlow 2.0 and PyTorch"
 category = "main"
 optional = false
@@ -1049,8 +1049,8 @@ tqdm = [
     {file = "tqdm-4.62.3.tar.gz", hash = "sha256:d359de7217506c9851b7869f3708d8ee53ed70a1b8edbba4dbcb47442592920d"},
 ]
 transformers = [
-    {file = "transformers-4.11.2-py3-none-any.whl", hash = "sha256:7d0e95da2d277a8f54583eec8d341642b32ceb5619cd35cafa261afb850d8466"},
-    {file = "transformers-4.11.2.tar.gz", hash = "sha256:187d22ad65bb2b0e881ad93bf55793c5ce2859a520727f96a55da096ed99efb9"},
+    {file = "transformers-4.11.3-py3-none-any.whl", hash = "sha256:9750b4e520b4a38a904834bce50d900208c650855e6f671e7718d0edba89f084"},
+    {file = "transformers-4.11.3.tar.gz", hash = "sha256:755b052df58906f122f7166c573c22531416eab8a9f59c44ff7148be12e62621"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
