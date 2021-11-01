@@ -8,8 +8,14 @@ POETRY_NO_ROOT:= --no-root
 dev_setup:
 	poetry install $(POETRY_NO_ROOT) $(POETRY_OPTION)
 
-setup:
+setup: setup_python setup_npm
+
+setup_python:
 	poetry install $(POETRY_OPTION)
+
+setup_npm:
+	npm install
+
 
 TARGET_DIRS:=./bunkai ./tests ./example \( -type d -name '.venv' -prune \) -or -type f
 
@@ -83,9 +89,6 @@ test-cc: test
 	 ~/.local/bin-cc/cc-test-reporter after-build\
 	 --coverage-input-type coverage.py\
 	 --exit-code $$?
-
-setup_node_module:
-	npm install markdownlint-cli
 
 lint_markdown:
 	find . -type d -o -type f -name '*.md' -print \
