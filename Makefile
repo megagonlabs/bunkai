@@ -7,7 +7,7 @@ include mks/vanilla.mk
 
 
 .PHONY: all setup \
-	flake8 autopep8 mypy isort jsonlint yamllint\
+	flake8 black pyright isort jsonlint yamllint\
 	terms_check_path term_check_method term_check_file_content\
 	check_firstline \
 	lint \
