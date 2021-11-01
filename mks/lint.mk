@@ -18,7 +18,7 @@ flake8:
 black:
 	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs black --diff | diff /dev/null -
 pyright:
-	pyright
+	npx pyright
 isort:
 	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs isort --diff | diff /dev/null -
 pydocstyle:
@@ -31,7 +31,7 @@ jsonlint:
 	python3 -c "import sys,json;print(json.dumps(json.loads(sys.stdin.read()),indent=4,ensure_ascii=False,sort_keys=True))" < .markdownlint.json | diff -q - .markdownlint.json
 
 yamllint:
-	find . -name '*.yml' -type f | xargs yamllint --no-warnings
+	find . -name '*.yml' -type f | grep -v node_modules | xargs yamllint --no-warnings
 
 terms_check_path:
 	# check some words are not included in file name
