@@ -4,7 +4,7 @@
         "**/__pycache__",
         ".git",
         ".venv",
-        "bunkai/third"
+        "**/third"
     ],
     "reportPrivateImportUsage": "information"
 }
