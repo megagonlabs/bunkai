@@ -11,11 +11,11 @@ def operation(path_toml: Path, path_py: Path) -> None:
         pyproject = toml.load(inf)
         pyproject_version = pyproject["tool"]["poetry"]["version"]
 
-    bunkai_version: str = ''
+    bunkai_version: str = ""
     with path_py.open() as inf:
         for line in inf:
-            if line.startswith('__version_info__ ='):
-                bunkai_version = '.'.join([d.strip() for d in line.strip().split('(')[-1][:-1].split(',')])
+            if line.startswith("__version_info__ ="):
+                bunkai_version = ".".join([d.strip() for d in line.strip().split("(")[-1][:-1].split(",")])
                 break
 
     if pyproject_version != bunkai_version:
@@ -34,5 +34,5 @@ def main() -> None:
     operation(opts.toml, opts.py)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -17,25 +17,21 @@ class TestTrim(unittest.TestCase):
         SB = METACHAR_SENTENCE_BOUNDARY
         LB = METACHAR_LINE_BREAK
         test_cases = [
-            TestInstance(f'yy {SB}zz', f'yy {SB}zz'),
-            TestInstance(f'yy {LB}{SB}zz', f'yy {LB}{SB}zz'),
-            TestInstance(f'yy {LB}{SB} zz', f'yy {LB} {SB}zz'),
-            TestInstance(f'yy {LB} {SB} zz', f'yy {LB}  {SB}zz'),
-
-            TestInstance(f'yy{SB} zz', f'yy {SB}zz'),
-            TestInstance(f'yy{SB}  zz', f'yy  {SB}zz'),
-
-            TestInstance('yy zz', 'yy zz'),
-            TestInstance('yy  zz', 'yy  zz'),
-
-            TestInstance(f'yy {LB}zz', f'yy {LB}zz'),
-            TestInstance(f'yy {LB} zz', f'yy {LB} zz'),
-
-            TestInstance(f'y{SB}{LB}{SB}zz', f'y{LB}{SB}zz'),
+            TestInstance(f"yy {SB}zz", f"yy {SB}zz"),
+            TestInstance(f"yy {LB}{SB}zz", f"yy {LB}{SB}zz"),
+            TestInstance(f"yy {LB}{SB} zz", f"yy {LB} {SB}zz"),
+            TestInstance(f"yy {LB} {SB} zz", f"yy {LB}  {SB}zz"),
+            TestInstance(f"yy{SB} zz", f"yy {SB}zz"),
+            TestInstance(f"yy{SB}  zz", f"yy  {SB}zz"),
+            TestInstance("yy zz", "yy zz"),
+            TestInstance("yy  zz", "yy  zz"),
+            TestInstance(f"yy {LB}zz", f"yy {LB}zz"),
+            TestInstance(f"yy {LB} zz", f"yy {LB} zz"),
+            TestInstance(f"y{SB}{LB}{SB}zz", f"y{LB}{SB}zz"),
         ]
         for tc in test_cases:
             self.assertEqual(trim(tc.input), tc.output)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

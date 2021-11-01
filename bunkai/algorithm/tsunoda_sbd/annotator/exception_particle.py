@@ -2,8 +2,7 @@
 from typing import Dict, List, Type
 
 from bunkai.algorithm.tsunoda_sbd.annotator.basic_annotator import BasicRule
-from bunkai.algorithm.tsunoda_sbd.annotator.morph_annotator_janome import \
-    MorphAnnotatorJanome
+from bunkai.algorithm.tsunoda_sbd.annotator.morph_annotator_janome import MorphAnnotatorJanome
 from bunkai.base.annotation import Annotations, SpanAnnotation, TokenResult
 from bunkai.base.annotator import Annotator
 
@@ -14,8 +13,12 @@ class ExceptionParticle(Annotator):
         self.morph_annotator_class = morph_annotator_class
 
     @staticmethod
-    def is_exception_particle(original_text: str, start_index: int, end_index: int,
-                              index2token_obj: Dict[int, TokenResult]) -> bool:
+    def is_exception_particle(
+        original_text: str,
+        start_index: int,
+        end_index: int,
+        index2token_obj: Dict[int, TokenResult],
+    ) -> bool:
         """
         形態素解析の結果、基本分割文字列の後ろが助詞だった場合は 分割を行わない.
 
@@ -26,7 +29,7 @@ class ExceptionParticle(Annotator):
             return False
         else:
             token_obj = index2token_obj[__next_end_index]
-            if token_obj.tuple_pos[0] == '助詞':
+            if token_obj.tuple_pos[0] == "助詞":
                 return True
             else:
                 return False
@@ -34,11 +37,10 @@ class ExceptionParticle(Annotator):
     def __generate(self, anns: List[SpanAnnotation]) -> Dict[int, TokenResult]:
         index2tokens = {}
         __start_index = 0
-        __tokenizer_anns = [
-            ann for ann in anns if ann.rule_name == self.morph_annotator_class.__name__]
+        __tokenizer_anns = [ann for ann in anns if ann.rule_name == self.morph_annotator_class.__name__]
         __processed = []
         for ann in __tokenizer_anns:
-            t_obj = ann.args['token']  # type: ignore
+            t_obj = ann.args["token"]  # type: ignore
             if t_obj in __processed:
                 continue
             __length = len(t_obj.word_surface)
@@ -49,18 +51,21 @@ class ExceptionParticle(Annotator):
         else:
             return index2tokens
 
-    def annotate(self, original_text: str,
-                 spans: Annotations,
-                 ) -> Annotations:
-        index2token_obj = self.__generate(
-            list(spans.get_annotation_layer(self.morph_annotator_class.__name__)))
+    def annotate(
+        self,
+        original_text: str,
+        spans: Annotations,
+    ) -> Annotations:
+        index2token_obj = self.__generate(list(spans.get_annotation_layer(self.morph_annotator_class.__name__)))
 
         __return_span_ann = []
         for __s in spans.name2spans[BasicRule.__name__]:
-            if self.is_exception_particle(original_text,
-                                          __s.start_index,
-                                          __s.end_index,
-                                          index2token_obj=index2token_obj):
+            if self.is_exception_particle(
+                original_text,
+                __s.start_index,
+                __s.end_index,
+                index2token_obj=index2token_obj,
+            ):
                 continue
             else:
                 __s.rule_name = self.rule_name

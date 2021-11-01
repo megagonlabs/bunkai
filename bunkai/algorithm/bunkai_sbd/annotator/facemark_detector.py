@@ -23,13 +23,13 @@ class FaceMarkDetector(Annotator):
                 rule_name=FaceMarkDetector.__name__,
                 start_index=match_obj.regs[0][0],
                 end_index=match_obj.regs[0][1],
-                split_string_type='facemark',
-                split_string_value=text[match_obj.regs[0][0]: match_obj.regs[0][1]])
+                split_string_type="facemark",
+                split_string_value=text[match_obj.regs[0][0] : match_obj.regs[0][1]],
+            )
             __spans.append(ann)
         return __spans
 
-    def annotate(self, original_text: str,
-                 spans: Annotations) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
         span_ann = self.__find_facemark(original_text)
         spans = self.add_forward_rule(span_ann, spans)
         return spans

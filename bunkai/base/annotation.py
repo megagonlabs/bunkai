@@ -8,14 +8,16 @@ from dataclasses_json import DataClassJsonMixin
 
 
 class TokenResult:
-    def __init__(self,
-                 node_obj: Any,
-                 tuple_pos: Tuple[str, ...],
-                 word_stem: str,
-                 word_surface: str,
-                 is_feature=True,
-                 is_surface=False,
-                 misc_info=None):
+    def __init__(
+        self,
+        node_obj: Any,
+        tuple_pos: Tuple[str, ...],
+        word_stem: str,
+        word_surface: str,
+        is_feature=True,
+        is_surface=False,
+        misc_info=None,
+    ):
         self.node_obj = node_obj
         self.word_stem = word_stem
         self.word_surface = word_surface
@@ -38,7 +40,7 @@ class SpanAnnotation:
     args: Optional[Dict[str, Any]] = None
 
     def __str__(self):
-        return f'{self.start_index}-{self.end_index}/{self.rule_name}/{self.split_string_value}'
+        return f"{self.start_index}-{self.end_index}/{self.rule_name}/{self.split_string_value}"
 
     def __int__(self) -> int:
         return self.end_index
@@ -67,9 +69,13 @@ class Annotations:
         self.current_order += 1
 
     def add_flatten_annotations(self, annotations: List[SpanAnnotation]):
-        self.name2spans = {str(r): list(g_obj) for r, g_obj
-                           in itertools.groupby(sorted(annotations, key=lambda a: a.rule_name),  # type: ignore
-                                                key=lambda a: a.rule_name)}
+        self.name2spans = {
+            str(r): list(g_obj)
+            for r, g_obj in itertools.groupby(
+                sorted(annotations, key=lambda a: a.rule_name),  # type: ignore
+                key=lambda a: a.rule_name,
+            )
+        }
 
     def flatten(self) -> Iterator[SpanAnnotation]:
         return itertools.chain.from_iterable(self.name2spans.values())
@@ -81,19 +87,19 @@ class Annotations:
             return self.name2spans[self.annotator_forward]
 
     def get_annotation_layer(self, layer_name: str) -> Iterator[SpanAnnotation]:
-        assert layer_name in list(self.name2spans.keys()), f'{layer_name} not in analysis layers.'
+        assert layer_name in list(self.name2spans.keys()), f"{layer_name} not in analysis layers."
         span_anns = {str(ann): ann for ann in itertools.chain.from_iterable(self.name2spans.values())}
         for ann in span_anns.values():
             if ann.rule_name is not None and ann.rule_name == layer_name:
                 yield ann
         return
 
-    def get_morph_analysis(self, name_annotation_layer: str = 'MorphAnnotatorJanome') -> Iterator[TokenResult]:
+    def get_morph_analysis(self, name_annotation_layer: str = "MorphAnnotatorJanome") -> Iterator[TokenResult]:
         """Get Tokens analysis from Janome."""
-        assert name_annotation_layer in self.name2spans, f'{name_annotation_layer} not in annotation layer.'
+        assert name_annotation_layer in self.name2spans, f"{name_annotation_layer} not in annotation layer."
         for span_ann in self.name2spans[name_annotation_layer]:
             if span_ann.rule_name == name_annotation_layer:
-                ret = span_ann.args['token']  # type: ignore
+                ret = span_ann.args["token"]  # type: ignore
                 assert isinstance(ret, TokenResult)
                 yield ret
         return
@@ -116,4 +122,4 @@ class Tokens(DataClassJsonMixin):
             olabel = label2surface.get(label)
             if olabel:
                 rets.append(olabel)
-        return ''.join(rets)
+        return "".join(rets)

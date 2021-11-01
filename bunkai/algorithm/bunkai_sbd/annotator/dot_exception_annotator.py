@@ -4,12 +4,11 @@ import re
 from bunkai.base.annotation import Annotations
 from bunkai.base.annotator import AnnotationFilter
 
-NumericExpression = re.compile(r'[〇一二三四五六七八九十百千万億兆京\d]+')
-MailaddressCharacter = re.compile(r'[a-zA-Z0-9]')
+NumericExpression = re.compile(r"[〇一二三四五六七八九十百千万億兆京\d]+")
+MailaddressCharacter = re.compile(r"[a-zA-Z0-9]")
 
 
 class DotExceptionAnnotator(AnnotationFilter):
-
     def __init__(self):
         super().__init__(rule_name=self.__class__.__name__)
 
@@ -24,7 +23,7 @@ class DotExceptionAnnotator(AnnotationFilter):
             return False
         if index + 1 >= len(original_text):
             return False
-        if original_text[index] != '．' and original_text[index] != '.':
+        if original_text[index] != "．" and original_text[index] != ".":
             return False
         if not NumericExpression.match(original_text[index - 1]):
             return False
@@ -38,7 +37,7 @@ class DotExceptionAnnotator(AnnotationFilter):
             return False
         if index + 1 >= len(original_text):
             return False
-        if original_text[index] != '．' and original_text[index] != '.':
+        if original_text[index] != "．" and original_text[index] != ".":
             return False
         if not MailaddressCharacter.match(original_text[index - 1]):
             return False
@@ -46,8 +45,7 @@ class DotExceptionAnnotator(AnnotationFilter):
             return False
         return True
 
-    def annotate(self, original_text: str,
-                 spans: Annotations) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
         __return_span_ann = []
         for __s in spans.get_final_layer():
             if self.is_exception_numeric(original_text, __s.start_index):

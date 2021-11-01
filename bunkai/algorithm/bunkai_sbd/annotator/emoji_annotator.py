@@ -8,13 +8,13 @@ import emojis
 from bunkai.base.annotation import Annotations, SpanAnnotation
 from bunkai.base.annotator import Annotator
 
-EMOJI_UNICODE_ENGLISH = emoji.UNICODE_EMOJI['en']  # type: ignore
+EMOJI_UNICODE_ENGLISH = emoji.UNICODE_EMOJI["en"]  # type: ignore
 
 
 """This module detects Emoji"""
 
 # You could set any emoji-category that functions as an end-of-sentence
-DEFAULT_TARGET_EMOJI_CATEGORY = ('Smileys & Emotion', 'Symbols')
+DEFAULT_TARGET_EMOJI_CATEGORY = ("Smileys & Emotion", "Symbols")
 
 
 @dataclasses.dataclass
@@ -35,7 +35,10 @@ class EmojiText(object):
 
 
 class EmojiAnnotator(Annotator):
-    def __init__(self, default_target_emoji_category: typing.Tuple[str, ...] = DEFAULT_TARGET_EMOJI_CATEGORY):
+    def __init__(
+        self,
+        default_target_emoji_category: typing.Tuple[str, ...] = DEFAULT_TARGET_EMOJI_CATEGORY,
+    ):
         super().__init__(rule_name=self.__class__.__name__)
         self.default_target_emoji_category = default_target_emoji_category
 
@@ -45,7 +48,7 @@ class EmojiAnnotator(Annotator):
         info = emojis.db.get_emoji_by_code(emoji_character)
         try:
             if info is None:
-                info = emojis.db.get_emoji_by_code(f'{emoji_character}\ufe0f')
+                info = emojis.db.get_emoji_by_code(f"{emoji_character}\ufe0f")
                 return info.category
             else:
                 return info.category
@@ -67,27 +70,27 @@ class EmojiAnnotator(Annotator):
                 is_emoji_span = True
                 span_emoji_start = __i
 
-            if __i + 1 == len(text)\
-                    or text[__i + 1] not in EMOJI_UNICODE_ENGLISH:
+            if __i + 1 == len(text) or text[__i + 1] not in EMOJI_UNICODE_ENGLISH:
                 emoji_spans.append(EmojiText(span_emoji_start, __i + 1, emoji_categories))
                 is_emoji_span = False
                 emoji_categories = []
         return emoji_spans
 
-    def annotate(self,
-                 original_text: str,
-                 spans: Annotations,
-                 emoji_threshold: int = 1) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations, emoji_threshold: int = 1) -> Annotations:
         __emoji_spans = self.__find_emoji(original_text)
         target_emoji = [e_span for e_span in __emoji_spans if e_span.get_span() >= emoji_threshold]
         target_emoji = [e for e in target_emoji if e.check_emoji_category(self.default_target_emoji_category)]
 
-        __return = [SpanAnnotation(rule_name=self.rule_name,
-                                   start_index=emoji.start_index,
-                                   end_index=emoji.end_index,
-                                   split_string_type=EmojiAnnotator.__name__,
-                                   split_string_value=original_text[emoji.start_index:emoji.end_index],
-                                   args={'emoji': emoji})
-                    for emoji in target_emoji]
+        __return = [
+            SpanAnnotation(
+                rule_name=self.rule_name,
+                start_index=emoji.start_index,
+                end_index=emoji.end_index,
+                split_string_type=EmojiAnnotator.__name__,
+                split_string_value=original_text[emoji.start_index : emoji.end_index],
+                args={"emoji": emoji},
+            )
+            for emoji in target_emoji
+        ]
         spans = self.add_forward_rule(__return, spans)
         return spans

@@ -17,20 +17,24 @@ class MorphAnnotatorJanome(Annotator):
         span_ann = []
         __start_index = 0
         for t_obj in tokenizer_result:
-            __pos = t_obj.part_of_speech.split(',')
+            __pos = t_obj.part_of_speech.split(",")
             __length = len(t_obj.surface)
             token = TokenResult(
                 node_obj=t_obj,
                 tuple_pos=__pos,
                 word_stem=t_obj.base_form,
-                word_surface=t_obj.surface)
-            span_ann.append(SpanAnnotation(
-                rule_name=self.rule_name,
-                start_index=__start_index,
-                end_index=__start_index + __length,
-                split_string_type='janome',
-                split_string_value='token',
-                args={'token': token}))
+                word_surface=t_obj.surface,
+            )
+            span_ann.append(
+                SpanAnnotation(
+                    rule_name=self.rule_name,
+                    start_index=__start_index,
+                    end_index=__start_index + __length,
+                    split_string_type="janome",
+                    split_string_value="token",
+                    args={"token": token},
+                )
+            )
             __start_index += __length
         else:
             return span_ann

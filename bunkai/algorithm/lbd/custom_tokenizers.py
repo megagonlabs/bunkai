@@ -8,9 +8,7 @@ import unicodedata
 
 from janome.tokenizer import Tokenizer
 from transformers.file_utils import cached_path
-from transformers.models.bert.tokenization_bert import (BertTokenizer,
-                                                        WordpieceTokenizer,
-                                                        load_vocab)
+from transformers.models.bert.tokenization_bert import BertTokenizer, WordpieceTokenizer, load_vocab
 
 import bunkai.constant
 
@@ -64,7 +62,7 @@ class JanomeTokenizer(object):
             token = t.surface
             token_start = text.index(token, last_index)
             if last_index != token_start:
-                __tokens.append(text[last_index: token_start])
+                __tokens.append(text[last_index:token_start])
 
             if self.do_lower_case and token not in never_split:
                 token = token.lower()
@@ -76,7 +74,7 @@ class JanomeTokenizer(object):
         if len(text) != last_index:
             __tokens.append(text[last_index:])
 
-        assert text == ''.join(__tokens), f"[{text}] != [{''.join(__tokens)}]"
+        assert text == "".join(__tokens), f"[{text}] != [{''.join(__tokens)}]"
         return __tokens
 
 
@@ -115,18 +113,18 @@ class CharacterTokenizer(object):
 
 class JanomeSubwordsTokenizer(BertTokenizer):
     def __init__(
-            self,
-            vocab_file,
-            *,
-            subword_tokenizer_type="wordpiece",
-            do_subword_tokenize: bool = True,
-            never_split=None,
-            unk_token="[UNK]",
-            sep_token="[SEP]",
-            pad_token="[PAD]",
-            cls_token="[CLS]",
-            mask_token="[MASK]",
-            **kwargs
+        self,
+        vocab_file,
+        *,
+        subword_tokenizer_type="wordpiece",
+        do_subword_tokenize: bool = True,
+        never_split=None,
+        unk_token="[UNK]",
+        sep_token="[SEP]",
+        pad_token="[PAD]",
+        cls_token="[CLS]",
+        mask_token="[MASK]",
+        **kwargs,
     ):
         """
         Construct a JanomeSubwordsTokenizer.
@@ -137,7 +135,8 @@ class JanomeSubwordsTokenizer(BertTokenizer):
         Only has an effect when do_basic_tokenize=True.
         :arg do_word_tokenize: (`optional`) boolean (default True) Whether to do word tokenization.
         :arg do_subword_tokenize: (`optional`) boolean (default True) Whether to do subword tokenization.
-        :arg word_tokenizer_type: (`optional`) string (default "basic") Type of word tokenizer. basic / janome / pre_tokenize
+        :arg word_tokenizer_type: (`optional`) string (default "basic")
+                Type of word tokenizer. basic / janome / pre_tokenize
         :arg subword_tokenizer_type: (`optional`) string (default "wordpiece") Type of subword tokenizer.
         :arg cls_token: No description.
         """
@@ -162,7 +161,7 @@ class JanomeSubwordsTokenizer(BertTokenizer):
             )
 
         # add new vocab
-        self.add_tokens([' ', bunkai.constant.METACHAR_LINE_BREAK])
+        self.add_tokens([" ", bunkai.constant.METACHAR_LINE_BREAK])
 
         self.ids_to_tokens = collections.OrderedDict([(ids, tok) for tok, ids in self.vocab.items()])
 
@@ -184,7 +183,7 @@ class JanomeSubwordsTokenizer(BertTokenizer):
         elif isinstance(text, list) and all([isinstance(t, str) for t in text]):
             morphemes = text
         else:
-            raise Exception(f'Invalid input-type {text}')
+            raise Exception(f"Invalid input-type {text}")
 
         if self.do_subword_tokenize:
             split_tokens = []

@@ -4,7 +4,7 @@ import re
 from bunkai.base.annotation import Annotations, SpanAnnotation
 from bunkai.base.annotator import Annotator
 
-RE_LBS = re.compile(r'[\n\s]*\n[\n\s]*')
+RE_LBS = re.compile(r"[\n\s]*\n[\n\s]*")
 
 
 class LinebreakForceAnnotator(Annotator):
@@ -20,13 +20,15 @@ class LinebreakForceAnnotator(Annotator):
         __return_span_ann = []
 
         def _add(ro):
-            __return_span_ann.append(SpanAnnotation(
-                rule_name=self.rule_name,
-                start_index=s,
-                end_index=ro[1],
-                split_string_type='linebreak',
-                split_string_value=original_text[ro[0]:ro[1]]
-            ))
+            __return_span_ann.append(
+                SpanAnnotation(
+                    rule_name=self.rule_name,
+                    start_index=s,
+                    end_index=ro[1],
+                    split_string_type="linebreak",
+                    split_string_value=original_text[ro[0] : ro[1]],
+                )
+            )
 
         for __s in spans.get_final_layer():
             ro = s2regs.get(__s.end_index)

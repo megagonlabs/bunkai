@@ -7,8 +7,9 @@ from typing import Callable, Iterator, List, Optional
 from bunkai.base.annotation import Annotations, SpanAnnotation
 
 
-def func_filter_span(spans_wide: typing.List[SpanAnnotation],
-                     spans_narrow: typing.List[SpanAnnotation]) -> typing.List[SpanAnnotation]:
+def func_filter_span(
+    spans_wide: typing.List[SpanAnnotation], spans_narrow: typing.List[SpanAnnotation]
+) -> typing.List[SpanAnnotation]:
     """Compare spans_wide and spans_narrow. If there is an overlap, use wider one."""
     __filtered = []
     for b_ann in spans_narrow:
@@ -24,8 +25,10 @@ def func_filter_span(spans_wide: typing.List[SpanAnnotation],
     return __filtered
 
 
-def func_filter_previous_rule_same_span(spans_current: typing.List[SpanAnnotation],
-                                        spans_previous: typing.List[SpanAnnotation]) -> typing.List[SpanAnnotation]:
+def func_filter_previous_rule_same_span(
+    spans_current: typing.List[SpanAnnotation],
+    spans_previous: typing.List[SpanAnnotation],
+) -> typing.List[SpanAnnotation]:
     """If there are conflicting results, use the result of the previous rules."""
     spans_current_map = {(sp.start_index, sp.end_index): sp for sp in spans_current}
     spans_previous_map = {(sp.start_index, sp.end_index): sp for sp in spans_previous}
@@ -47,23 +50,26 @@ class Annotator(metaclass=ABCMeta):
     def __init__(self, rule_name: str):
         self.rule_name = rule_name
 
-    def add_forward_rule(self,
-                         annotation_this_layer: List[SpanAnnotation],
-                         spans: Annotations,
-                         func_filtering: Callable = func_filter_previous_rule_same_span) -> Annotations:
+    def add_forward_rule(
+        self,
+        annotation_this_layer: List[SpanAnnotation],
+        spans: Annotations,
+        func_filtering: Callable = func_filter_previous_rule_same_span,
+    ) -> Annotations:
         filtered = func_filtering(annotation_this_layer, spans.get_final_layer())
         spans.add_annotation_layer(self.rule_name, filtered)
         return spans
 
     @abstractmethod
-    def annotate(self, original_text: str,
-                 spans: Annotations) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
         raise NotImplementedError()
 
 
 class AnnotationFilter(Annotator):
     @staticmethod
-    def unify_span_annotations(span_annotations: List[SpanAnnotation]) -> List[SpanAnnotation]:
+    def unify_span_annotations(
+        span_annotations: List[SpanAnnotation],
+    ) -> List[SpanAnnotation]:
         span_anns = {str(ann): ann for ann in span_annotations}
         return list(span_anns.values())
 

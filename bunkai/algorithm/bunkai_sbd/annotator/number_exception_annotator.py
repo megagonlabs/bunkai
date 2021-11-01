@@ -19,16 +19,18 @@ class NumberExceptionAnnotator(AnnotationFilter):
 
         例: おすすめ度No.1 / ROOM No.411.
         """
-        if original_text[start_index:end_index] != '.' and original_text[start_index:end_index] != '．':
+        if original_text[start_index:end_index] != "." and original_text[start_index:end_index] != "．":
             return False
 
-        if RE_NUMBER_WORD.match(original_text[start_index - 2:start_index]) and \
-                end_index < len(original_text) and re.match(r'\d', original_text[end_index]):
+        if (
+            RE_NUMBER_WORD.match(original_text[start_index - 2 : start_index])
+            and end_index < len(original_text)
+            and re.match(r"\d", original_text[end_index])
+        ):
             return True
         return False
 
-    def annotate(self, original_text: str,
-                 spans: Annotations) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
         __return_span_ann = []
         for __s in spans.get_final_layer():
             if self.is_exception_no(original_text, __s.start_index, __s.end_index):

@@ -11,13 +11,15 @@ from bunkai.algorithm.lbd.custom_tokenizers import JanomeTokenizer
 from bunkai.base.annotation import Tokens
 from bunkai.constant import METACHAR_LINE_BREAK, METACHAR_SENTENCE_BOUNDARY
 
-REGEXP_LB_SPAN: str = f'[\\s{METACHAR_SENTENCE_BOUNDARY}{METACHAR_LINE_BREAK}]*' + \
-    f'{METACHAR_LINE_BREAK}[\\s{METACHAR_LINE_BREAK}{METACHAR_SENTENCE_BOUNDARY}]*'
+REGEXP_LB_SPAN: str = (
+    f"[\\s{METACHAR_SENTENCE_BOUNDARY}{METACHAR_LINE_BREAK}]*"
+    + f"{METACHAR_LINE_BREAK}[\\s{METACHAR_LINE_BREAK}{METACHAR_SENTENCE_BOUNDARY}]*"
+)
 RE_LB_SPAN = re.compile(REGEXP_LB_SPAN)
 
-LABEL_OTHER: str = 'O'
-LABEL_SEP: str = 'LB_SEP'
-LABEL_NSEP: str = 'LB_NS'
+LABEL_OTHER: str = "O"
+LABEL_SEP: str = "LB_SEP"
+LABEL_NSEP: str = "LB_NS"
 LABELS: typing.List[str] = [LABEL_OTHER, LABEL_SEP, LABEL_NSEP]
 
 
@@ -30,14 +32,14 @@ def annotation2spans(sentence: str) -> Tokens:
     prev: int = 0
     tokens = Tokens()
     for match in RE_LB_SPAN.finditer(sentence):
-        myspan = sentence[prev:match.start()].replace(METACHAR_SENTENCE_BOUNDARY, '')
+        myspan = sentence[prev : match.start()].replace(METACHAR_SENTENCE_BOUNDARY, "")
         if len(myspan) > 0:
             tokens.spans.append(myspan)
             tokens.labels.append(LABEL_OTHER)
 
         myspan = match.group()
         prev = match.end()
-        tokens.spans.append(myspan.replace(METACHAR_SENTENCE_BOUNDARY, ''))
+        tokens.spans.append(myspan.replace(METACHAR_SENTENCE_BOUNDARY, ""))
         if METACHAR_SENTENCE_BOUNDARY in myspan:
             tokens.labels.append(LABEL_SEP)
         else:
@@ -45,10 +47,10 @@ def annotation2spans(sentence: str) -> Tokens:
 
     lastspan = sentence[prev:]
     if len(lastspan) != 0:
-        tokens.spans.append(lastspan.replace(METACHAR_SENTENCE_BOUNDARY, ''))
+        tokens.spans.append(lastspan.replace(METACHAR_SENTENCE_BOUNDARY, ""))
         tokens.labels.append(LABEL_OTHER)
 
-    assert sentence.replace(METACHAR_SENTENCE_BOUNDARY, '') == ''.join(tokens.spans)
+    assert sentence.replace(METACHAR_SENTENCE_BOUNDARY, "") == "".join(tokens.spans)
     return tokens
 
 
@@ -86,9 +88,11 @@ def spans2tokens(tokenizer: JanomeTokenizer, tokens: Tokens) -> Tokens:
     return new_tokens
 
 
-def convert(inpath: typing.IO,
-            tokenizer: JanomeTokenizer,
-            remove_trailing_lb: bool = True,) -> typing.Iterator[Tokens]:
+def convert(
+    inpath: typing.IO,
+    tokenizer: JanomeTokenizer,
+    remove_trailing_lb: bool = True,
+) -> typing.Iterator[Tokens]:
     with inpath as inf:
         for lid, line in enumerate(inf):
             sentence: str = line[:-1]
@@ -102,39 +106,38 @@ def convert(inpath: typing.IO,
             if len(tokens.labels) == 1:
                 continue
             new_tokens = spans2tokens(tokenizer, tokens)
-            new_tokens.meta['lid'] = lid
+            new_tokens.meta["lid"] = lid
             assert len(new_tokens.labels) == len(new_tokens.spans)
-            assert sentence.replace(METACHAR_SENTENCE_BOUNDARY, '').startswith(''.join(tokens.spans))
+            assert sentence.replace(METACHAR_SENTENCE_BOUNDARY, "").startswith("".join(tokens.spans))
             yield new_tokens
 
 
 def corpus_separate(
-        lines: typing.List[str],
-        ratio_train: float,
-        ratio_dev: float) -> typing.Dict[str, typing.List[str]]:
+    lines: typing.List[str], ratio_train: float, ratio_dev: float
+) -> typing.Dict[str, typing.List[str]]:
     rets: typing.Dict[str, typing.List[str]] = {}
 
     index_train = int(len(lines) * ratio_train)
     seq_train_set = lines[:index_train]
-    seq_dev = seq_train_set[:int(len(seq_train_set) * ratio_dev)]
-    seq_train = seq_train_set[int(len(seq_train_set) * ratio_dev):]
+    seq_dev = seq_train_set[: int(len(seq_train_set) * ratio_dev)]
+    seq_train = seq_train_set[int(len(seq_train_set) * ratio_dev) :]
     seq_test = lines[index_train:]
 
-    rets['train'] = seq_train
-    rets['test'] = seq_test
-    rets['dev'] = seq_dev
+    rets["train"] = seq_train
+    rets["test"] = seq_test
+    rets["dev"] = seq_dev
     return rets
 
 
 def pseudo_linebreak(text: str, rnd: random.Random, *, ratio_lb: float = 0.5) -> str:
     rets = []
-    text = re.sub(r'。+', METACHAR_LINE_BREAK + METACHAR_SENTENCE_BOUNDARY, text)
+    text = re.sub(r"。+", METACHAR_LINE_BREAK + METACHAR_SENTENCE_BOUNDARY, text)
     for char in text:
-        if char == '、' and rnd.random() < ratio_lb:
+        if char == "、" and rnd.random() < ratio_lb:
             rets.append(METACHAR_LINE_BREAK)
         else:
             rets.append(char)
-    return ''.join(rets)
+    return "".join(rets)
 
 
 def get_opts() -> argparse.Namespace:
@@ -161,28 +164,27 @@ def main() -> None:
 
         ppmap = {LABEL_SEP: METACHAR_SENTENCE_BOUNDARY}
         for name, lines in name2lines.items():
-            opath = opts.output.joinpath(f'{name}.jsonl')
-            otxtpath = opts.output.joinpath(f'{name}.txt')
-            with opath.open('w') as f,\
-                    otxtpath.open('w') as tf:
+            opath = opts.output.joinpath(f"{name}.jsonl")
+            otxtpath = opts.output.joinpath(f"{name}.txt")
+            with opath.open("w") as f, otxtpath.open("w") as tf:
                 for line in lines:
                     f.write(line)
                     ts = Tokens.from_json(line)
-                    tf.write(f'{ts.pretty(ppmap)}\n')
+                    tf.write(f"{ts.pretty(ppmap)}\n")
     elif opts.pseudo:
         rnd = random.Random(opts.seed)
-        with opts.output.open('w') as outf:
+        with opts.output.open("w") as outf:
             for line in opts.input:
-                line = line[:-1].replace(METACHAR_SENTENCE_BOUNDARY, '').replace(METACHAR_LINE_BREAK, '')
+                line = line[:-1].replace(METACHAR_SENTENCE_BOUNDARY, "").replace(METACHAR_LINE_BREAK, "")
                 line2 = pseudo_linebreak(line, rnd)
-                outf.write(f'{line2}\n')
+                outf.write(f"{line2}\n")
     else:
         opts.output.parent.mkdir(exist_ok=True, parents=True)
         tokenizer = JanomeTokenizer(normalize_text=False)
-        with opts.output.open('w') as f:
+        with opts.output.open("w") as f:
             for tokens in convert(inpath=opts.input, tokenizer=tokenizer):
-                f.write(f'{tokens.to_json(ensure_ascii=False, sort_keys=True)}\n')
+                f.write(f"{tokens.to_json(ensure_ascii=False, sort_keys=True)}\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

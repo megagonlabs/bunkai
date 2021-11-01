@@ -27,9 +27,16 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 from seqeval.metrics import f1_score, precision_score, recall_score
 from torch import nn
-from transformers import (AutoConfig, AutoModelForTokenClassification,
-                          AutoTokenizer, EvalPrediction, HfArgumentParser,
-                          Trainer, TrainingArguments, set_seed)
+from transformers import (
+    AutoConfig,
+    AutoModelForTokenClassification,
+    AutoTokenizer,
+    EvalPrediction,
+    HfArgumentParser,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
 
 from bunkai.algorithm.lbd.custom_tokenizers import JanomeSubwordsTokenizer
 from bunkai.third.utils_ner import NerDataset, Split, get_labels
@@ -45,16 +52,19 @@ class ModelArguments:
         metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
     )
     config_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained config name or path if not the same as model_name"}
+        default=None,
+        metadata={"help": "Pretrained config name or path if not the same as model_name"},
     )
     tokenizer_name: Optional[str] = field(
-        default=None, metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"}
+        default=None,
+        metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"},
     )
     use_fast: bool = field(default=False, metadata={"help": "Set this flag to use fast tokenization."})
     # If you want to tweak more attributes on your tokenizer, you should do it in a distinct script,
     # or just modify its tokenizer_config.json.
     cache_dir: Optional[str] = field(
-        default=None, metadata={"help": "Where do you want to store the pretrained models downloaded from s3"}
+        default=None,
+        metadata={"help": "Where do you want to store the pretrained models downloaded from s3"},
     )
 
 
@@ -77,7 +87,8 @@ class DataTrainingArguments:
         },
     )
     overwrite_cache: bool = field(
-        default=False, metadata={"help": "Overwrite the cached training and evaluation sets"}
+        default=False,
+        metadata={"help": "Overwrite the cached training and evaluation sets"},
     )
 
 
@@ -143,27 +154,30 @@ def main():
         cache_dir=model_args.cache_dir,
     )
 
-    if hasattr(model_args, 'is_auto_tokenizer') and model_args.is_auto_tokenizer:
+    if hasattr(model_args, "is_auto_tokenizer") and model_args.is_auto_tokenizer:
         tokenizer = AutoTokenizer.from_pretrained(
             model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
             cache_dir=model_args.cache_dir,
-            use_fast=model_args.use_fast)
+            use_fast=model_args.use_fast,
+        )
     else:
         logger.info("Use JanomeSubwordsTokenizer in Bunkai Project.")
-        if 'distilbert-base-japanese' in model_args.model_name_or_path:
+        if "distilbert-base-japanese" in model_args.model_name_or_path:
             # if model is distilbert-base-japanese, download the model and save vocab file into your local.
             logger.info(f"Downloading {model_args.model_name_or_path} for vocab configuration.")
             __tokenizer = AutoTokenizer.from_pretrained(
                 model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
                 cache_dir=model_args.cache_dir,
-                use_fast=model_args.use_fast)
+                use_fast=model_args.use_fast,
+            )
             tmp_model_path: str = tempfile.mkdtemp()
-            logger.info(f'Saving vocab file into local {tmp_model_path}...')
+            logger.info(f"Saving vocab file into local {tmp_model_path}...")
             __tokenizer.save_pretrained(tmp_model_path)
-            tokenizer = JanomeSubwordsTokenizer(vocab_file=os.path.join(tmp_model_path, 'vocab.txt'))
+            tokenizer = JanomeSubwordsTokenizer(vocab_file=os.path.join(tmp_model_path, "vocab.txt"))
         else:
             tokenizer = JanomeSubwordsTokenizer(
-                vocab_file=model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path)
+                vocab_file=model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path
+            )
 
     # add new vocab
     # __current_vocab_size: int = len(tokenizer)
@@ -179,10 +193,10 @@ def main():
         cache_dir=model_args.cache_dir,
     )
     model.resize_token_embeddings(len(tokenizer))
-    if model.base_model_prefix == 'distilbert' or 'distilbert-base-japanese' in model_args.model_name_or_path:  # hotfix
+    if model.base_model_prefix == "distilbert" or "distilbert-base-japanese" in model_args.model_name_or_path:  # hotfix
         is_distil_bert = True
-        if hasattr(tokenizer.model_input_names, 'token_type_ids'):
-            tokenizer.model_input_names.remove('token_type_ids')
+        if hasattr(tokenizer.model_input_names, "token_type_ids"):
+            tokenizer.model_input_names.remove("token_type_ids")
     else:
         is_distil_bert = False
 
@@ -196,7 +210,8 @@ def main():
             max_seq_length=data_args.max_seq_length,
             overwrite_cache=data_args.overwrite_cache,
             mode=Split.train,
-            is_distil_bert=is_distil_bert)
+            is_distil_bert=is_distil_bert,
+        )
         if training_args.do_train
         else None
     )
@@ -209,7 +224,7 @@ def main():
             max_seq_length=data_args.max_seq_length,
             overwrite_cache=data_args.overwrite_cache,
             mode=Split.dev,
-            is_distil_bert=is_distil_bert
+            is_distil_bert=is_distil_bert,
         )
         if training_args.do_eval
         else None
@@ -251,7 +266,9 @@ def main():
     # Training
     if training_args.do_train:
         trainer.train(
-            resume_from_checkpoint=model_args.model_name_or_path if os.path.isdir(model_args.model_name_or_path) else None
+            resume_from_checkpoint=model_args.model_name_or_path
+            if os.path.isdir(model_args.model_name_or_path)
+            else None
         )
         trainer.save_model()
         # For convenience, we also re-save the tokenizer to the same directory,
@@ -314,7 +331,8 @@ def main():
                             writer.write(output_line)
                         else:
                             logger.warning(
-                                "Maximum sequence length exceeded: No prediction for '%s'.", line.split()[0]
+                                "Maximum sequence length exceeded: No prediction for '%s'.",
+                                line.split()[0],
                             )
 
     return results

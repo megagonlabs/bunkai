@@ -11,10 +11,8 @@ from more_itertools import chunked
 from transformers import AutoModelForTokenClassification
 
 import bunkai.constant
-from bunkai.algorithm.lbd.corpus import (LABEL_OTHER, LABEL_SEP,
-                                         annotation2spans)
-from bunkai.algorithm.lbd.custom_tokenizers import (JanomeSubwordsTokenizer,
-                                                    JanomeTokenizer)
+from bunkai.algorithm.lbd.corpus import LABEL_OTHER, LABEL_SEP, annotation2spans
+from bunkai.algorithm.lbd.custom_tokenizers import JanomeSubwordsTokenizer, JanomeTokenizer
 from bunkai.algorithm.lbd.train import BunkaiConfig, MyDataset
 from bunkai.base.annotation import Tokens
 from bunkai.third.utils_ner import InputExample, get_labels
@@ -35,22 +33,22 @@ class Predictor(object):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self.model.to(self.device)
 
-        self.labels = get_labels(str(modelpath.joinpath('labels.txt')))
+        self.labels = get_labels(str(modelpath.joinpath("labels.txt")))
         self.label_map: typing.Dict[int, str] = {i: label for i, label in enumerate(self.labels)}
 
-        with modelpath.joinpath('bunkai.json').open() as bcf:
+        with modelpath.joinpath("bunkai.json").open() as bcf:
             self.bc = BunkaiConfig.from_json(bcf.read())
         # use janome tokenizer or tokenizer based on a vocab-file.
-        self.path_tokenizer_model: str = str(Path(modelpath).joinpath('vocab.txt'))
+        self.path_tokenizer_model: str = str(Path(modelpath).joinpath("vocab.txt"))
         self.tokenizer = JanomeSubwordsTokenizer(self.path_tokenizer_model)
 
         # hotfix
-        if self.model.base_model_prefix == 'distilbert' \
-                and 'token_type_ids' in self.tokenizer.model_input_names:
-            self.tokenizer.model_input_names.remove('token_type_ids')
+        if self.model.base_model_prefix == "distilbert" and "token_type_ids" in self.tokenizer.model_input_names:
+            self.tokenizer.model_input_names.remove("token_type_ids")
 
-    def _split_long_text(self, tokens: typing.List[str])\
-            -> typing.Tuple[typing.List[typing.List[str]], typing.List[typing.List[int]]]:
+    def _split_long_text(
+        self, tokens: typing.List[str]
+    ) -> typing.Tuple[typing.List[typing.List[str]], typing.List[typing.List[int]]]:
         """
         Split documents(tokens) into sub-documents(tokens).
 
@@ -106,26 +104,32 @@ class Predictor(object):
             sentences_within_length, _num_subwords = self._split_long_text(spans)
             num_subwords += _num_subwords
             for local_s_id, tokenized_spans in enumerate(sentences_within_length):
-                examples.append(InputExample(guid=f'{d_id}-{local_s_id}',
-                                             words=tokenized_spans,
-                                             labels=[LABEL_OTHER] * len(tokenized_spans),
-                                             is_document_first=bool(local_s_id == 0)))
+                examples.append(
+                    InputExample(
+                        guid=f"{d_id}-{local_s_id}",
+                        words=tokenized_spans,
+                        labels=[LABEL_OTHER] * len(tokenized_spans),
+                        is_document_first=bool(local_s_id == 0),
+                    )
+                )
         ds = MyDataset(examples, self.labels, self.bc.max_seq_length, self.tokenizer, False)
 
         kwargs = {
-            'input_ids': torch.tensor([f.input_ids for f in ds.features], device=self.device),
-            'attention_mask': torch.tensor([f.attention_mask for f in ds.features], device=self.device),
+            "input_ids": torch.tensor([f.input_ids for f in ds.features], device=self.device),
+            "attention_mask": torch.tensor([f.attention_mask for f in ds.features], device=self.device),
         }
-        if self.model.base_model_prefix == 'bert':  # hotfix
-            kwargs['token_type_ids'] = torch.tensor([f.token_type_ids for f in ds.features], device=self.device)
+        if self.model.base_model_prefix == "bert":  # hotfix
+            kwargs["token_type_ids"] = torch.tensor([f.token_type_ids for f in ds.features], device=self.device)
 
-        predictions = self.model(**kwargs).logits.to('cpu').detach().numpy()
+        predictions = self.model(**kwargs).logits.to("cpu").detach().numpy()
 
-        assert isinstance(predictions, np.ndarray), \
-            f"Unexpected error. A value type of a model prediction is {type(predictions)}. expect = numpy.ndarray"
-        assert len(predictions.shape) == 3, \
-            f"Unexpected error. A value tensor of a model prediction is {len(predictions.shape)} tensor. " \
+        assert isinstance(
+            predictions, np.ndarray
+        ), f"Unexpected error. A value type of a model prediction is {type(predictions)}. expect = numpy.ndarray"
+        assert len(predictions.shape) == 3, (
+            f"Unexpected error. A value tensor of a model prediction is {len(predictions.shape)} tensor. "
             f"expect = 3rd tensor."
+        )
 
         out: typing.List[typing.Set[int]] = []
         word_idx_offset = 0
@@ -151,14 +155,22 @@ class Predictor(object):
 
 def get_opts() -> argparse.Namespace:
     oparser = argparse.ArgumentParser()
-    oparser.add_argument("--input", "-i", type=argparse.FileType('r'), required=False, default=sys.stdin)
-    oparser.add_argument("--output", "-o", type=argparse.FileType('w'), required=False, default=sys.stdout)
+    oparser.add_argument("--input", "-i", type=argparse.FileType("r"), required=False, default=sys.stdin)
+    oparser.add_argument(
+        "--output",
+        "-o",
+        type=argparse.FileType("w"),
+        required=False,
+        default=sys.stdout,
+    )
     oparser.add_argument("--model", "-m", type=Path, required=True)
-    oparser.add_argument("--batch", "-b", type=int, default=1, help='Number of documents to feed a batch')
+    oparser.add_argument("--batch", "-b", type=int, default=1, help="Number of documents to feed a batch")
     return oparser.parse_args()
 
 
-def generate_initial_annotation_obj(input_stream: typing.Iterator[str]) -> typing.Iterator[typing.List[str]]:
+def generate_initial_annotation_obj(
+    input_stream: typing.Iterator[str],
+) -> typing.Iterator[typing.List[str]]:
     tokenizer = JanomeTokenizer()
     for document in input_stream:
         # document: a text = document
@@ -172,7 +184,7 @@ def generate_initial_annotation_obj(input_stream: typing.Iterator[str]) -> typin
                 tokens = tokenizer.tokenize(fragment)
                 document_tokens += tokens
 
-        assert ''.join(document_tokens) == "".join(document_spans.spans)
+        assert "".join(document_tokens) == "".join(document_spans.spans)
         yield document_tokens
 
 
@@ -181,8 +193,7 @@ def main() -> None:
     opts = get_opts()
     pdt = Predictor(opts.model)
 
-    with opts.input as inf, \
-            opts.output as outf:
+    with opts.input as inf, opts.output as outf:
         for one_batch in chunked(generate_initial_annotation_obj(inf), n=opts.batch):
             for did, token_ids_seps in enumerate(pdt.predict(one_batch)):
                 for tid, token in enumerate(one_batch[did]):
@@ -190,8 +201,8 @@ def main() -> None:
                     if tid in token_ids_seps:
                         outf.write(bunkai.constant.METACHAR_SENTENCE_BOUNDARY)
                 else:
-                    outf.write('\n')
+                    outf.write("\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

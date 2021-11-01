@@ -19,6 +19,7 @@ class ExceptionParentheses(Annotator):
 
         例:  ̃ (近日中には冷房に切り替わる予定です。) ̃ 1 時間飲み放題(カクテル各種! ! )はお勧め.
         """
+
         def unique_obj(input_list: List[SpanAnnotation]) -> List[SpanAnnotation]:
             # filter out same index
             filtered = []
@@ -36,7 +37,7 @@ class ExceptionParentheses(Annotator):
             p_start_index = parentheses_point.regs[0][0]
             p_end_index = parentheses_point.regs[0][1]
             for split_candidate in split_points:
-                __split_char = original_text[split_candidate.start_index:split_candidate.end_index]
+                __split_char = original_text[split_candidate.start_index : split_candidate.end_index]
                 if p_start_index < split_candidate.start_index and split_candidate.end_index < p_end_index:
                     if __split_char in constant.CHARS_FOR_IGNORE_PARENTHESES1:
                         # 該当の区切り文字候補は破棄。代わりに()のインデックス情報
@@ -44,8 +45,9 @@ class ExceptionParentheses(Annotator):
                             rule_name=self.rule_name,
                             start_index=p_end_index - 1,
                             end_index=p_end_index,
-                            split_string_type='parentheses-sentence',
-                            split_string_value=original_text[p_start_index:p_end_index])
+                            split_string_type="parentheses-sentence",
+                            split_string_value=original_text[p_start_index:p_end_index],
+                        )
                         filtered_split_point.append(__new_parentheses_point)
                         skip_end_index.append(split_candidate.end_index)
                     else:
@@ -77,7 +79,7 @@ class ExceptionParentheses(Annotator):
 
         target_strings_positions: Dict[int, SpanAnnotation] = {}
         for split_candidate in split_points:
-            __split_char = original_text[split_candidate.start_index:split_candidate.end_index]
+            __split_char = original_text[split_candidate.start_index : split_candidate.end_index]
             if __split_char in constant.CHARS_FOR_IGNORE_PARENTHESES2:
                 target_strings_positions[split_candidate.end_index] = split_candidate
 
@@ -85,18 +87,21 @@ class ExceptionParentheses(Annotator):
         for parentheses_point in spans_parentheses:
             p_start_index = parentheses_point.regs[0][0]
             p_end_index = parentheses_point.regs[0][1]
-            __split_char_in_parentheses = [(end_pos, reg_obj) for end_pos, reg_obj in target_strings_positions.items()
-                                           if p_start_index < end_pos < p_end_index]
+            __split_char_in_parentheses = [
+                (end_pos, reg_obj)
+                for end_pos, reg_obj in target_strings_positions.items()
+                if p_start_index < end_pos < p_end_index
+            ]
             if len(__split_char_in_parentheses) >= 2:
-                filtered_split_point += [t[1]
-                                         for t in __split_char_in_parentheses]
+                filtered_split_point += [t[1] for t in __split_char_in_parentheses]
 
         # add split points outside of parentheses
-        t_span_parentheses = [(parentheses_point.regs[0][0], parentheses_point.regs[0][1])
-                              for parentheses_point in spans_parentheses]
+        t_span_parentheses = [
+            (parentheses_point.regs[0][0], parentheses_point.regs[0][1]) for parentheses_point in spans_parentheses
+        ]
 
         def is_outside_of_parentheses(t_s):
-            if s_point.split_string_type == 'parentheses-sentence':
+            if s_point.split_string_type == "parentheses-sentence":
                 return True
             elif s_point.start_index <= t_s[0] and s_point.end_index <= t_s[0]:
                 return True
@@ -112,11 +117,9 @@ class ExceptionParentheses(Annotator):
 
         return filtered_split_point
 
-    def annotate(self, original_text: str,
-                 spans: Annotations) -> Annotations:
-        __s_no1 = self.replace_parentheses_no1(
-            original_text, spans.get_final_layer())
-        if len(re.findall(r'\(.+\)', original_text)) > 0:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
+        __s_no1 = self.replace_parentheses_no1(original_text, spans.get_final_layer())
+        if len(re.findall(r"\(.+\)", original_text)) > 0:
             __s_no2 = self.replace_parentheses_no2(original_text, __s_no1)
         else:
             __s_no2 = __s_no1

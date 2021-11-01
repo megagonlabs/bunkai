@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from bunkai.algorithm.bunkai_sbd.bunkai_sbd import \
-    BunkaiSentenceBoundaryDisambiguation as Bunkai
+from bunkai.algorithm.bunkai_sbd.bunkai_sbd import BunkaiSentenceBoundaryDisambiguation as Bunkai
 
-__all__ = ['Bunkai']
+__all__ = ["Bunkai"]
 __version_info__ = (1, 4, 3)
-__version__ = '.'.join(map(str, __version_info__))
+__version__ = ".".join(map(str, __version_info__))

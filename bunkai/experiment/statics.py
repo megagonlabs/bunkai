@@ -10,13 +10,12 @@ import tqdm
 from dataclasses_json import DataClassJsonMixin
 
 import bunkai.constant
-from bunkai.algorithm.lbd.corpus import (LABEL_NSEP, LABEL_OTHER, LABEL_SEP,
-                                         annotation2spans)
+from bunkai.algorithm.lbd.corpus import LABEL_NSEP, LABEL_OTHER, LABEL_SEP, annotation2spans
 
 
 @dataclasses.dataclass
 class Statics(DataClassJsonMixin):
-    name: str = ''
+    name: str = ""
     num_file: int = 0
     line_break: int = 0
     line_break_without_sb: int = 0
@@ -35,7 +34,7 @@ def count(path: Path, outf: typing.IO, show: bool = False) -> Statics:
     with path.open() as inf:
         for doc in inf:
             text = doc[:-1]
-            st.sentence += text .count(bunkai.constant.METACHAR_SENTENCE_BOUNDARY)
+            st.sentence += text.count(bunkai.constant.METACHAR_SENTENCE_BOUNDARY)
             tokens = annotation2spans(text)
             if len(tokens.labels) == 0:
                 continue
@@ -58,7 +57,7 @@ def count(path: Path, outf: typing.IO, show: bool = False) -> Statics:
             if line_break_without_sb > 0:
                 st.sentence_include_line_break_without_sb += 1
                 if show:
-                    outf.write(f'{path}\t{tokens}\n')
+                    outf.write(f"{path}\t{tokens}\n")
     return st
 
 
@@ -80,7 +79,7 @@ def count_char(path: Path) -> typing.Iterator[str]:
 def get_opts() -> argparse.Namespace:
     oparser = argparse.ArgumentParser()
     oparser.add_argument("--input", "-i", type=Path, required=True)
-    oparser.add_argument("--output", "-o", type=argparse.FileType('w'), default='-')
+    oparser.add_argument("--output", "-o", type=argparse.FileType("w"), default="-")
     oparser.add_argument("--show", action="store_true")
     oparser.add_argument("--char", action="store_true")
     return oparser.parse_args()
@@ -89,13 +88,13 @@ def get_opts() -> argparse.Namespace:
 def main() -> None:
     opts = get_opts()
 
-    targets: typing.List[typing.Tuple[str, Path]] = [('__', opts.input)]
+    targets: typing.List[typing.Tuple[str, Path]] = [("__", opts.input)]
     if opts.input.is_dir():
         targets = [(fi.name[:2], fi) for fi in opts.input.iterdir()]
 
     if opts.char:
         genre2chars: typing.Dict[str, typing.DefaultDict[str, int]] = {}
-        genre2chars['ALL'] = collections.defaultdict(int)
+        genre2chars["ALL"] = collections.defaultdict(int)
         for (genre, fpath) in tqdm.tqdm(targets, leave=False):
             chars: typing.Optional[typing.DefaultDict[str, int]] = genre2chars.get(genre)
             if chars is None:
@@ -103,15 +102,15 @@ def main() -> None:
                 genre2chars[genre] = chars
             for mychar in count_char(fpath):
                 chars[mychar] += 1
-                genre2chars['ALL'][mychar] += 1
+                genre2chars["ALL"][mychar] += 1
         with opts.output as outf:
             for genre, chars in sorted(genre2chars.items()):
-                outf.write(f'{genre}\t')
+                outf.write(f"{genre}\t")
                 outf.write(json.dumps(chars, ensure_ascii=False, sort_keys=True))
-                outf.write('\n')
+                outf.write("\n")
         return
 
-    st_all = Statics(name='ALL')
+    st_all = Statics(name="ALL")
     st_detail: typing.DefaultDict[str, Statics] = collections.defaultdict(Statics)
     with opts.output as outf:
         for (genre, fpath) in tqdm.tqdm(targets, leave=False):
@@ -123,9 +122,9 @@ def main() -> None:
         if not opts.show:
             if len(targets) != 1:
                 for genre, st in sorted(st_detail.items()):
-                    outf.write(f'{st.to_json()}\n')
-            outf.write(f'{st_all.to_json()}\n')
+                    outf.write(f"{st.to_json()}\n")
+            outf.write(f"{st_all.to_json()}\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

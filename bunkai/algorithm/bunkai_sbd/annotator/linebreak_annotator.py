@@ -3,8 +3,7 @@
 import typing
 from pathlib import Path
 
-from bunkai.algorithm.bunkai_sbd.annotator.morph_annotator import \
-    MorphAnnotatorJanome
+from bunkai.algorithm.bunkai_sbd.annotator.morph_annotator import MorphAnnotatorJanome
 from bunkai.algorithm.lbd.predict import Predictor
 from bunkai.base.annotation import SpanAnnotation
 from bunkai.base.annotator import Annotations, Annotator
@@ -17,14 +16,14 @@ class LinebreakAnnotator(Annotator):
         self.linebreak_detector = Predictor(modelpath=path_model)
 
     @staticmethod
-    def generate_sentence_structure(annotation_object: Annotations,
-                                    *,
-                                    splitter: str = '\n',
-                                    attribute_name: str = 'MorphAnnotatorJanome'
-                                    ) -> typing.List[str]:
-        input_tokens: typing.List[str] = \
-            [span_obj.args['token'].word_surface for span_obj in annotation_object.get_annotation_layer(attribute_name)
-             if span_obj.args is not None]
+    def generate_sentence_structure(
+        annotation_object: Annotations, *, splitter: str = "\n", attribute_name: str = "MorphAnnotatorJanome"
+    ) -> typing.List[str]:
+        input_tokens: typing.List[str] = [
+            span_obj.args["token"].word_surface
+            for span_obj in annotation_object.get_annotation_layer(attribute_name)
+            if span_obj.args is not None
+        ]
         sentence_tokens: typing.List[str] = []
         __sentence: str
         for tokens in input_tokens:
@@ -45,24 +44,26 @@ class LinebreakAnnotator(Annotator):
             if current_index + 1 >= len(sorted_spans):
                 break
             span_ann = sorted_spans[current_index]
-            if span_ann.end_index == sorted_spans[current_index + 1].start_index and \
-                    sorted_spans[current_index + 1].rule_name == LinebreakAnnotator.__name__:
-                processed_spans.append(SpanAnnotation(
-                    rule_name=LinebreakAnnotator.__name__,
-                    start_index=span_ann.start_index,
-                    end_index=sorted_spans[current_index + 1].end_index,
-                    split_string_type='linebreak',
-                    split_string_value=text[span_ann.start_index: sorted_spans[current_index + 1].end_index],
-                ))
+            if (
+                span_ann.end_index == sorted_spans[current_index + 1].start_index
+                and sorted_spans[current_index + 1].rule_name == LinebreakAnnotator.__name__
+            ):
+                processed_spans.append(
+                    SpanAnnotation(
+                        rule_name=LinebreakAnnotator.__name__,
+                        start_index=span_ann.start_index,
+                        end_index=sorted_spans[current_index + 1].end_index,
+                        split_string_type="linebreak",
+                        split_string_value=text[span_ann.start_index : sorted_spans[current_index + 1].end_index],
+                    )
+                )
                 current_index += 2
             else:
                 processed_spans.append(span_ann)
                 current_index += 1
         return processed_spans
 
-    def annotate(self,
-                 original_text: str,
-                 spans: Annotations) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
         """Tokenize済み結果をデータ加工する。Predictorが求める形式にする."""
         sub_texts = self.generate_sentence_structure(spans)
         # tokenizerを更新する。すでにTokenize済みの結果を利用する。
@@ -81,8 +82,9 @@ class LinebreakAnnotator(Annotator):
                         rule_name=LinebreakAnnotator.__name__,
                         start_index=char_index_start,
                         end_index=char_index_end,
-                        split_string_type='linebreak',
-                        split_string_value=original_text[char_index_start: char_index_end])
+                        split_string_type="linebreak",
+                        split_string_value=original_text[char_index_start:char_index_end],
+                    )
                     new_spans.append(ann)
             merged_spans = self.merge_preceding_eos(original_text, new_spans)
             spans.add_annotation_layer(self.rule_name, merged_spans)

@@ -15,8 +15,8 @@ TARGET_DIRS:=./bunkai ./tests ./example \( -type d -name '.venv' -prune \) -or -
 
 flake8:
 	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs flake8
-autopep8:
-	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs autopep8 -d | diff /dev/null -
+black:
+	find $(TARGET_DIRS) | grep -v third | grep '\.py$$' | xargs black --diff | diff /dev/null -
 pyright:
 	pyright
 isort:
@@ -53,7 +53,7 @@ check_version:
 
 
 
-lint: flake8 autopep8 pyright isort yamllint terms_check_path term_check_method term_check_file_content check_firstline pydocstyle check_version
+lint: flake8 black pyright isort yamllint terms_check_path term_check_method term_check_file_content check_firstline pydocstyle check_version
 
 _run_isort:
 	isort -rc .

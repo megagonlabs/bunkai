@@ -12,23 +12,27 @@ import torch
 from transformers import AutoConfig, BertForTokenClassification
 from transformers.file_utils import cached_path
 
-_NAME_UPDATER_DIR: str = 'up'
-_DIST_VERSION: str = '1.1.0'
-_NAME_VERSION: str = 'version.json'
+_NAME_UPDATER_DIR: str = "up"
+_DIST_VERSION: str = "1.1.0"
+_NAME_VERSION: str = "version.json"
 
 
 def to_numpy(v):
-    return v.to('cpu').detach().numpy().copy()
+    return v.to("cpu").detach().numpy().copy()
 
 
 def to_tensor(v):
     return torch.from_numpy(v.astype(np.float32)).clone()
 
 
-_COPY_FILES: List[str] =\
-    ['added_tokens.json', 'special_tokens_map.json',
-     'tokenizer_config.json', 'bunkai.json', 'labels.txt',
-     'config.json']
+_COPY_FILES: List[str] = [
+    "added_tokens.json",
+    "special_tokens_map.json",
+    "tokenizer_config.json",
+    "bunkai.json",
+    "labels.txt",
+    "config.json",
+]
 
 
 def store_copy(path_in: Path, path_out: Path):
@@ -55,12 +59,12 @@ def store_updater(path_in: Path, base_model: str, path_out: Path):
                 raise NotImplementedError
             orgv = np.concatenate((orgv, z), axis=0)
         d = newv - orgv
-        np.savez_compressed(path_out_up.joinpath(f'{target}.npz'), d)
+        np.savez_compressed(path_out_up.joinpath(f"{target}.npz"), d)
 
 
 def store_version(path_out: Path):
-    with path_out.open('w') as outf:
-        json.dump({'version': _DIST_VERSION}, outf, sort_keys=True)
+    with path_out.open("w") as outf:
+        json.dump({"version": _DIST_VERSION}, outf, sort_keys=True)
 
 
 def store(path_in: Path, path_out: Path) -> None:
@@ -69,8 +73,8 @@ def store(path_in: Path, path_out: Path) -> None:
     store_version(path_out.joinpath(_NAME_VERSION))
     store_copy(path_in, path_out)
 
-    with path_in.joinpath('bunkai.json').open() as inf:
-        base_model: Optional[str] = json.load(inf).get('base_model')
+    with path_in.joinpath("bunkai.json").open() as inf:
+        base_model: Optional[str] = json.load(inf).get("base_model")
     if base_model is not None:
         store_updater(path_in, base_model, path_out)
 
@@ -81,8 +85,8 @@ def update(path_in: Path, base_model: str, path_out: Path):
 
     osd = orig_model.state_dict()
     for f in path_in.joinpath(_NAME_UPDATER_DIR).iterdir():
-        target: str = f.name[:-len('.npz')]
-        vals = np.load(f)['arr_0']
+        target: str = f.name[: -len(".npz")]
+        vals = np.load(f)["arr_0"]
         orgv = to_numpy(osd[target])
         if len(orgv.shape) == 2:
             z = np.zeros((vals.shape[0] - orgv.shape[0], orgv.shape[1]))
@@ -103,7 +107,7 @@ def update(path_in: Path, base_model: str, path_out: Path):
 
 def check_version(path_in: Path) -> bool:
     with path_in.open() as inf:
-        version: str = json.load(inf).get('version', '')
+        version: str = json.load(inf).get("version", "")
     return version == _DIST_VERSION
 
 
@@ -114,11 +118,11 @@ def restore(path_in: Path, path_out: Path) -> None:
 
     path_out.mkdir(parents=True, exist_ok=True)
 
-    with path_in.joinpath('bunkai.json').open() as inf:
-        base_model: Optional[str] = json.load(inf).get('base_model')
+    with path_in.joinpath("bunkai.json").open() as inf:
+        base_model: Optional[str] = json.load(inf).get("base_model")
 
     vocab_url: str = f"https://s3.amazonaws.com/models.huggingface.co/bert/{base_model}/vocab.txt"
-    shutil.copy2(cached_path(vocab_url), path_out.joinpath('vocab.txt'))  # type: ignore
+    shutil.copy2(cached_path(vocab_url), path_out.joinpath("vocab.txt"))  # type: ignore
 
     if base_model is not None:
         update(path_in, base_model, path_out)
@@ -131,7 +135,7 @@ def get_opts() -> argparse.Namespace:
     oparser = argparse.ArgumentParser()
     oparser.add_argument("--input", "-i", type=Path, required=True)
     oparser.add_argument("--output", "-o", type=Path, required=True)
-    oparser.add_argument("--restore", action='store_true')
+    oparser.add_argument("--restore", action="store_true")
     return oparser.parse_args()
 
 
@@ -143,5 +147,5 @@ def main() -> None:
         store(opts.input, opts.output)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

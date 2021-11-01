@@ -24,8 +24,7 @@ from enum import Enum
 from typing import List, Optional, Union
 
 from filelock import FileLock
-from transformers import (PreTrainedTokenizer, is_tf_available,
-                          is_torch_available)
+from transformers import PreTrainedTokenizer, is_tf_available, is_torch_available
 
 from bunkai.algorithm.lbd.custom_tokenizers import JanomeSubwordsTokenizer
 
@@ -83,18 +82,20 @@ if is_torch_available():
         # real label ids contribute to the loss later.
 
         def __init__(
-                self,
-                data_dir: str,
-                tokenizer: JanomeSubwordsTokenizer,
-                labels: List[str],
-                model_type: str,
-                max_seq_length: Optional[int] = None,
-                overwrite_cache=False,
-                mode: Split = Split.train,
-                is_distil_bert: bool = False):
+            self,
+            data_dir: str,
+            tokenizer: JanomeSubwordsTokenizer,
+            labels: List[str],
+            model_type: str,
+            max_seq_length: Optional[int] = None,
+            overwrite_cache=False,
+            mode: Split = Split.train,
+            is_distil_bert: bool = False,
+        ):
             # Load data features from cache or dataset file
             cached_features_file = os.path.join(
-                data_dir, "cached_{}_{}_{}".format(mode.value, tokenizer.__class__.__name__, str(max_seq_length)),
+                data_dir,
+                "cached_{}_{}_{}".format(mode.value, tokenizer.__class__.__name__, str(max_seq_length)),
             )
 
             # Make sure only the first process in distributed training processes the dataset,
@@ -126,7 +127,7 @@ if is_torch_available():
                         pad_token=tokenizer.pad_token_id,
                         pad_token_segment_id=tokenizer.pad_token_type_id,
                         pad_token_label_id=self.pad_token_label_id,
-                        is_distil_bert=is_distil_bert
+                        is_distil_bert=is_distil_bert,
                     )
                     logger.info(f"Saving features into cached file {cached_features_file}")
                     torch.save(self.features, cached_features_file)
@@ -182,7 +183,10 @@ if is_tf_available():
                 for ex in self.features:
                     if ex.token_type_ids is None:
                         yield (
-                            {"input_ids": ex.input_ids, "attention_mask": ex.attention_mask},
+                            {
+                                "input_ids": ex.input_ids,
+                                "attention_mask": ex.attention_mask,
+                            },
                             ex.label_ids,
                         )
                     else:
@@ -200,14 +204,24 @@ if is_tf_available():
                     gen,
                     ({"input_ids": tf.int32, "attention_mask": tf.int32}, tf.int64),
                     (
-                        {"input_ids": tf.TensorShape([None]), "attention_mask": tf.TensorShape([None])},
+                        {
+                            "input_ids": tf.TensorShape([None]),
+                            "attention_mask": tf.TensorShape([None]),
+                        },
                         tf.TensorShape([None]),
                     ),
                 )
             else:
                 self.dataset = tf.data.Dataset.from_generator(
                     gen,
-                    ({"input_ids": tf.int32, "attention_mask": tf.int32, "token_type_ids": tf.int32}, tf.int64),
+                    (
+                        {
+                            "input_ids": tf.int32,
+                            "attention_mask": tf.int32,
+                            "token_type_ids": tf.int32,
+                        },
+                        tf.int64,
+                    ),
                     (
                         {
                             "input_ids": tf.TensorShape([None]),
@@ -242,12 +256,14 @@ def read_examples_from_file(data_dir, mode: Union[Split, str]) -> List[InputExam
         for line in f:
             if line.startswith("-DOCSTART-") or line == "" or line == "\n":
                 if words:
-                    examples.append(InputExample(
-                        guid=f'{mode}-{guid_index}',
-                        words=words,
-                        labels=labels,
-                        is_document_first=True,
-                    ))
+                    examples.append(
+                        InputExample(
+                            guid=f"{mode}-{guid_index}",
+                            words=words,
+                            labels=labels,
+                            is_document_first=True,
+                        )
+                    )
                     guid_index += 1
                     words = []
                     labels = []
@@ -260,32 +276,35 @@ def read_examples_from_file(data_dir, mode: Union[Split, str]) -> List[InputExam
                     # Examples could have no label for mode = "test"
                     labels.append("O")
         if words:
-            examples.append(InputExample(
-                guid=f'{mode}-{guid_index}',
-                words=words,
-                labels=labels,
-                is_document_first=True,
-            ))
+            examples.append(
+                InputExample(
+                    guid=f"{mode}-{guid_index}",
+                    words=words,
+                    labels=labels,
+                    is_document_first=True,
+                )
+            )
     return examples
 
 
 def convert_examples_to_features(
-        examples: List[InputExample],
-        label_list: List[str],
-        max_seq_length: int,
-        tokenizer: JanomeSubwordsTokenizer,
-        cls_token_at_end=False,
-        cls_token="[CLS]",
-        cls_token_segment_id=1,
-        sep_token="[SEP]",
-        sep_token_extra=False,
-        pad_on_left=False,
-        pad_token=0,
-        pad_token_segment_id=0,
-        pad_token_label_id=-100,
-        sequence_a_segment_id=0,
-        mask_padding_with_zero=True,
-        is_distil_bert: bool = False) -> List[InputFeatures]:
+    examples: List[InputExample],
+    label_list: List[str],
+    max_seq_length: int,
+    tokenizer: JanomeSubwordsTokenizer,
+    cls_token_at_end=False,
+    cls_token="[CLS]",
+    cls_token_segment_id=1,
+    sep_token="[SEP]",
+    sep_token_extra=False,
+    pad_on_left=False,
+    pad_token=0,
+    pad_token_segment_id=0,
+    pad_token_label_id=-100,
+    sequence_a_segment_id=0,
+    mask_padding_with_zero=True,
+    is_distil_bert: bool = False,
+) -> List[InputFeatures]:
     """
     Load a data file into a list of `InputFeatures`.
 
@@ -391,10 +410,13 @@ def convert_examples_to_features(
             segment_ids = None
         if is_distil_bert:
             features.append(
-                InputFeatures(input_ids=input_ids,
-                              attention_mask=input_mask,
-                              label_ids=label_ids,
-                              document_id=example.guid))
+                InputFeatures(
+                    input_ids=input_ids,
+                    attention_mask=input_mask,
+                    label_ids=label_ids,
+                    document_id=example.guid,
+                )
+            )
         else:
             features.append(
                 InputFeatures(
@@ -402,7 +424,9 @@ def convert_examples_to_features(
                     attention_mask=input_mask,
                     token_type_ids=segment_ids,
                     label_ids=label_ids,
-                    document_id=example.guid))
+                    document_id=example.guid,
+                )
+            )
     return features
 
 
@@ -414,4 +438,14 @@ def get_labels(path: str) -> List[str]:
             labels = ["O"] + labels
         return labels
     else:
-        return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC"]
+        return [
+            "O",
+            "B-MISC",
+            "I-MISC",
+            "B-PER",
+            "I-PER",
+            "B-ORG",
+            "I-ORG",
+            "B-LOC",
+            "I-LOC",
+        ]

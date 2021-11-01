@@ -16,14 +16,13 @@ class ExceptionNumeric(Annotator):
 
         例: 和室3.5畳 / 1.5リットル以上のペットボトル.
         """
-        if original_text[start_index:end_index] != '.' and original_text[start_index:end_index] != '．':
+        if original_text[start_index:end_index] != "." and original_text[start_index:end_index] != "．":
             return False
-        if re.match(r'\d', original_text[start_index - 1]) and re.match(r'\d', original_text[end_index]):
+        if re.match(r"\d", original_text[start_index - 1]) and re.match(r"\d", original_text[end_index]):
             return True
         return False
 
-    def annotate(self, original_text: str,
-                 spans: Annotations) -> Annotations:
+    def annotate(self, original_text: str, spans: Annotations) -> Annotations:
         __return_span_ann = []
         for __s in spans.get_final_layer():
             if self.is_exception_numeric(original_text, __s.start_index, __s.end_index):
