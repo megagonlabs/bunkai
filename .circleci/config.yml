@@ -2,59 +2,41 @@
 version: 2.1
 
 jobs:
-  lint_with_node:
+  build:
     docker:
-      - image: circleci/node:14.17.1
-    working_directory: ~/app_lintwithnode
+      - image: cimg/python:3.9.7-node
+    working_directory: ~/app
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - cache-{{ .Environment.CACHE_VERSION }}-lint_with_node
-
-      - run:
-          name: npm module install
-          command: |
-            make setup_node_module
-      - save_cache:
-          key: cache-{{ .Environment.CACHE_VERSION }}-lint_with_node
-          paths:
-            - ./node_modules
-
-      - run:
-          name: markdownlint
-          command: |
-            make lint_markdown
-
-  build:
-    docker:
-      - image: circleci/python:3.7.10
-    working_directory: ~
-    steps:
-      - checkout
-
+          key: cache-{{ checksum "package.json" }}\
+            -{{ .Environment.CACHE_VERSION }}
       - restore_cache:
           key: deps-{{ checksum "poetry.lock" }}\
             -{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Install dependencies
-          command: |
-            make -j $(nproc) dev_setup
-      - run:
-          name: setup-cc
-          command: |
-            poetry run make setup-cc
 
+      - run:
+          name: python module install
+          command: |
+            make -j $(nproc) setup setup-cc
+
+      - save_cache:
+          key: cache-{{ checksum "package.json" }}\
+            -{{ .Environment.CACHE_VERSION }}
+          paths:
+            - ./node_modules
       - save_cache:
           key: deps-{{ checksum "poetry.lock" }}\
             -{{ .Environment.CACHE_VERSION }}
           paths:
             - ~/.cache/pypoetry/virtualenvs
             - ~/.local/bin-cc
+
       - run:
           name: Lint
           command: |
             poetry run make -j $(nproc) lint
+
       - run:
           name: Test Python codes
           command: |
@@ -67,5 +49,4 @@ workflows:
   version: 2
   build:
     jobs:
-      - lint_with_node
       - build
