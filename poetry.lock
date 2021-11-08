@@ -147,7 +147,7 @@ pyflakes = ">=2.4.0,<2.5.0"
 
 [[package]]
 name = "huggingface-hub"
-version = "0.1.0"
+version = "0.1.1"
 description = "Client library to download and publish models on the huggingface.co hub"
 category = "main"
 optional = false
@@ -160,7 +160,7 @@ packaging = ">=20.9"
 pyyaml = "*"
 requests = "*"
 tqdm = "*"
-typing-extensions = "*"
+typing-extensions = ">=3.7.4.3"
 
 [package.extras]
 all = ["pytest", "datasets", "black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
@@ -767,8 +767,8 @@ flake8 = [
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
 ]
 huggingface-hub = [
-    {file = "huggingface_hub-0.1.0-py3-none-any.whl", hash = "sha256:5e82637698a27f2e879a538acf02dc56a4931781f40f8441e01001c5f0026b18"},
-    {file = "huggingface_hub-0.1.0.tar.gz", hash = "sha256:821c8707cf7fe4b31cdccadb7ca4bac3affa47378e54426bde73edcbc5d10225"},
+    {file = "huggingface_hub-0.1.1-py3-none-any.whl", hash = "sha256:3f05677c9da49cb577a7f92a4fbbb5465136d0ead24394b1f17098ad444c1b7e"},
+    {file = "huggingface_hub-0.1.1.tar.gz", hash = "sha256:195853756830200534f5d1117f76b1df537985c587c1e1b3ab233095493f9d65"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
