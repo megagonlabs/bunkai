@@ -48,6 +48,7 @@ pythonVersion = "3.7"
 typeCheckingMode = "basic"
 exclude = ["**/third", ".venv", "**/node_modules", "**/__pycache__",]
 reportPrivateImportUsage = "information"
+reportUnusedVariable="warning"
 
 [tool.black]
 line-length = 120
