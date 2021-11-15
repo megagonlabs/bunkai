@@ -6,4 +6,4 @@
 [default.extend-words]
 
 [files]
-extend-exclude = []
+extend-exclude = ["package-lock.json"]
