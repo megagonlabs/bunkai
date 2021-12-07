@@ -12,7 +12,7 @@ documentation = ""
 keywords = ["Japanese", "Sentence boundary disambiguation"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.7,<4.0"
 dataclasses-json = ">=0.5.2"
 janome = ">=0.4.1"
 seqeval = ">=1.2.2"
@@ -24,7 +24,7 @@ transformers = ">=4.3.2"
 more_itertools = ">=8.6.0"
 emoji = ">=1.2.0"
 emojis = ">=0.6.0"
-toml = "^0.10.2"
+toml = ">=0.10.2"
 
 [tool.poetry.dev-dependencies]
 coverage = ">=5.3"
@@ -34,7 +34,7 @@ isort = ">=5.9.3"
 yamllint = ">=1.25.0"
 mock = ">=4.0.2"
 pydocstyle = ">=5.1.1"
-black = "^21.10b0"
+black = ">=21.10b0"
 
 [build-system]
 requires = ["poetry"]
