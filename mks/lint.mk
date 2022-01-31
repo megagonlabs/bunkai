@@ -33,7 +33,6 @@ pydocstyle:
 jsonlint:
 	find .*json $(TARGET_DIRS) | grep '\.jsonl$$' | sort |xargs cat | python3 -c 'import sys,json; [json.loads(line) for line in sys.stdin]'
 	find .*json $(TARGET_DIRS) | grep '\.json$$' | sort |xargs -n 1 -t python3 -m json.tool > /dev/null
-	find .*json $(TARGET_DIRS) | grep '\.json$$' | sort |xargs -n 1 -t jsonlint
 	python3 -c "import sys,json;print(json.dumps(json.loads(sys.stdin.read()),indent=4,ensure_ascii=False,sort_keys=True))" < .markdownlint.json | diff -q - .markdownlint.json
 
 yamllint:

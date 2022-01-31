@@ -28,7 +28,6 @@ toml = ">=0.10.2"
 
 [tool.poetry.dev-dependencies]
 coverage = ">=5.3"
-demjson = ">=2.2.4"
 flake8 = ">=3.8.4"
 isort = ">=5.9.3"
 yamllint = ">=1.25.0"
