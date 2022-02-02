@@ -12,7 +12,7 @@ documentation = ""
 keywords = ["Japanese", "Sentence boundary disambiguation"]
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4.0"
+python = ">=3.8,<4.0"
 dataclasses-json = ">=0.5.2"
 janome = ">=0.4.1"
 seqeval = ">=1.2.2"
@@ -43,7 +43,7 @@ build-backend = "poetry.core.masonry.api"
 bunkai = "bunkai.cli:main"
 
 [tool.pyright]
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 typeCheckingMode = "basic"
 exclude = ["**/third", ".venv", "**/node_modules", "**/__pycache__",]
 reportPrivateImportUsage = "information"
