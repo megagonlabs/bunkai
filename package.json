@@ -1,10 +1,11 @@
 {
     "author": "",
+    "description": "",
     "devDependencies": {
+        "markdown-it": ">=12.3.2",
         "markdownlint-cli": "^0.30.0",
         "pyright": "^1.1.188"
     },
-    "description": "",
     "license": "",
     "main": "",
     "name": "pyright-exec",
