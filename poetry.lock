@@ -177,7 +177,7 @@ plugins = ["setuptools"]
 
 [[package]]
 name = "janome"
-version = "0.4.1"
+version = "0.4.2"
 description = "Japanese morphological analysis engine."
 category = "main"
 optional = false
@@ -738,8 +738,8 @@ isort = [
     {file = "isort-5.10.1.tar.gz", hash = "sha256:e8443a5e7a020e9d7f97f1d7d9cd17c88bcb3bc7e218bf9cf5095fe550be2951"},
 ]
 janome = [
-    {file = "Janome-0.4.1-py2.py3-none-any.whl", hash = "sha256:a650e2684e80af72f869eff17566f31dd4444f5443c4771dca1ada60cea5c251"},
-    {file = "Janome-0.4.1.tar.gz", hash = "sha256:6c2c38d894014d57cb3151265c11146506ead3b3bc290898adc33711711612de"},
+    {file = "Janome-0.4.2-py2.py3-none-any.whl", hash = "sha256:d292e458aa8a72b4aae51ae1e0cd91bf463beb95ad1ec118be7aab87eea1a454"},
+    {file = "Janome-0.4.2.tar.gz", hash = "sha256:14c31bbfc11724da299b4b71a06bccb3af9a105e7c912bc38a22132d8991ec97"},
 ]
 joblib = [
     {file = "joblib-1.1.0-py2.py3-none-any.whl", hash = "sha256:f21f109b3c7ff9d95f8387f752d0d9c34a02aa2f7060c2135f465da0e5160ff6"},
