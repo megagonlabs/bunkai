@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from more_itertools import chunked
-from transformers import AutoModelForTokenClassification
+from transformers.models.auto.modeling_auto import AutoModelForTokenClassification
 
 import bunkai.constant
 from bunkai.algorithm.lbd.corpus import LABEL_OTHER, LABEL_SEP, annotation2spans
@@ -141,7 +141,7 @@ class Predictor(object):
             else:
                 word_idx_offset += len(examples[idx - 1].words)
 
-            for word_idx, word in enumerate(example.words):
+            for word_idx, _ in enumerate(example.words):
                 num_sw: int = num_subwords[idx][word_idx]
                 while num_sw > 0:
                     sw_idx += 1

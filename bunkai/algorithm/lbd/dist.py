@@ -9,8 +9,9 @@ from typing import List, Optional
 
 import numpy as np
 import torch
-from transformers import AutoConfig, BertForTokenClassification
 from transformers.file_utils import cached_path
+from transformers.models.auto.configuration_auto import AutoConfig
+from transformers.models.bert.modeling_bert import BertForTokenClassification
 
 _NAME_UPDATER_DIR: str = "up"
 _DIST_VERSION: str = "1.1.0"
@@ -43,7 +44,9 @@ def store_copy(path_in: Path, path_out: Path):
 def store_updater(path_in: Path, base_model: str, path_out: Path):
     logging.disable(logging.WARN)
     orig_model = BertForTokenClassification.from_pretrained(base_model)
+    assert isinstance(orig_model, BertForTokenClassification)
     new_model = BertForTokenClassification.from_pretrained(path_in)
+    assert isinstance(new_model, BertForTokenClassification)
 
     path_out_up = path_out.joinpath(_NAME_UPDATER_DIR)
     path_out_up.mkdir(parents=True, exist_ok=True)
@@ -82,6 +85,7 @@ def store(path_in: Path, path_out: Path) -> None:
 def update(path_in: Path, base_model: str, path_out: Path):
     logging.disable(logging.WARN)
     orig_model = BertForTokenClassification.from_pretrained(base_model)
+    assert isinstance(orig_model, BertForTokenClassification)
 
     osd = orig_model.state_dict()
     for f in path_in.joinpath(_NAME_UPDATER_DIR).iterdir():
