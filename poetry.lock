@@ -87,7 +87,7 @@ dev = ["pytest (>=6.2.3)", "ipython", "mypy (>=0.710)", "hypothesis", "portray",
 
 [[package]]
 name = "emoji"
-version = "1.6.3"
+version = "1.7.0"
 description = "Emoji for Python"
 category = "main"
 optional = false
@@ -714,7 +714,7 @@ dataclasses-json = [
     {file = "dataclasses_json-0.5.6-py3-none-any.whl", hash = "sha256:1d7f3a284a49d350ddbabde0e7d0c5ffa34a144aaf1bcb5b9f2c87673ff0c76e"},
 ]
 emoji = [
-    {file = "emoji-1.6.3.tar.gz", hash = "sha256:cc28bdc1010b1c03c241f69c7af1e8715144ef45a273bfadc14dc89319ba26d0"},
+    {file = "emoji-1.7.0.tar.gz", hash = "sha256:65c54533ea3c78f30d0729288998715f418d7467de89ec258a31c0ce8660a1d1"},
 ]
 emojis = [
     {file = "emojis-0.6.0-py3-none-any.whl", hash = "sha256:7da34c8a78ae262fd68cef9e2c78a3c1feb59784489eeea0f54ba1d4b7111c7c"},
