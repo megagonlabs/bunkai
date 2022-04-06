@@ -131,11 +131,11 @@ pyflakes = ">=2.4.0,<2.5.0"
 
 [[package]]
 name = "huggingface-hub"
-version = "0.4.0"
+version = "0.5.0"
 description = "Client library to download and publish models on the huggingface.co hub"
 category = "main"
 optional = false
-python-versions = ">=3.6.0"
+python-versions = ">=3.7.0"
 
 [package.dependencies]
 filelock = "*"
@@ -146,12 +146,12 @@ tqdm = "*"
 typing-extensions = ">=3.7.4.3"
 
 [package.extras]
-tensorflow = ["tensorflow"]
-testing = ["pytest", "datasets"]
+all = ["pytest", "datasets", "soundfile", "black (>=22.0,<23.0)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
+dev = ["pytest", "datasets", "soundfile", "black (>=22.0,<23.0)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
+quality = ["black (>=22.0,<23.0)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
+tensorflow = ["tensorflow", "pydot", "graphviz"]
+testing = ["pytest", "datasets", "soundfile"]
 torch = ["torch"]
-all = ["pytest", "datasets", "black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
-dev = ["pytest", "datasets", "black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
-quality = ["black (>=20.8b1)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
 
 [[package]]
 name = "idna"
@@ -733,8 +733,8 @@ flake8 = [
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
 ]
 huggingface-hub = [
-    {file = "huggingface_hub-0.4.0-py3-none-any.whl", hash = "sha256:808021af1ce1111104973ae54d81738eaf40be6d1e82fc6bdedb82f81c6206e7"},
-    {file = "huggingface_hub-0.4.0.tar.gz", hash = "sha256:f0e3389f8988eb7781b17de520ae7fd0aa50d9823534e3ae55344d943a88ac87"},
+    {file = "huggingface_hub-0.5.0-py3-none-any.whl", hash = "sha256:9ba30ad786bc9bd427e229c64e8b1e095d92dc1a2fcbf58e0af8bbb02f6e86a4"},
+    {file = "huggingface_hub-0.5.0.tar.gz", hash = "sha256:5f7159b8893febe04dbcd548630196f5d044ed16448b904d1c716d37f80d9db1"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
