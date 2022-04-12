@@ -44,6 +44,12 @@ $ echo -e '宿を予約しました♪!まだ2ヶ月も先だけど。早すぎ�
 If you want to disambiguate sentence boundaries for line breaks, please add a ``--model`` option with the path to the model.  
     改行記号に対しても文境界判定を行いたい場合は，``--model``オプションを与える必要があります．
 
+To use ``--model`` option, it is need to install with extras:
+    ``--model``オプションを利用するためにはextraパッケージをインストールする必要があります．
+```console
+$ pip install -U bunkai[lb]
+```
+
 First time, please setup a model. It will take some time.  
     はじめにモデルをセットアップする必要があります．セットアップには少々時間がかかります．
 
