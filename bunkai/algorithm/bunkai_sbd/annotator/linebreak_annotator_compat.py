@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 try:
-    import numpy
-    import transformers
-    import torch
+    import numpy  # noqa: F401
+    import torch  # noqa: F401
+    import transformers  # noqa: F401
 except ImportError:
     install_with_lb = False
 else:
@@ -12,4 +13,5 @@ if install_with_lb:
 else:
     # void class for compat
     class LinebreakAnnotator:
-        pass
+        def __init__(self, *, path_model):
+            raise Exception("You need to install bunkai with pip install -U bunkai[lb]")
