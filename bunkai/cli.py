@@ -12,7 +12,6 @@ import requests
 import bunkai.constant
 from bunkai import __version__
 from bunkai.algorithm.bunkai_sbd.bunkai_sbd import BunkaiSentenceBoundaryDisambiguation
-from bunkai.algorithm.lbd.dist import restore
 from bunkai.algorithm.tsunoda_sbd.tsunoda_sbd import TsunodaSentenceBoundaryDisambiguation
 
 DEFAULT_ALGORITHM = "bunkai"
@@ -66,6 +65,17 @@ def get_opts() -> argparse.Namespace:
         help="Print version",
     )
     return oparser.parse_args()
+
+
+def is_install_with_lb() -> bool:
+    try:
+        import numpy
+        import torch
+        import transformers
+    except ImportError:
+        return False
+    else:
+        return True
 
 
 def run(
@@ -130,6 +140,9 @@ def setup(
     path_model: Path,
     path_in: typing.Optional[Path],
 ):
+    # if bunkai installed without [lb] option, import of lbd.dist fails
+    from bunkai.algorithm.lbd.dist import restore
+
     sys.stderr.write("It takes time to setup. Please be patient.\n")
     with tempfile.TemporaryDirectory() as temp_path:
         if path_in is None:
@@ -166,6 +179,13 @@ def main() -> None:
     if opts.version:
         print(f"Bunkai {__version__}")
         return
+
+    install_with_lb = is_install_with_lb()
+    if opts.model is not None and not install_with_lb:
+        raise ImportError(
+            "To use model, you need numpy, transformers, and torch. "
+            "It is recommended to install bunkai with `pip install bunkai[lb]`."
+        ) from None
 
     if opts.setup:
         assert opts.model is not None, "--model should be given"
