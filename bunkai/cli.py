@@ -69,9 +69,9 @@ def get_opts() -> argparse.Namespace:
 
 def is_install_with_lb() -> bool:
     try:
-        import numpy
-        import torch
-        import transformers
+        import numpy  # noqa: F401
+        import torch  # noqa: F401
+        import transformers  # noqa: F401
     except ImportError:
         return False
     else:

@@ -46,6 +46,7 @@ If you want to disambiguate sentence boundaries for line breaks, please add a ``
 
 To use ``--model`` option, it is need to install with extras:
     ``--model``オプションを利用するためにはextraパッケージをインストールする必要があります．
+
 ```console
 $ pip install -U bunkai[lb]
 ```
