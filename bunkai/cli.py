@@ -7,8 +7,6 @@ import typing
 import zipfile
 from pathlib import Path
 
-import requests
-
 import bunkai.constant
 from bunkai import __version__
 from bunkai.algorithm.bunkai_sbd.bunkai_sbd import BunkaiSentenceBoundaryDisambiguation
@@ -140,11 +138,14 @@ def setup(
     path_model: Path,
     path_in: typing.Optional[Path],
 ):
+
     # if bunkai installed without [lb] option, import of lbd.dist fails
     from bunkai.algorithm.lbd.dist import restore
 
     sys.stderr.write("It takes time to setup. Please be patient.\n")
     with tempfile.TemporaryDirectory() as temp_path:
+        import requests
+
         if path_in is None:
             url: str = "https://github.com/megagonlabs/bunkai/releases/download/v1.1.1/bunkai-model-setup-20210426.zip"
             sys.stderr.write(f"Downloading from {url}\n")
