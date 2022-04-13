@@ -49,4 +49,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - build
+      - build:
+          context:
+            - bunkai-code-climate
