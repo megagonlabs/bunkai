@@ -11,8 +11,6 @@ from dataclasses_json import DataClassJsonMixin
 from torch import nn
 from torch.utils.data.dataset import Dataset
 
-import bunkai.constant
-import bunkai.third.run_ner
 from bunkai.algorithm.lbd.corpus import LABEL_NSEP, LABEL_OTHER, LABEL_SEP
 from bunkai.base.annotation import Tokens
 from bunkai.third.utils_ner import InputFeatures, convert_examples_to_features
@@ -106,6 +104,8 @@ def train(
 ):
     path_config_json = prepare_config(train_path, dev_path, modelpath, max_seq_length, base_model, num_train_epochs)
     sys.argv = ["", str(path_config_json)]
+    import bunkai.third.run_ner
+
     bunkai.third.run_ner.main()
 
 
