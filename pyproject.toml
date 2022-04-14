@@ -15,7 +15,7 @@ keywords = ["Japanese", "Sentence boundary disambiguation"]
 python = ">=3.8,<4.0"
 dataclasses-json = ">=0.5.2"
 janome = ">=0.4.1"
-seqeval = ">=1.2.2"
+seqeval = {version = ">=1.2.2", optional = true}
 spans = ">=1.1.0"
 tqdm = "*"
 numpy = {version = ">=1.16.0", optional = true}
@@ -38,6 +38,7 @@ black = ">=21.10b0"
 
 [tool.poetry.extras]
 lb = ["torch", "transformers", "numpy", "requests"]
+train = ["seqeval"]
 
 [build-system]
 requires = ["poetry"]
