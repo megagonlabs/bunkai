@@ -5,7 +5,10 @@ import json
 import re
 import typing
 
-from seqeval.metrics import performance_measure
+try:
+    from seqeval.metrics import performance_measure
+except ImportError:
+    raise Exception("You need to install bunkai with pip install -U bunkai[train]")
 
 from bunkai.constant import METACHAR_LINE_BREAK, METACHAR_SENTENCE_BOUNDARY
 

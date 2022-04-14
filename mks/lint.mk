@@ -5,14 +5,15 @@ TERMS_CHECK_CONTENT_OPTION:=-e 文分割 -e 'coding: utf'
 
 POETRY_NO_ROOT:= --no-root
 POETRY_LB:= -E lb
+POETRY_TRAIN:= -E train
 
 dev_setup:
-	poetry install $(POETRY_NO_ROOT) $(POETRY_LB) $(POETRY_OPTION)
+	poetry install $(POETRY_NO_ROOT) $(POETRY_LB) $(POETRY_TRAIN) $(POETRY_OPTION)
 
 setup: setup_python setup_npm
 
 setup_python:
-	poetry install $(POETRY_LB) $(POETRY_OPTION)
+	poetry install $(POETRY_LB) $(POETRY_TRAIN) $(POETRY_OPTION)
 
 setup_npm:
 	npm install

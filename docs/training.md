@@ -1,6 +1,12 @@
 
 # Training of lbd (Linebreak Disambiguator)
 
+## Install dependences
+
+```console
+poetry install --no-root -E lb -E train
+```
+
 ## Preparation BCCWJ without newspaper texts
 
 ```bash
