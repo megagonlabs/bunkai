@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/python:3.9.7-node
+      - image: cimg/python:3.10.4-node
     working_directory: ~/app
     steps:
       - checkout
