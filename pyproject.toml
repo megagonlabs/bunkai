@@ -12,7 +12,7 @@ documentation = ""
 keywords = ["Japanese", "Sentence boundary disambiguation"]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.8,<3.11"
 dataclasses-json = ">=0.5.2"
 janome = ">=0.4.1"
 seqeval = {version = ">=1.2.2", optional = true}
