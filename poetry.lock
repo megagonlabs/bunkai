@@ -131,7 +131,7 @@ pyflakes = ">=2.4.0,<2.5.0"
 
 [[package]]
 name = "huggingface-hub"
-version = "0.5.1"
+version = "0.6.0"
 description = "Client library to download and publish models on the huggingface.co hub"
 category = "main"
 optional = true
@@ -148,6 +148,7 @@ typing-extensions = ">=3.7.4.3"
 [package.extras]
 all = ["pytest", "datasets", "soundfile", "black (>=22.0,<23.0)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
 dev = ["pytest", "datasets", "soundfile", "black (>=22.0,<23.0)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
+fastai = ["toml", "fastai (>=2.4)", "fastcore (>=1.3.27)"]
 quality = ["black (>=22.0,<23.0)", "isort (>=5.5.4)", "flake8 (>=3.8.3)"]
 tensorflow = ["tensorflow", "pydot", "graphviz"]
 testing = ["pytest", "datasets", "soundfile"]
@@ -738,8 +739,8 @@ flake8 = [
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
 ]
 huggingface-hub = [
-    {file = "huggingface_hub-0.5.1-py3-none-any.whl", hash = "sha256:b9fd1f567a3fb16e73acc613e78d075d1926d4b0c5c56ba08c4f125707b50c70"},
-    {file = "huggingface_hub-0.5.1.tar.gz", hash = "sha256:d90d657dca0d6a577f640ff684a58da8e5c76258e485100e885a0e7307e2eb12"},
+    {file = "huggingface_hub-0.6.0-py3-none-any.whl", hash = "sha256:585d72adade562a1f7038acf39eb7677b7649bdc0ce082b70f99e01164d9d8b5"},
+    {file = "huggingface_hub-0.6.0.tar.gz", hash = "sha256:f5109065222185d129933d44159e483a9e3378c577127d0281e4c921dfadbd23"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
