@@ -106,7 +106,7 @@ python-versions = "*"
 
 [[package]]
 name = "filelock"
-version = "3.6.0"
+version = "3.7.0"
 description = "A platform independent file lock."
 category = "main"
 optional = true
@@ -499,7 +499,7 @@ telegram = ["requests"]
 
 [[package]]
 name = "transformers"
-version = "4.19.0"
+version = "4.19.1"
 description = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 category = "main"
 optional = true
@@ -708,8 +708,8 @@ emojis = [
     {file = "emojis-0.6.0.tar.gz", hash = "sha256:bf605d1f1a27a81cd37fe82eb65781c904467f569295a541c33710b97e4225ec"},
 ]
 filelock = [
-    {file = "filelock-3.6.0-py3-none-any.whl", hash = "sha256:f8314284bfffbdcfa0ff3d7992b023d4c628ced6feb957351d4c48d059f56bc0"},
-    {file = "filelock-3.6.0.tar.gz", hash = "sha256:9cd540a9352e432c7246a48fe4e8712b10acb1df2ad1f30e8c070b82ae1fed85"},
+    {file = "filelock-3.7.0-py3-none-any.whl", hash = "sha256:c7b5fdb219b398a5b28c8e4c1893ef5f98ece6a38c6ab2c22e26ec161556fed6"},
+    {file = "filelock-3.7.0.tar.gz", hash = "sha256:b795f1b42a61bbf8ec7113c341dad679d772567b936fbd1bf43c9a238e673e20"},
 ]
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
@@ -1049,8 +1049,8 @@ tqdm = [
     {file = "tqdm-4.64.0.tar.gz", hash = "sha256:40be55d30e200777a307a7585aee69e4eabb46b4ec6a4b4a5f2d9f11e7d5408d"},
 ]
 transformers = [
-    {file = "transformers-4.19.0-py3-none-any.whl", hash = "sha256:6bde2ddaa63608791eebd0ffbf475569c2299ff899daf7d5355ee0e777246c44"},
-    {file = "transformers-4.19.0.tar.gz", hash = "sha256:2f549895e6c4da52fc4cd37dd48839374158eca2bc8625469ba2789a8d78f0d5"},
+    {file = "transformers-4.19.1-py3-none-any.whl", hash = "sha256:16d3dd257d459c2598e2548a9e6875c10b7db5e44494d93b3c0a5c60afad667f"},
+    {file = "transformers-4.19.1.tar.gz", hash = "sha256:6fb30ee534a25b6b3fc7064c280b7f44abf8c9bd1fb358860ebe4fd392bf15f5"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
