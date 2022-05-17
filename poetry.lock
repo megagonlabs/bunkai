@@ -499,7 +499,7 @@ telegram = ["requests"]
 
 [[package]]
 name = "transformers"
-version = "4.19.1"
+version = "4.19.2"
 description = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 category = "main"
 optional = true
@@ -764,6 +764,7 @@ numpy = [
     {file = "numpy-1.22.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:8251ed96f38b47b4295b1ae51631de7ffa8260b5b087808ef09a39a9d66c97ab"},
     {file = "numpy-1.22.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:48a3aecd3b997bf452a2dedb11f4e79bc5bfd21a1d4cc760e703c31d57c84b3e"},
     {file = "numpy-1.22.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a3bae1a2ed00e90b3ba5f7bd0a7c7999b55d609e0c54ceb2b076a25e345fa9f4"},
+    {file = "numpy-1.22.3-cp310-cp310-win32.whl", hash = "sha256:f950f8845b480cffe522913d35567e29dd381b0dc7e4ce6a4a9f9156417d2430"},
     {file = "numpy-1.22.3-cp310-cp310-win_amd64.whl", hash = "sha256:08d9b008d0156c70dc392bb3ab3abb6e7a711383c3247b410b39962263576cd4"},
     {file = "numpy-1.22.3-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:201b4d0552831f7250a08d3b38de0d989d6f6e4658b709a02a73c524ccc6ffce"},
     {file = "numpy-1.22.3-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:f8c1f39caad2c896bc0018f699882b345b2a63708008be29b1f355ebf6f933fe"},
@@ -927,15 +928,18 @@ scikit-learn = [
     {file = "scikit-learn-1.1.0.tar.gz", hash = "sha256:80f9904f5b1356adfc32406725dd94c8cc9c8d265047d98390033a6c238cbb29"},
     {file = "scikit_learn-1.1.0-cp310-cp310-macosx_10_13_x86_64.whl", hash = "sha256:47c31f7e9a5689c3a2cbdf72e78570b33fa9abb42a1ca10d787516de9c4e37a4"},
     {file = "scikit_learn-1.1.0-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:892be17fc261dff4097c061880586226d47ccd0426d9283091e2ca65da36e645"},
+    {file = "scikit_learn-1.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9d8e83d24df9595d4ccca961a2038e331aa7e17534af0b5b15d28e6d65723d1d"},
     {file = "scikit_learn-1.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:068ee35f08681079a9aece49236f40837dbffebe047b0813bf71873fa976b132"},
     {file = "scikit_learn-1.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:e4d41245915d0fc6fea26029349ff187b2992ef6588863e8570fc95a24697fd0"},
     {file = "scikit_learn-1.1.0-cp38-cp38-macosx_10_13_x86_64.whl", hash = "sha256:502865e025d3222530e350783a59cc37538effde64767721d830ceaae8bb3d42"},
     {file = "scikit_learn-1.1.0-cp38-cp38-macosx_12_0_arm64.whl", hash = "sha256:18aabbb26cbc1cf52583c1f1ecf6b5ff540d334f173e23122db43f97adbe0b2b"},
+    {file = "scikit_learn-1.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:292525a17645bff043d33d427e93db8cec8d66b5022ead7971ce8bfdf7553feb"},
     {file = "scikit_learn-1.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ff60f63f1584d7daebfc93e69addd39760de49ae4325db5638c324cfde41c6c7"},
     {file = "scikit_learn-1.1.0-cp38-cp38-win32.whl", hash = "sha256:c10cd62443a9968c71fb9f1c7844f3f28189666f789d5a204dbad7463169b172"},
     {file = "scikit_learn-1.1.0-cp38-cp38-win_amd64.whl", hash = "sha256:cab8a8bef603f0fced7b245f7c4f77826602fd94f7c54ccb09b36b177dde246d"},
     {file = "scikit_learn-1.1.0-cp39-cp39-macosx_10_13_x86_64.whl", hash = "sha256:dc6681e2f99a4a5bc0682dc4e87192daeb0e9e64da36b35e672b56156e0cc867"},
     {file = "scikit_learn-1.1.0-cp39-cp39-macosx_12_0_arm64.whl", hash = "sha256:05f9f004afe1b415922b2ff9453a191e3082acf1065aa0f0b238250f9e147606"},
+    {file = "scikit_learn-1.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c819d2820b783f390dda2136508483d6f4302dfba98fc974ce759e55b2247d80"},
     {file = "scikit_learn-1.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2318fc717c9ff7eb3834bbb2c3be63768e97bb3221bbf70c01537e34e4fb8a1c"},
     {file = "scikit_learn-1.1.0-cp39-cp39-win32.whl", hash = "sha256:25b8d471169711dee7667969e7db3d33c372c13701cd2ab6783d0e85b2aab300"},
     {file = "scikit_learn-1.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:1ef67ac0d44d9ecb36bc33ccc421f683aaeb42bdd72d8a97601eaded3b43f2e4"},
@@ -1049,8 +1053,8 @@ tqdm = [
     {file = "tqdm-4.64.0.tar.gz", hash = "sha256:40be55d30e200777a307a7585aee69e4eabb46b4ec6a4b4a5f2d9f11e7d5408d"},
 ]
 transformers = [
-    {file = "transformers-4.19.1-py3-none-any.whl", hash = "sha256:16d3dd257d459c2598e2548a9e6875c10b7db5e44494d93b3c0a5c60afad667f"},
-    {file = "transformers-4.19.1.tar.gz", hash = "sha256:6fb30ee534a25b6b3fc7064c280b7f44abf8c9bd1fb358860ebe4fd392bf15f5"},
+    {file = "transformers-4.19.2-py3-none-any.whl", hash = "sha256:1416315b7c5ff1f56d3915f416b67aa254a9907fbb73ef7f7bffc9210446b5fa"},
+    {file = "transformers-4.19.2.tar.gz", hash = "sha256:e19a4ff07458eda143c738e5259caf48449fcf078a63d6b1bd1aa806543440a3"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
