@@ -9,7 +9,7 @@ else:
     install_with_lb = True
 
 if install_with_lb:
-    from bunkai.algorithm.bunkai_sbd.annotator.linebreak_annotator import LinebreakAnnotator
+    from bunkai.algorithm.bunkai_sbd.annotator.linebreak_annotator import LinebreakAnnotator  # type: ignore
 else:
     # void class for compat
     class LinebreakAnnotator:

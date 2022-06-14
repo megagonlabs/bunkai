@@ -9,9 +9,9 @@ from typing import List, Optional
 
 import numpy as np
 import torch
-from transformers.file_utils import cached_path
 from transformers.models.auto.configuration_auto import AutoConfig
 from transformers.models.bert.modeling_bert import BertForTokenClassification
+from transformers.utils.hub import cached_path
 
 _NAME_UPDATER_DIR: str = "up"
 _DIST_VERSION: str = "1.1.0"

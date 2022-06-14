@@ -7,8 +7,8 @@ import typing
 import unicodedata
 
 from janome.tokenizer import Tokenizer
-from transformers.file_utils import cached_path
 from transformers.models.bert.tokenization_bert import BertTokenizer, WordpieceTokenizer, load_vocab
+from transformers.utils.hub import cached_path
 
 import bunkai.constant
 
