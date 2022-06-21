@@ -131,7 +131,7 @@ pyflakes = ">=2.4.0,<2.5.0"
 
 [[package]]
 name = "huggingface-hub"
-version = "0.8.0"
+version = "0.8.1"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
 category = "main"
 optional = true
@@ -716,8 +716,8 @@ flake8 = [
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
 ]
 huggingface-hub = [
-    {file = "huggingface_hub-0.8.0-py3-none-any.whl", hash = "sha256:efd14c3ca21de1b7b36ae6900bb6085bac5e774e4e933564477f1e9d630d72ec"},
-    {file = "huggingface_hub-0.8.0.tar.gz", hash = "sha256:2f4df958d30e8523c83e38214a9c6cfb723a6722b19b87f8d95ed9691b732149"},
+    {file = "huggingface_hub-0.8.1-py3-none-any.whl", hash = "sha256:a11fb8d696a26f927833d46b7633105fd864fd92a2beb1140cbf1b2f703dedb3"},
+    {file = "huggingface_hub-0.8.1.tar.gz", hash = "sha256:75c70797da54b849f06c2cbf7ba2217250ee217230b9f65547d5db3c5bd84bb5"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
