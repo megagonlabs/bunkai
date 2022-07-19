@@ -48,7 +48,7 @@ First, please install extras to use ``--model`` option.
     ``--model``オプションを利用するために、まずextraパッケージをインストールしてください．
 
 ```console
-$ pip install -U bunkai[lb]
+$ pip install -U 'bunkai[lb]'
 ```
 
 Second, please setup a model. It will take some time.  
