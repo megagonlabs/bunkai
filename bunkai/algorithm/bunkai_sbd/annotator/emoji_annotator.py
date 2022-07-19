@@ -8,7 +8,7 @@ import emojis
 from bunkai.base.annotation import Annotations, SpanAnnotation
 from bunkai.base.annotator import Annotator
 
-EMOJI_UNICODE_ENGLISH = emoji.UNICODE_EMOJI["en"]  # type: ignore
+EMOJI_UNICODE_ENGLISH = {emj: emoji.EMOJI_DATA[emj]["en"] for emj in emoji.EMOJI_DATA}
 
 
 """This module detects Emoji"""
