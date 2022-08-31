@@ -39,6 +39,8 @@ jobs:
           node-version: '16'
           cache: npm
       - run: npm install
-      - run: |
+      - env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        run: |
           poetry run make -j $(nproc) lint
           poetry run make -j $(nproc) test-cc
