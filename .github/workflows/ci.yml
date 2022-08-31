@@ -1,0 +1,44 @@
+---
+name: CI
+"on": push
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.9", "3.10"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry Action
+        uses: snok/install-poetry@v1.2.1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            .venv
+            .local/bin-cc
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - run: pip install poetry
+      - run: poetry install -E lb -E train
+      - run: poetry run make setup-cc
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: npm
+      - run: npm install
+      - run: |
+          poetry run make -j $(nproc) lint
+          poetry run make -j $(nproc) test-cc
