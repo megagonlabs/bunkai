@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Downloads](https://pepy.tech/badge/bunkai/week)](https://pepy.tech/project/bunkai)
 
-[![CI](https://github.com/megagonlabs/asdc/actions/workflows/ci.yml/badge.svg)](https://github.com/megagonlabs/asdc/actions/workflows/ci.yml)
+[![CI](https://github.com/megagonlabs/bunkai/actions/workflows/ci.yml/badge.svg)](https://github.com/megagonlabs/bunkai/actions/workflows/ci.yml)
 [![Typos](https://github.com/megagonlabs/bunkai/actions/workflows/typos.yml/badge.svg)](https://github.com/megagonlabs/bunkai/actions/workflows/typos.yml)
 [![CodeQL](https://github.com/megagonlabs/bunkai/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/megagonlabs/bunkai/actions/workflows/codeql-analysis.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/640b02fa0164c131da10/maintainability)](https://codeclimate.com/github/megagonlabs/bunkai/maintainability)
