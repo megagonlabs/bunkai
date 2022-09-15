@@ -46,7 +46,7 @@ test: _coverage check_sample
 test-coverage: test
 	coverage report && coverage html
 
-CC_REPORTER_VERSION:=0.6.3
+CC_REPORTER_VERSION:=latest
 setup-cc:
 	mkdir -p ~/.local/bin-cc
 	curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-$(CC_REPORTER_VERSION)-linux-amd64 > ~/.local/bin-cc/cc-test-reporter
