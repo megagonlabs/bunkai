@@ -31,7 +31,7 @@ jobs:
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
       - run: pip install poetry
-      - run: poetry install -E lb -E train
+      - run: poetry install --all-extras
       - run: poetry run make setup-cc
 
       - uses: actions/setup-node@v3
