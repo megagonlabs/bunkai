@@ -624,7 +624,7 @@ train = ["seqeval"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "0c26c1bf33a7f7c70a1c1f1486ee0672b91e761ab1d921933f2121e590e7cb93"
+content-hash = "f096b752065614728ab9d200a364a3897e96ab07eca77171a4cd32d600396733"
 
 [metadata.files]
 black = [

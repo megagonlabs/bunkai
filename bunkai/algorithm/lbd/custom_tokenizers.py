@@ -8,7 +8,7 @@ import unicodedata
 
 from janome.tokenizer import Tokenizer
 from transformers.models.bert.tokenization_bert import BertTokenizer, WordpieceTokenizer, load_vocab
-from transformers.utils.hub import cached_path
+from transformers.utils.hub import cached_file
 
 import bunkai.constant
 
@@ -19,13 +19,6 @@ The original source code is under Apache-2.0 License.
 """
 
 logger = logging.getLogger(__name__)
-
-KNOWN_PRETRAINED_VOCABS = {
-    "cl-tohoku/bert-base-japanese",
-    "cl-tohoku/bert-base-japanese-whole-word-masking",
-    "cl-tohoku/bert-base-japanese-char",
-    "cl-tohoku/bert-base-japanese-char-whole-word-masking",
-}
 
 
 class JanomeTokenizer(object):
@@ -151,14 +144,8 @@ class JanomeSubwordsTokenizer(BertTokenizer):
 
         if os.path.isfile(vocab_file):
             self.vocab = load_vocab(vocab_file)
-        elif vocab_file in KNOWN_PRETRAINED_VOCABS:
-            url: str = f"https://s3.amazonaws.com/models.huggingface.co/bert/{vocab_file}/vocab.txt"
-            self.vocab = load_vocab(cached_path(url))
         else:
-            raise ValueError(
-                "Can't find a vocabulary file at path '{}'. To load the vocabulary from a Google pretrained "
-                "model use `tokenizer = BertTokenizer.from_pretrained(PRETRAINED_MODEL_NAME)`".format(vocab_file)
-            )
+            self.vocab = load_vocab(cached_file(vocab_file, "vocab.txt"))
 
         # add new vocab
         self.add_tokens([" ", bunkai.constant.METACHAR_LINE_BREAK])

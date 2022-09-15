@@ -11,7 +11,7 @@ import numpy as np
 import torch
 from transformers.models.auto.configuration_auto import AutoConfig
 from transformers.models.bert.modeling_bert import BertForTokenClassification
-from transformers.utils.hub import cached_path
+from transformers.utils.hub import cached_file
 
 _NAME_UPDATER_DIR: str = "up"
 _DIST_VERSION: str = "1.1.0"
@@ -125,8 +125,7 @@ def restore(path_in: Path, path_out: Path) -> None:
     with path_in.joinpath("bunkai.json").open() as inf:
         base_model: Optional[str] = json.load(inf).get("base_model")
 
-    vocab_url: str = f"https://s3.amazonaws.com/models.huggingface.co/bert/{base_model}/vocab.txt"
-    shutil.copy2(cached_path(vocab_url), path_out.joinpath("vocab.txt"))  # type: ignore
+    shutil.copy2(cached_file(base_model, "vocab.txt"), path_out.joinpath("vocab.txt"))  # type: ignore
 
     if base_model is not None:
         update(path_in, base_model, path_out)
