@@ -32,6 +32,10 @@ jobs:
 
       - run: pip install poetry
       - run: poetry install --all-extras
+      # For ransformers v4.22.0
+      - run: |
+          poetry run python -c \
+          'import transformers;transformers.utils.move_cache()'
       - run: poetry run make setup-cc
 
       - uses: actions/setup-node@v3
