@@ -3,5 +3,5 @@
 from bunkai.algorithm.bunkai_sbd.bunkai_sbd import BunkaiSentenceBoundaryDisambiguation as Bunkai
 
 __all__ = ["Bunkai"]
-__version_info__ = (1, 5, 4)
+__version_info__ = (1, 5, 5)
 __version__ = ".".join(map(str, __version_info__))
