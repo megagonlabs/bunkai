@@ -3,8 +3,10 @@ name: CI
 "on":
   push:
   pull_request:
-    branches:
-      - '**'
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   ci:
