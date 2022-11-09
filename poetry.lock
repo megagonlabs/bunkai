@@ -668,7 +668,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "wheel"
-version = "0.38.2"
+version = "0.38.3"
 description = "A built-package format for Python"
 category = "main"
 optional = true
@@ -1204,8 +1204,8 @@ urllib3 = [
     {file = "urllib3-1.26.12.tar.gz", hash = "sha256:3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"},
 ]
 wheel = [
-    {file = "wheel-0.38.2-py3-none-any.whl", hash = "sha256:7a5a3095dceca97a3cac869b8fef4e89b83fafde21b6688f47b6fda7600eb441"},
-    {file = "wheel-0.38.2.tar.gz", hash = "sha256:3d492ef22379a156ec923d2a77051cedfd4df4b667864e9e41ba83f0b70b7149"},
+    {file = "wheel-0.38.3-py3-none-any.whl", hash = "sha256:f3c99240da8d26989dca2d67a7a431015eb91fb301eecacc6e452133689d9d59"},
+    {file = "wheel-0.38.3.tar.gz", hash = "sha256:4066646ef77d0e56cc44004c100381ee1957955cfc3151345dda96886f9896a5"},
 ]
 yamllint = [
     {file = "yamllint-1.28.0.tar.gz", hash = "sha256:9e3d8ddd16d0583214c5fdffe806c9344086721f107435f68bad990e5a88826b"},
