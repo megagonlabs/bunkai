@@ -95,7 +95,7 @@ def main() -> None:
     if opts.char:
         genre2chars: typing.Dict[str, typing.DefaultDict[str, int]] = {}
         genre2chars["ALL"] = collections.defaultdict(int)
-        for (genre, fpath) in tqdm.tqdm(targets, leave=False):
+        for genre, fpath in tqdm.tqdm(targets, leave=False):
             chars: typing.Optional[typing.DefaultDict[str, int]] = genre2chars.get(genre)
             if chars is None:
                 chars = collections.defaultdict(int)
@@ -113,7 +113,7 @@ def main() -> None:
     st_all = Statics(name="ALL")
     st_detail: typing.DefaultDict[str, Statics] = collections.defaultdict(Statics)
     with opts.output as outf:
-        for (genre, fpath) in tqdm.tqdm(targets, leave=False):
+        for genre, fpath in tqdm.tqdm(targets, leave=False):
             st = count(fpath, outf, opts.show)
             st_all.add(st)
             st_detail[genre].name = genre

@@ -50,7 +50,7 @@ def store_updater(path_in: Path, base_model: str, path_out: Path):
 
     path_out_up = path_out.joinpath(_NAME_UPDATER_DIR)
     path_out_up.mkdir(parents=True, exist_ok=True)
-    for (target, _orgv) in orig_model.named_parameters():
+    for target, _orgv in orig_model.named_parameters():
         orgv = to_numpy(_orgv)
         newv = to_numpy(new_model.state_dict()[target])
         if newv.shape != orgv.shape:
@@ -116,7 +116,6 @@ def check_version(path_in: Path) -> bool:
 
 
 def restore(path_in: Path, path_out: Path) -> None:
-
     if not check_version(path_in.joinpath(_NAME_VERSION)):
         raise KeyError
 

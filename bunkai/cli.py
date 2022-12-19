@@ -138,7 +138,6 @@ def setup(
     path_model: Path,
     path_in: typing.Optional[Path],
 ):
-
     # if bunkai installed without [lb] option, import of lbd.dist fails
     from bunkai.algorithm.lbd.dist import restore
 

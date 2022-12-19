@@ -189,7 +189,6 @@ def generate_initial_annotation_obj(
 
 
 def main() -> None:
-
     opts = get_opts()
     pdt = Predictor(opts.model)
 
