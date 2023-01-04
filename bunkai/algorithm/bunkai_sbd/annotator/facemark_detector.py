@@ -16,7 +16,6 @@ class FaceMarkDetector(Annotator):
 
     @staticmethod
     def __find_facemark(text: str) -> List[SpanAnnotation]:
-        """"""
         __spans = []
         for match_obj in RE_FACEMARK.finditer(text):
             ann = SpanAnnotation(
