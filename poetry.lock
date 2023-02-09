@@ -683,8 +683,8 @@ train = ["seqeval"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.8,<3.11"
-content-hash = "f096b752065614728ab9d200a364a3897e96ab07eca77171a4cd32d600396733"
+python-versions = ">=3.8,<3.12"
+content-hash = "b9ce5b27b543136a9460c9a9a5bd3a732f4a100226bf04697fa3672c6bde20c2"
 
 [metadata.files]
 black = [
