@@ -104,7 +104,7 @@ for sentence in bunkai("はい。このようにpythonライブラリとして�
 ```
 
 改行を文境界判定に含める場合はセットアップしたモデルパスを指定してください．
-  If you want to disambiguate line breaks too, please designate the model path where you set up.
+    If you want to disambiguate line breaks too, please designate the model path where you set up.
 
 ```python
 from pathlib import Path
