@@ -103,6 +103,25 @@ for sentence in bunkai("はい。このようにpythonライブラリとして�
     print(sentence)
 ```
 
+改行を文境界判定に含める場合はセットアップしたモデルパスを指定してください．
+  If you want to disambiguate line breaks too, please designate the model path where you set up.
+
+```python
+from pathlib import Path
+
+from bunkai import Bunkai
+
+bunkai = Bunkai(path_model=Path("bunkai-model-directory"))
+for sentence in bunkai("そうなんです▁このように▁pythonライブラリとしても▁使えます！"):
+    print(sentence)
+
+"""
+Output:
+そうなんです▁
+このように▁pythonライブラリとしても▁使えます！
+"""
+```
+
 For more information, see [examples](example).  
     ほかの例は[examples](example)をご覧ください．
 
