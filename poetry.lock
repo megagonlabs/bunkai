@@ -129,7 +129,7 @@ pyflakes = ">=2.5.0,<2.6.0"
 
 [[package]]
 name = "huggingface-hub"
-version = "0.12.1"
+version = "0.13.0"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
 category = "main"
 optional = true
@@ -144,13 +144,13 @@ tqdm = ">=4.42.1"
 typing-extensions = ">=3.7.4.3"
 
 [package.extras]
-all = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "black (==22.3)", "flake8 (>=3.8.3)", "flake8-bugbear", "isort (>=5.5.4)", "jedi", "mypy (==0.982)", "pytest", "pytest-cov", "pytest-env", "pytest-xdist", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3"]
+all = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "black (>=23.1,<24.0)", "jedi", "mypy (==0.982)", "pytest", "pytest-cov", "pytest-env", "pytest-xdist", "ruff (>=0.0.241)", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3"]
 cli = ["InquirerPy (==0.3.4)"]
-dev = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "black (==22.3)", "flake8 (>=3.8.3)", "flake8-bugbear", "isort (>=5.5.4)", "jedi", "mypy (==0.982)", "pytest", "pytest-cov", "pytest-env", "pytest-xdist", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3"]
+dev = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "black (>=23.1,<24.0)", "jedi", "mypy (==0.982)", "pytest", "pytest-cov", "pytest-env", "pytest-xdist", "ruff (>=0.0.241)", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3"]
 fastai = ["fastai (>=2.4)", "fastcore (>=1.3.27)", "toml"]
-quality = ["black (==22.3)", "flake8 (>=3.8.3)", "flake8-bugbear", "isort (>=5.5.4)", "mypy (==0.982)"]
+quality = ["black (>=23.1,<24.0)", "mypy (==0.982)", "ruff (>=0.0.241)"]
 tensorflow = ["graphviz", "pydot", "tensorflow"]
-testing = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "isort (>=5.5.4)", "jedi", "pytest", "pytest-cov", "pytest-env", "pytest-xdist", "soundfile"]
+testing = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "jedi", "pytest", "pytest-cov", "pytest-env", "pytest-xdist", "soundfile"]
 torch = ["torch"]
 typing = ["types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3"]
 
@@ -455,7 +455,7 @@ scikit-learn = ">=0.21.3"
 
 [[package]]
 name = "setuptools"
-version = "67.5.1"
+version = "67.6.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "main"
 optional = false
@@ -876,8 +876,8 @@ flake8 = [
     {file = "flake8-5.0.4.tar.gz", hash = "sha256:6fbe320aad8d6b95cec8b8e47bc933004678dc63095be98528b7bdd2a9f510db"},
 ]
 huggingface-hub = [
-    {file = "huggingface_hub-0.12.1-py3-none-any.whl", hash = "sha256:867586cc8543fe1bd43a219fedbea7d71690021ad80f0c46f35c4751069278d7"},
-    {file = "huggingface_hub-0.12.1.tar.gz", hash = "sha256:6f960f6246ef9c3446d0d6275e853485515682c350917fdaf2a59705f8b9ebb3"},
+    {file = "huggingface_hub-0.13.0-py3-none-any.whl", hash = "sha256:9f9471284cb4196c693396bde2bf0bc2037a278d763c769ad1800a5c7891072a"},
+    {file = "huggingface_hub-0.13.0.tar.gz", hash = "sha256:3c6a85ef7a007e19029f51a4c2c2ea15155e57212472dacb0e29b4c2523263e0"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
@@ -1169,8 +1169,8 @@ seqeval = [
     {file = "seqeval-1.2.2.tar.gz", hash = "sha256:f28e97c3ab96d6fcd32b648f6438ff2e09cfba87f05939da9b3970713ec56e6f"},
 ]
 setuptools = [
-    {file = "setuptools-67.5.1-py3-none-any.whl", hash = "sha256:1c39d42bda4cb89f7fdcad52b6762e3c309ec8f8715b27c684176b7d71283242"},
-    {file = "setuptools-67.5.1.tar.gz", hash = "sha256:15136a251127da2d2e77ac7a1bc231eb504654f7e3346d93613a13f2e2787535"},
+    {file = "setuptools-67.6.0-py3-none-any.whl", hash = "sha256:b78aaa36f6b90a074c1fa651168723acbf45d14cb1196b6f02c0fd07f17623b2"},
+    {file = "setuptools-67.6.0.tar.gz", hash = "sha256:2ee892cd5f29f3373097f5a814697e397cf3ce313616df0af11231e2ad118077"},
 ]
 snowballstemmer = [
     {file = "snowballstemmer-2.2.0-py2.py3-none-any.whl", hash = "sha256:c8e1716e83cc398ae16824e5572ae04e0d9fc2c6b985fb0f900f5f0c96ecba1a"},
