@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from typing import List
 
-from janome.tokenizer import Tokenizer
+from janome.tokenizer import Token, Tokenizer
 
 from bunkai.base.annotation import Annotations, SpanAnnotation, TokenResult
 from bunkai.base.annotator import Annotator
@@ -17,6 +17,7 @@ class MorphAnnotatorJanome(Annotator):
         span_ann = []
         __start_index = 0
         for t_obj in tokenizer_result:
+            assert isinstance(t_obj, Token)
             __pos = t_obj.part_of_speech.split(",")
             __length = len(t_obj.surface)
             token = TokenResult(

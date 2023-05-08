@@ -4,6 +4,7 @@ import typing
 
 import emoji
 import emojis
+import emojis.db
 
 from bunkai.base.annotation import Annotations, SpanAnnotation
 from bunkai.base.annotator import Annotator
@@ -49,6 +50,8 @@ class EmojiAnnotator(Annotator):
         try:
             if info is None:
                 info = emojis.db.get_emoji_by_code(f"{emoji_character}\ufe0f")
+                if info is None:
+                    return None
                 return info.category
             else:
                 return info.category

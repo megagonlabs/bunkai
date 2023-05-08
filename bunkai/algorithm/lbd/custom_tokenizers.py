@@ -6,7 +6,7 @@ import os
 import typing
 import unicodedata
 
-from janome.tokenizer import Tokenizer
+from janome.tokenizer import Token, Tokenizer
 from transformers.models.bert.tokenization_bert import BertTokenizer, WordpieceTokenizer, load_vocab
 from transformers.utils.hub import cached_file
 
@@ -52,6 +52,7 @@ class JanomeTokenizer(object):
         __tokens = []
         last_index = 0
         for t in tokens:
+            assert isinstance(t, Token)
             token = t.surface
             token_start = text.index(token, last_index)
             if last_index != token_start:
