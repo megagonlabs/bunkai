@@ -489,13 +489,13 @@ files = [
 
 [[package]]
 name = "lit"
-version = "16.0.3"
+version = "16.0.5"
 description = "A Software Testing Tool"
 category = "main"
 optional = true
 python-versions = "*"
 files = [
-    {file = "lit-16.0.3.tar.gz", hash = "sha256:25524fe51fa3261212cfd86a8891429ed0460e247384c5a2001612d08e362e00"},
+    {file = "lit-16.0.5.tar.gz", hash = "sha256:40b0224271f7832991874a6285e13da343963110f0d7c9c6e1e53f3ace901dc0"},
 ]
 
 [[package]]
