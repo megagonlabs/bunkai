@@ -1,17 +1,26 @@
 cff-version: 1.2.0
-title: Sentence Boundary Detection on Line Breaks in Japanese
 authors:
   - family-names: Hayashibe
     given-names: Yuta
   - family-names: Mitsuzawa
     given-names: Kensuke
-doi: 10.18653/v1/2020.wnut-1.10
-venue:
-  - acronym: W-NUT
-    name: The 6th Workshop on Noisy User-generated Text
-    year: 2020
-    publisher: Association for Computational Linguistics
-    address: Online
-page-start: 71
-page-end: 75
-month: November
+title: "Bunkai"
+url: https://github.com/megagonlabs/bunkai
+preferred-citation:
+  type: article
+  title: Sentence Boundary Detection on Line Breaks in Japanese
+  authors:
+    - family-names: Hayashibe
+      given-names: Yuta
+    - family-names: Mitsuzawa
+      given-names: Kensuke
+  doi: 10.18653/v1/2020.wnut-1.10
+  venue:
+    - acronym: W-NUT
+      name: The 6th Workshop on Noisy User-generated Text
+      year: 2020
+      publisher: Association for Computational Linguistics
+      address: Online
+  page-start: 71
+  page-end: 75
+  month: November
