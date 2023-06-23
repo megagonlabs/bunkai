@@ -7,7 +7,7 @@ authors:
 title: "Bunkai"
 url: https://github.com/megagonlabs/bunkai
 preferred-citation:
-  type: article
+  type: conference-paper
   title: Sentence Boundary Detection on Line Breaks in Japanese
   authors:
     - family-names: Hayashibe
@@ -15,12 +15,11 @@ preferred-citation:
     - family-names: Mitsuzawa
       given-names: Kensuke
   doi: 10.18653/v1/2020.wnut-1.10
-  venue:
-    - acronym: W-NUT
-      name: The 6th Workshop on Noisy User-generated Text
-      year: 2020
-      publisher: Association for Computational Linguistics
-      address: Online
-  page-start: 71
-  page-end: 75
+  collection-title: Proceedings of The 6th Workshop on Noisy User-generated Text
+  year: 2020
   month: November
+  publisher: 
+    name: Association for Computational Linguistics
+  url: https://aclanthology.org/2020.wnut-1.10/
+  start: 71
+  end: 75
