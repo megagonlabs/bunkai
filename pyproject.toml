@@ -28,7 +28,8 @@ toml = ">=0.10.2"
 requests = {version = "^2.27.1", optional = true}
 regex = {version = "!=2022.7.24", optional = true}
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+cffconvert = "^2.0.0"
 coverage = ">=5.3"
 flake8 = ">=3.8.4"
 isort = ">=5.9.3"
@@ -41,11 +42,8 @@ black = ">=21.10b0"
 lb = ["torch", "transformers", "numpy", "requests"]
 train = ["seqeval"]
 
-[tool.poetry.group.dev.dependencies]
-cffconvert = "^2.0.0"
-
 [build-system]
-requires = ["poetry"]
+requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
