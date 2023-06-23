@@ -28,7 +28,7 @@ check_version:
 
 
 
-lint: flake8 black pyright isort yamllint pydocstyle check_version
+lint: flake8 black pyright isort yamllint pydocstyle check_version lint_cff
 
 _run_isort:
 	isort -rc .
@@ -64,4 +64,5 @@ lint_markdown:
 	| $(GREP_EXCLUDE) \
 	| xargs npx markdownlint --config ./.markdownlint.json
 
-
+lint_cff:
+	cffconvert --validate

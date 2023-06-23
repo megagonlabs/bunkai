@@ -41,6 +41,9 @@ black = ">=21.10b0"
 lb = ["torch", "transformers", "numpy", "requests"]
 train = ["seqeval"]
 
+[tool.poetry.group.dev.dependencies]
+cffconvert = "^2.0.0"
+
 [build-system]
 requires = ["poetry"]
 build-backend = "poetry.core.masonry.api"
