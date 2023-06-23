@@ -71,13 +71,15 @@ $ echo -e "文の途中で改行を▁入れる文章ってありますよね▁
 You can get morphological analysis results with ``--ma`` option.  
 ``--ma``オプションを付与すると形態素解析結果が得られます．
 
+It can be used with the ``--model`` option.  
+``--model``オプションと同時に使えます．
+
 ```console
-$ echo -e '形態素解析し▁ます。結果を 表示します！' | bunkai --ma
+$ echo -e '形態素解析し▁ます。結果を 表示します！' | bunkai --ma --model bunkai-model-directory
 形態素	名詞,一般,*,*,*,*,形態素,ケイタイソ,ケイタイソ
 解析	名詞,サ変接続,*,*,*,*,解析,カイセキ,カイセキ
 し	動詞,自立,*,*,サ変・スル,連用形,する,シ,シ
 ▁
-EOS
 ます	助動詞,*,*,*,特殊・マス,基本形,ます,マス,マス
 。	記号,句点,*,*,*,*,。,。,。
 EOS
