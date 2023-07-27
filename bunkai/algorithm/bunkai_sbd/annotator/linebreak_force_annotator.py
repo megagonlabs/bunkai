@@ -23,7 +23,7 @@ class LinebreakForceAnnotator(Annotator):
             __return_span_ann.append(
                 SpanAnnotation(
                     rule_name=self.rule_name,
-                    start_index=s,
+                    start_index=ro[0],
                     end_index=ro[1],
                     split_string_type="linebreak",
                     split_string_value=original_text[ro[0] : ro[1]],
