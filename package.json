@@ -2,7 +2,7 @@
     "author": "",
     "description": "",
     "devDependencies": {
-        "markdown-it": ">=13.0.0",
+        "markdown-it": ">=13.0.2",
         "markdownlint-cli": "^0.35.0",
         "pyright": "<1.1.322"
     },
