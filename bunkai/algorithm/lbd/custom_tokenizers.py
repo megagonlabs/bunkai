@@ -134,6 +134,25 @@ class JanomeSubwordsTokenizer(BertTokenizer):
         :arg subword_tokenizer_type: (`optional`) string (default "wordpiece") Type of subword tokenizer.
         :arg cls_token: No description.
         """
+        if os.path.isfile(vocab_file):
+            self.vocab = load_vocab(vocab_file)
+        else:
+            self.vocab = load_vocab(cached_file(vocab_file, "vocab.txt"))
+
+        self.ids_to_tokens = collections.OrderedDict([(ids, tok) for tok, ids in self.vocab.items()])
+
+        self.do_word_tokenize = False
+        self.do_subword_tokenize = True
+        if do_subword_tokenize:
+            if subword_tokenizer_type == "wordpiece":
+                self.subword_tokenizer = WordpieceTokenizer(vocab=self.vocab, unk_token=str(unk_token))
+            elif subword_tokenizer_type == "character":
+                self.subword_tokenizer = CharacterTokenizer(vocab=self.vocab, unk_token=str(unk_token))
+            else:
+                raise ValueError("Invalid subword_tokenizer_type '{}' is specified.".format(subword_tokenizer_type))
+
+        self.janome_tokenizer = JanomeTokenizer()
+
         super(BertTokenizer, self).__init__(
             unk_token=unk_token,
             sep_token=sep_token,
@@ -143,27 +162,8 @@ class JanomeSubwordsTokenizer(BertTokenizer):
             **kwargs,
         )
 
-        if os.path.isfile(vocab_file):
-            self.vocab = load_vocab(vocab_file)
-        else:
-            self.vocab = load_vocab(cached_file(vocab_file, "vocab.txt"))
-
         # add new vocab
         self.add_tokens([" ", bunkai.constant.METACHAR_LINE_BREAK])
-
-        self.ids_to_tokens = collections.OrderedDict([(ids, tok) for tok, ids in self.vocab.items()])
-
-        self.do_word_tokenize = False
-        self.do_subword_tokenize = True
-        if do_subword_tokenize:
-            if subword_tokenizer_type == "wordpiece":
-                self.subword_tokenizer = WordpieceTokenizer(vocab=self.vocab, unk_token=self.unk_token)
-            elif subword_tokenizer_type == "character":
-                self.subword_tokenizer = CharacterTokenizer(vocab=self.vocab, unk_token=self.unk_token)
-            else:
-                raise ValueError("Invalid subword_tokenizer_type '{}' is specified.".format(subword_tokenizer_type))
-
-        self.janome_tokenizer = JanomeTokenizer()
 
     def tokenize(self, text: typing.Union[str, typing.List[str]]) -> typing.List[str]:
         if isinstance(text, str):
